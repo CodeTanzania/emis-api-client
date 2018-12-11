@@ -1,0 +1,56 @@
+{
+  "name": "emis-api-client",
+  "version": "0.1.0",
+  "description": "API client for Emergency Management Information System(EMIS)",
+  "main": "dist/emis-api-client.js",
+  "scripts": {
+    "test": "mocha --compilers js:@babel/register ./test/**/*.spec.js",
+    "lint": "eslint --ext .js src/",
+    "lint:fix": "eslint --fix --ext .js src/",
+    "build": "webpack",
+    "build:node": "babel src --out-dir lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeTanzania/emis-api-client.git"
+  },
+  "keywords": [
+    "codetanzania",
+    "emis",
+    "emis-api",
+    "emis-api-client"
+  ],
+  "contributors": [{
+    "name": "Benson Maruchu",
+    "email": "benmaruchu@gmail.com",
+    "url": "https://github.com/BenMaruchu"
+  }],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CodeTanzania/emis-api-client/issues"
+  },
+  "homepage": "https://github.com/CodeTanzania/emis-api-client#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/register": "^7.0.0",
+    "axios": "^0.18.0",
+    "babel-loader": "^8.0.4",
+    "chai": "^4.2.0",
+    "eslint": "^5.10.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-mocha": "^5.2.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "mocha": "^5.2.0",
+    "nock": "^10.0.4",
+    "prettier": "^1.15.3",
+    "webpack": "^4.27.1",
+    "webpack-cli": "^3.1.2"
+  },
+  "peerDependencies": {
+    "axios": ">=0.18.0"
+  }
+}

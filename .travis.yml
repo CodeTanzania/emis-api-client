@@ -1,0 +1,15 @@
+language: node_js
+
+node_js:
+  - '8'
+
+sudo: false
+
+script:
+  - npm run lint -s && npm test
+
+# cache node_modules directory on Travis to avoid
+# installing all dependencies every time a build is triggered
+cache:
+  directories:
+    - 'node_modules'
