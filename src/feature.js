@@ -14,6 +14,8 @@ import Axios from './client';
  * @function
  * @name getFeatureSchema
  *
+ * @returns {Promise}
+ *
  * @version 0.1.0
  * @since 0.1.0
  */
@@ -26,6 +28,7 @@ export function getFeatureSchema() {
  * @name getFeatures
  *
  * @param {Object} params
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -39,6 +42,7 @@ export function getFeatures(params) {
  * @name getFeature
  *
  * @param {string} featureID
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -52,6 +56,7 @@ export function getFeature(featureID) {
  * @name postFeature
  *
  * @param {Object} feature
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -65,6 +70,7 @@ export function postFeature(feature) {
  * @name putFeature
  *
  * @param {Object} feature
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -78,6 +84,7 @@ export function putFeature(feature) {
  * @name patchFeature
  *
  * @param {Object} feature
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -91,6 +98,7 @@ export function patchFeature(feature) {
  * @name deleteFeature
  *
  * @param {Object} featureID
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0

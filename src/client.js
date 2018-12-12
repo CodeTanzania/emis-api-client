@@ -8,12 +8,10 @@ import axios from 'axios'; //eslint-disable-line
  * @version 0.1.0
  * @since 0.1.0
  */
-export default function(URL) {
-  return axios.create({
-    baseURL: URL,
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  });
-}
+export default axios.create({
+  baseURL: process.env.REACT_APP_EMIS_API_URL || process.env.EMIS_API_URL || '',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+});

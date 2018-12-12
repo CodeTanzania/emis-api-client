@@ -15,6 +15,8 @@ import Axios from './client';
  * @function
  * @name getIncidentTypeSchema
  *
+ * @returns {Promise}
+ *
  * @version 0.1.0
  * @since 0.1.0
  */
@@ -27,6 +29,7 @@ export function getIncidentTypeSchema() {
  * @name getIncidentTypes
  *
  * @param {Object} params
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -40,6 +43,7 @@ export function getIncidentTypes(params) {
  * @name getIncidentType
  *
  * @param {string} incidentTypeID
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -53,6 +57,7 @@ export function getIncidentType(incidentTypeID) {
  * @name postIncidentType
  *
  * @param {Object} incidentType
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -66,12 +71,13 @@ export function postIncidentType(incidentType) {
  * @name putIncidentType
  *
  * @param {Object} incidentType
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
  */
 export function putIncidentType(incidentType) {
-  return Axios.put(`/incidenttypes/${incidentType._id}`,incidentType); // eslint-disable-line
+  return Axios.put(`/incidenttypes/${incidentType._id}`, incidentType); // eslint-disable-line
 }
 
 /**
@@ -79,12 +85,13 @@ export function putIncidentType(incidentType) {
  * @name patchIncidentType
  *
  * @param {Object} incidentType
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
  */
 export function patchIncidentType(incidentType) {
-  return Axios.patch(`/incidenttypes/${incidentType._id}`,incidentType); // eslint-disable-line
+  return Axios.patch(`/incidenttypes/${incidentType._id}`, incidentType); // eslint-disable-line
 }
 
 /**
@@ -92,6 +99,7 @@ export function patchIncidentType(incidentType) {
  * @name deleteIncidentType
  *
  * @param {Object} incidentTypeID
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0

@@ -25,17 +25,19 @@ For Node application(commonjs)
 const { getPlanSchema } = require('@codetanzania/emis-api-client');
 ```
 
+> Note API URL will be picked from environment variable. This client reads process.env.REACT_APP_EMIS_API_URL or process.env.EMIS_API_URL
+
 ## Testing
 
 If you want to test this library,
 
 - first clone this repo
 - Install all dependencies
-  ```sh 
+  ```sh
   npm install
   ```
 - Run test
-  ```sh 
+  ```sh
   npm test
   ```
 

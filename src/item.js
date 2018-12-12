@@ -13,6 +13,8 @@ import Axios from './client';
  * @function
  * @name getItemSchema
  *
+ * @returns {Promise}
+ *
  * @version 0.1.0
  * @since 0.1.0
  */
@@ -25,6 +27,7 @@ export function getItemSchema() {
  * @name getItems
  *
  * @param {Object} params
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -38,6 +41,7 @@ export function getItems(params) {
  * @name getItem
  *
  * @param {string} itemID
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -51,6 +55,7 @@ export function getItem(itemID) {
  * @name postItem
  *
  * @param {Object} item
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -64,6 +69,7 @@ export function postItem(item) {
  * @name putItem
  *
  * @param {Object} item
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -77,6 +83,7 @@ export function putItem(item) {
  * @name patchItem
  *
  * @param {Object} item
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -90,6 +97,7 @@ export function patchItem(item) {
  * @name deleteItem
  *
  * @param {Object} itemID
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0

@@ -12,6 +12,8 @@ import Axios from './client';
  * @function
  * @name getAlertSchema
  *
+ * @returns {Promise}
+ *
  * @version 0.1.0
  * @since 0.1.0
  */
@@ -24,6 +26,7 @@ export function getAlertSchema() {
  * @name getAlerts
  *
  * @param {Object} params
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -37,6 +40,7 @@ export function getAlerts(params) {
  * @name getAlert
  *
  * @param {string} alertID
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -50,6 +54,7 @@ export function getAlert(alertID) {
  * @name postAlert
  *
  * @param {Object} alert
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -63,6 +68,7 @@ export function postAlert(alert) {
  * @name putAlert
  *
  * @param {Object} alert
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -76,6 +82,7 @@ export function putAlert(alert) {
  * @name patchAlert
  *
  * @param {Object} alert
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -89,6 +96,7 @@ export function patchAlert(alert) {
  * @name deleteAlert
  *
  * @param {Object} alertID
+ * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
