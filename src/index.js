@@ -10,6 +10,8 @@ export * from './parties';
 export * from './permission';
 export * from './plan';
 export * from './procedure';
+export * from './question';
+export * from './questionnaire';
 export * from './role';
 export * from './stakeholder';
 export * from './stock';

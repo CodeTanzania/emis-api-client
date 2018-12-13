@@ -6,7 +6,7 @@
  * Management System(EMIS) Assessment API
  */
 
-import Axios from './client';
+import { Axios } from './client';
 
 /**
  * @function

@@ -6,7 +6,7 @@
  * Management System(EMIS) Alert API
  */
 
-import Axios from './client';
+import { Axios } from './client';
 
 /**
  * @function

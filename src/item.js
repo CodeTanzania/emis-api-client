@@ -7,7 +7,7 @@
  * Management System(EMIS) Resource Item API
  */
 
-import Axios from './client';
+import { Axios } from './client';
 
 /**
  * @function

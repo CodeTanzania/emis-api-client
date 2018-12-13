@@ -7,7 +7,7 @@
  * Management System(EMIS) Stakeholder API
  */
 
-import Axios from './client';
+import { Axios } from './client';
 
 /**
  * @function
@@ -76,6 +76,20 @@ export function postStakeholder(stakeholder) {
  */
 export function putStakeholder(stakeholder) {
   return Axios.put(`/parties/${stakeholder._id}`, stakeholder); // eslint-disable-line
+}
+
+/**
+ * @function
+ * @name patchStakeholder
+ *
+ * @param {Object} stakeholder
+ * @returns {Promise}
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+export function patchStakeholder(stakeholder) {
+  return Axios.patch(`/parties/${stakeholder._id}`, stakeholder); // eslint-disable-line
 }
 
 /**

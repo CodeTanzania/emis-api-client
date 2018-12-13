@@ -2,13 +2,14 @@
   "name": "emis-api-client",
   "version": "0.1.0",
   "description": "API client for Emergency Management Information System(EMIS)",
-  "main": "dist/emis-api-client.js",
+  "main": "./lib/index.js",
+  "module": "./src/index.js",
   "scripts": {
-    "test": "mocha --compilers js:@babel/register ./test/**/*.spec.js",
+    "test": "cross-env BABEL_ENV=commonjs mocha --require @babel/register test/**/*.spec.js --watch src/*.js",
     "lint": "eslint --ext .js src/",
     "lint:fix": "eslint --fix --ext .js src/",
     "build": "webpack",
-    "build:node": "babel src --out-dir lib"
+    "build:node": "cross-env BABEL_ENV=commonjs babel src --out-dir lib"
   },
   "repository": {
     "type": "git",
@@ -20,11 +21,13 @@
     "emis-api",
     "emis-api-client"
   ],
-  "contributors": [{
-    "name": "Benson Maruchu",
-    "email": "benmaruchu@gmail.com",
-    "url": "https://github.com/BenMaruchu"
-  }],
+  "contributors": [
+    {
+      "name": "Benson Maruchu",
+      "email": "benmaruchu@gmail.com",
+      "url": "https://github.com/BenMaruchu"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/CodeTanzania/emis-api-client/issues"
@@ -33,11 +36,15 @@
   "devDependencies": {
     "@babel/cli": "^7.2.0",
     "@babel/core": "^7.2.0",
+    "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.2.0",
     "@babel/register": "^7.0.0",
     "axios": "^0.18.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "chai": "^4.2.0",
+    "cross-env": "^5.2.0",
     "eslint": "^5.10.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^3.3.0",

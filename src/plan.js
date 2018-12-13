@@ -7,7 +7,7 @@
  * Management System(EMIS) Plan API
  */
 
-import Axios from './client';
+import { Axios } from './client';
 
 /**
  * Get plan Schema  from the API

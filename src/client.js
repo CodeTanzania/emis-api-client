@@ -8,8 +8,12 @@ import axios from 'axios'; //eslint-disable-line
  * @version 0.1.0
  * @since 0.1.0
  */
-export default axios.create({
-  baseURL: process.env.REACT_APP_EMIS_API_URL || process.env.EMIS_API_URL || '',
+// eslint-disable-next-line import/prefer-default-export
+export const Axios = axios.create({
+  baseURL:
+    process.env.REACT_APP_EMIS_API_URL ||
+    process.env.EMIS_API_URL ||
+    'https://emis-plan.herokuapp.com/v1',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',

@@ -1,4 +1,4 @@
-import Axios from './client';
+import { Axios } from './client';
 
 /**
  * @function

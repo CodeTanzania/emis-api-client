@@ -5,7 +5,7 @@
  * This module covers all the endpoints exposed by Emergency Information
  * Management System(EMIS) Role API
  */
-import Axios from './client';
+import { Axios } from './client';
 
 /**
  * @function
@@ -74,6 +74,20 @@ export function postRole(role) {
  */
 export function putRole(role) {
   return Axios.put(`/roles/${role._id}`, role); // eslint-disable-line
+}
+
+/**
+ * @function
+ * @name patchRole
+ *
+ * @param {Object} role
+ * @returns {Promise}
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+export function patchRole(role) {
+  return Axios.patch(`/roles/${role._id}`, role); // eslint-disable-line
 }
 
 /**

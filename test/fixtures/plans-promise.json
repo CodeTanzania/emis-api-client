@@ -1,0 +1,370 @@
+[
+    {
+        "scope": "https://emis-plan.herokuapp.com:443",
+        "method": "get",
+        "path": "/v1/plans",
+        "body": "",
+        "status": 200,
+        "response": {
+            "data": [
+                {
+                    "incidentType": {
+                        "nature": "Natural",
+                        "family": "Geophysical",
+                        "code": "NGE",
+                        "name": "Earthquake",
+                        "color": "#FFB2B5",
+                        "_id": "5be5733a266f3200041c7382"
+                    },
+                    "boundary": {
+                        "category": "Boundary",
+                        "type": "Administrative",
+                        "level": "district",
+                        "name": "Missenyi",
+                        "_id": "5bf93f39ef046000044ec8b5",
+                        "zone": "",
+                        "region": "Kagera"
+                    },
+                    "owner": {
+                        "type": "Department",
+                        "name": "Lally Elias",
+                        "title": "Ict Officer",
+                        "email": "lallyelias87@gmail.com",
+                        "mobile": "255714095061",
+                        "_id": "5bea4b2a90a10a0004573f25"
+                    },
+                    "description": "Ut harum eveniet ipsa a quod dolores vel quas enim.",
+                    "publishedAt": "2018-11-09T05:31:28.925Z",
+                    "_id": "5c11e9235d108c0004bb43ef",
+                    "updatedAt": "2018-12-13T05:07:47.501Z",
+                    "createdAt": "2018-12-13T05:07:47.501Z"
+                },
+                {
+                    "incidentType": {
+                        "nature": "Natural",
+                        "family": "Geophysical",
+                        "code": "NGVA",
+                        "name": "Volcanic Activity",
+                        "color": "#90DFF9",
+                        "_id": "5be5733a266f3200041c7379"
+                    },
+                    "boundary": {
+                        "category": "Boundary",
+                        "type": "Administrative",
+                        "level": "ward",
+                        "name": "Loolera",
+                        "_id": "5bf93f3aef046000044ecb02",
+                        "region": "Manyara",
+                        "district": "Kiteto"
+                    },
+                    "owner": {
+                        "type": "Other",
+                        "name": "Benson Maruchu",
+                        "title": "Ict Officer",
+                        "email": "benmaruchu@gmail.com",
+                        "mobile": "255719818179",
+                        "_id": "5bea4b2a90a10a0004573f24"
+                    },
+                    "description": "Quia nostrum modi accusantium reiciendis unde et.",
+                    "publishedAt": "2018-10-18T02:34:07.451Z",
+                    "_id": "5c11e9235d108c0004bb43f0",
+                    "updatedAt": "2018-12-13T05:07:47.502Z",
+                    "createdAt": "2018-12-13T05:07:47.502Z"
+                },
+                {
+                    "incidentType": {
+                        "nature": "Natural",
+                        "family": "Meteorological",
+                        "code": "NMF",
+                        "name": "Fog",
+                        "color": "#779FEA",
+                        "_id": "5be5733a266f3200041c7387"
+                    },
+                    "boundary": {
+                        "category": "Boundary",
+                        "type": "Administrative",
+                        "level": "ward",
+                        "name": "Mang'oto",
+                        "_id": "5bf93f32ef046000044ec506",
+                        "region": "Njombe",
+                        "district": "Makete"
+                    },
+                    "owner": {
+                        "type": "Other",
+                        "name": "Beatrice Charles",
+                        "title": "Ict Officer",
+                        "email": "charsbeaty@gmail.com",
+                        "mobile": "255687902733",
+                        "_id": "5bea4b2a90a10a0004573f26"
+                    },
+                    "description": "Dolor est qui accusamus et.",
+                    "publishedAt": "2018-09-05T01:19:52.753Z",
+                    "_id": "5c11e9235d108c0004bb43f4",
+                    "updatedAt": "2018-12-13T05:07:47.503Z",
+                    "createdAt": "2018-12-13T05:07:47.503Z"
+                },
+                {
+                    "incidentType": {
+                        "nature": "Natural",
+                        "family": "Hydrological",
+                        "code": "NHF",
+                        "name": "Flood",
+                        "color": "#A0FFC4",
+                        "_id": "5be5733a266f3200041c737a"
+                    },
+                    "boundary": {
+                        "category": "Boundary",
+                        "type": "Administrative",
+                        "level": "ward",
+                        "name": "Ipera",
+                        "_id": "5bf93f2eef046000044ebfc1",
+                        "region": "Dodoma",
+                        "district": "Mpwapwa"
+                    },
+                    "owner": {
+                        "type": "Other",
+                        "name": "Nyambiri Kimacha",
+                        "title": "Ict Officer",
+                        "email": "nyambirik@gmail.com",
+                        "mobile": "255621008922",
+                        "_id": "5bf576ebdb2e2800049bcee4"
+                    },
+                    "description": "Rerum inventore asperiores.",
+                    "publishedAt": "2018-06-10T07:13:04.497Z",
+                    "_id": "5c11e9235d108c0004bb43f5",
+                    "updatedAt": "2018-12-13T05:07:47.503Z",
+                    "createdAt": "2018-12-13T05:07:47.503Z"
+                },
+                {
+                    "incidentType": {
+                        "nature": "Natural",
+                        "family": "Hydrological",
+                        "code": "NHWMM",
+                        "name": "Wet Mass Movement",
+                        "color": "#EDB771",
+                        "_id": "5be5733a266f3200041c737f"
+                    },
+                    "boundary": {
+                        "category": "Boundary",
+                        "type": "Administrative",
+                        "level": "ward",
+                        "name": "Mhamba",
+                        "_id": "5bf93f3bef046000044ecc31",
+                        "region": "Tanga",
+                        "district": "Muheza"
+                    },
+                    "owner": {
+                        "type": "Other",
+                        "name": "Msilikale Msilanga",
+                        "title": "Ict Officer",
+                        "email": "msilikalemsilanga@gmail.com",
+                        "mobile": "255765952971",
+                        "_id": "5bf576ebdb2e2800049bcee5"
+                    },
+                    "description": "Soluta optio dolor.",
+                    "publishedAt": "2018-12-06T04:28:10.842Z",
+                    "_id": "5c11e9235d108c0004bb43f6",
+                    "updatedAt": "2018-12-13T05:07:47.503Z",
+                    "createdAt": "2018-12-13T05:07:47.503Z"
+                },
+                {
+                    "incidentType": {
+                        "nature": "Natural",
+                        "family": "Climatological",
+                        "code": "NCD",
+                        "name": "Drought",
+                        "color": "#B7CDF7",
+                        "_id": "5be5733a266f3200041c7384"
+                    },
+                    "boundary": {
+                        "category": "Boundary",
+                        "type": "Administrative",
+                        "level": "ward",
+                        "name": "Ipembe",
+                        "_id": "5bf93f3aef046000044eca25",
+                        "region": "Singida",
+                        "district": "Singida Urban"
+                    },
+                    "owner": {
+                        "type": "Committee",
+                        "name": "Ilala Disaster Committee",
+                        "title": "Disaster Committee",
+                        "email": "ilala@darmaert.org",
+                        "mobile": "255775952671",
+                        "_id": "5bf576ebdb2e2800049bcee6"
+                    },
+                    "description": "Dolor distinctio pariatur qui veniam ipsa possimus.",
+                    "publishedAt": "2018-11-15T00:22:30.699Z",
+                    "_id": "5c11e9235d108c0004bb43f8",
+                    "updatedAt": "2018-12-13T05:07:47.503Z",
+                    "createdAt": "2018-12-13T05:07:47.503Z"
+                },
+                {
+                    "incidentType": {
+                        "nature": "Natural",
+                        "family": "Climatological",
+                        "code": "NCW",
+                        "name": "Wildfire",
+                        "color": "#F0B3F9",
+                        "_id": "5be5733a266f3200041c7388"
+                    },
+                    "boundary": {
+                        "category": "Boundary",
+                        "type": "Administrative",
+                        "level": "ward",
+                        "name": "Wasa",
+                        "_id": "5bf93f3bef046000044ecce8",
+                        "region": "Iringa",
+                        "district": "Iringa"
+                    },
+                    "owner": {
+                        "type": "Department",
+                        "name": "Lally Elias",
+                        "title": "Ict Officer",
+                        "email": "lallyelias87@gmail.com",
+                        "mobile": "255714095061",
+                        "_id": "5bea4b2a90a10a0004573f25"
+                    },
+                    "description": "Ea quam consequatur.",
+                    "publishedAt": "2018-08-23T05:02:36.800Z",
+                    "_id": "5c11e9235d108c0004bb43f9",
+                    "updatedAt": "2018-12-13T05:07:47.503Z",
+                    "createdAt": "2018-12-13T05:07:47.503Z"
+                },
+                {
+                    "incidentType": {
+                        "nature": "Natural",
+                        "family": "Climatological",
+                        "code": "NCGLO",
+                        "name": "Glacial Lake Outburst",
+                        "color": "#FFCCE3",
+                        "_id": "5be5733a266f3200041c737b"
+                    },
+                    "boundary": {
+                        "category": "Boundary",
+                        "type": "Administrative",
+                        "level": "ward",
+                        "name": "Kalunde",
+                        "_id": "5bf93f3bef046000044ecd4c",
+                        "region": "Tabora",
+                        "district": "Tabora Urban"
+                    },
+                    "owner": {
+                        "type": "Other",
+                        "name": "Benson Maruchu",
+                        "title": "Ict Officer",
+                        "email": "benmaruchu@gmail.com",
+                        "mobile": "255719818179",
+                        "_id": "5bea4b2a90a10a0004573f24"
+                    },
+                    "description": "Vitae itaque eaque in et.",
+                    "publishedAt": "2018-06-22T17:48:09.632Z",
+                    "_id": "5c11e9235d108c0004bb43fa",
+                    "updatedAt": "2018-12-13T05:07:47.504Z",
+                    "createdAt": "2018-12-13T05:07:47.504Z"
+                },
+                {
+                    "incidentType": {
+                        "nature": "Natural",
+                        "family": "Biological",
+                        "code": "NBII",
+                        "name": "Insect Infestation",
+                        "color": "#F7EF80",
+                        "_id": "5be5733a266f3200041c7377"
+                    },
+                    "boundary": {
+                        "category": "Boundary",
+                        "type": "Administrative",
+                        "level": "ward",
+                        "name": "Nyugwa",
+                        "_id": "5bf93f39ef046000044ec83c",
+                        "region": "Geita",
+                        "district": "Nyang'hwale"
+                    },
+                    "owner": {
+                        "type": "Other",
+                        "name": "Isaac Kasongoyo",
+                        "title": "Ict Officer",
+                        "email": "kasongoyo@gmail.com",
+                        "mobile": "255713935778",
+                        "_id": "5bea4b2a90a10a0004573f22"
+                    },
+                    "description": "Porro consectetur aperiam voluptatem provident sint nobis.",
+                    "publishedAt": "2018-12-08T16:41:32.425Z",
+                    "_id": "5c11e9235d108c0004bb43fc",
+                    "updatedAt": "2018-12-13T05:07:47.504Z",
+                    "createdAt": "2018-12-13T05:07:47.504Z"
+                },
+                {
+                    "incidentType": {
+                        "nature": "Natural",
+                        "family": "Biological",
+                        "code": "NBAI",
+                        "name": "Animal Incident",
+                        "color": "#8997F4",
+                        "_id": "5be5733a266f3200041c7385"
+                    },
+                    "boundary": {
+                        "category": "Boundary",
+                        "type": "Administrative",
+                        "level": "ward",
+                        "name": "Ubiri",
+                        "_id": "5bf93f37ef046000044ec61c",
+                        "region": "Tanga",
+                        "district": "Lushoto"
+                    },
+                    "owner": {
+                        "type": "Other",
+                        "name": "Edgar Vitus Mlowe",
+                        "title": "Ict Officer",
+                        "email": "mloweedgarvitus@gmail.com",
+                        "mobile": "255654988047",
+                        "_id": "5bea4b2a90a10a0004573f27"
+                    },
+                    "description": "Consequuntur repellat ea et.",
+                    "publishedAt": "2018-12-11T14:49:23.982Z",
+                    "_id": "5c11e9235d108c0004bb43fd",
+                    "updatedAt": "2018-12-13T05:07:47.504Z",
+                    "createdAt": "2018-12-13T05:07:47.504Z"
+                }
+            ],
+            "total": 22,
+            "size": 10,
+            "limit": 10,
+            "skip": 0,
+            "page": 1,
+            "pages": 3,
+            "lastModified": "2018-12-13T05:07:47.505Z"
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "6911",
+            "Etag",
+            "W/\"1aff-DcmAqvTvdBsGG0M/UTWABLJGaOY\"",
+            "Vary",
+            "Accept-Encoding",
+            "Date",
+            "Thu, 13 Dec 2018 13:32:53 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]
