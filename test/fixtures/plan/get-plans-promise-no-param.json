@@ -33,10 +33,10 @@
                         "mobile": "255714095061",
                         "_id": "5bea4b2a90a10a0004573f25"
                     },
-                    "description": "Ut harum eveniet ipsa a quod dolores vel quas enim.",
+                    "description": "This is the patched Plan",
                     "publishedAt": "2018-11-09T05:31:28.925Z",
                     "_id": "5c11e9235d108c0004bb43ef",
-                    "updatedAt": "2018-12-13T05:07:47.501Z",
+                    "updatedAt": "2018-12-13T16:41:30.652Z",
                     "createdAt": "2018-12-13T05:07:47.501Z"
                 },
                 {
@@ -328,13 +328,13 @@
                     "createdAt": "2018-12-13T05:07:47.504Z"
                 }
             ],
-            "total": 22,
+            "total": 25,
             "size": 10,
             "limit": 10,
             "skip": 0,
             "page": 1,
             "pages": 3,
-            "lastModified": "2018-12-13T05:07:47.505Z"
+            "lastModified": "2018-12-13T16:41:30.652Z"
         },
         "rawHeaders": [
             "Server",
@@ -356,13 +356,13 @@
             "Content-Type",
             "application/json; charset=utf-8",
             "Content-Length",
-            "6911",
+            "6884",
             "Etag",
-            "W/\"1aff-DcmAqvTvdBsGG0M/UTWABLJGaOY\"",
+            "W/\"1ae4-acJvUTxBWZ98rfQSXLFMFds6uMA\"",
             "Vary",
             "Accept-Encoding",
             "Date",
-            "Thu, 13 Dec 2018 13:35:19 GMT",
+            "Thu, 13 Dec 2018 16:42:51 GMT",
             "Via",
             "1.1 vegur"
         ]

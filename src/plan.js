@@ -37,7 +37,7 @@ export function getPlanSchema() {
  * @since 0.1.0
  */
 export function getPlans(params) {
-  return Axios.get('/plans', params);
+  return Axios.get('/plans', { params });
 }
 
 /**
@@ -53,7 +53,7 @@ export function getPlans(params) {
  * @since 0.1.0
  */
 export function getPlan(planID) {
-  return Axios.getPlan(`/plans/${planID}`);
+  return Axios.get(`/plans/${planID}`);
 }
 
 /**

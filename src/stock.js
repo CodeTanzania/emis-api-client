@@ -24,7 +24,7 @@ export function getStockSchema() {
  * @since 0.1.0
  */
 export function getStocks(params) {
-  return Axios.get('/stocks', params);
+  return Axios.get('/stocks', { params });
 }
 
 /**

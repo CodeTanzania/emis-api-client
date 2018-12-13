@@ -35,7 +35,7 @@ export function getIncidentTypeSchema() {
  * @since 0.1.0
  */
 export function getIncidentTypes(params) {
-  return Axios.get('/incidenttypes', params);
+  return Axios.get('/incidenttypes', { params });
 }
 
 /**

@@ -1,0 +1,105 @@
+[
+    {
+        "scope": "https://emis-plan.herokuapp.com:443",
+        "method": "put",
+        "path": "/v1/plans/5c11e9235d108c0004bb43ef",
+        "body": {
+            "incidentType": {
+                "nature": "Natural",
+                "family": "Geophysical",
+                "code": "NGE",
+                "name": "Earthquake",
+                "color": "#FFB2B5",
+                "_id": "5be5733a266f3200041c7382"
+            },
+            "boundary": {
+                "category": "Boundary",
+                "type": "Administrative",
+                "level": "district",
+                "name": "Missenyi",
+                "_id": "5bf93f39ef046000044ec8b5",
+                "zone": "",
+                "region": "Kagera"
+            },
+            "owner": {
+                "type": "Department",
+                "name": "Lally Elias",
+                "title": "Ict Officer",
+                "email": "lallyelias87@gmail.com",
+                "mobile": "255714095061",
+                "_id": "5bea4b2a90a10a0004573f25"
+            },
+            "description": "This is the patched Plan",
+            "publishedAt": "2018-11-09T05:31:28.925Z",
+            "_id": "5c11e9235d108c0004bb43ef",
+            "updatedAt": "2018-12-13T16:41:30.652Z",
+            "createdAt": "2018-12-13T05:07:47.501Z"
+        },
+        "status": 200,
+        "response": {
+            "incidentType": {
+                "nature": "Natural",
+                "family": "Geophysical",
+                "code": "NGE",
+                "name": "Earthquake",
+                "color": "#FFB2B5",
+                "_id": "5be5733a266f3200041c7382"
+            },
+            "boundary": {
+                "category": "Boundary",
+                "type": "Administrative",
+                "level": "district",
+                "name": "Missenyi",
+                "tags": [],
+                "continent": "Africa",
+                "country": "Tanzania",
+                "_id": "5bf93f39ef046000044ec8b5",
+                "zone": "",
+                "region": "Kagera"
+            },
+            "owner": {
+                "type": "Department",
+                "name": "Lally Elias",
+                "title": "Ict Officer",
+                "email": "lallyelias87@gmail.com",
+                "mobile": "255714095061",
+                "_id": "5bea4b2a90a10a0004573f25"
+            },
+            "description": "This is the patched Plan",
+            "publishedAt": "2018-11-09T05:31:28.925Z",
+            "_id": "5c11e9235d108c0004bb43ef",
+            "updatedAt": "2018-12-13T16:42:56.378Z",
+            "createdAt": "2018-12-13T05:07:47.501Z"
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "709",
+            "Etag",
+            "W/\"2c5-Uf7jL2dHglm9URdFdAvz88mEP5U\"",
+            "Vary",
+            "Accept-Encoding",
+            "Date",
+            "Thu, 13 Dec 2018 16:42:56 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]

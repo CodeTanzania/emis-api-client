@@ -33,7 +33,7 @@ export function getStakeholderSchema() {
  * @since 0.1.0
  */
 export function getStakeholders(params) {
-  return Axios.get('/parties', params);
+  return Axios.get('/parties', { params });
 }
 
 /**

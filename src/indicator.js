@@ -24,7 +24,7 @@ export function getIndicatorSchema() {
  * @since 0.1.0
  */
 export function getIndicators(params) {
-  return Axios.get('/indicators', params);
+  return Axios.get('/indicators', { params });
 }
 
 /**

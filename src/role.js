@@ -31,7 +31,7 @@ export function getRoleSchema() {
  * @since 0.1.0
  */
 export function getRoles(params) {
-  return Axios.get('/roles', params);
+  return Axios.get('/roles', { params });
 }
 
 /**

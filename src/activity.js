@@ -24,7 +24,7 @@ export function getActivitySchema() {
  * @since 0.1.0
  */
 export function getActivities(params) {
-  return Axios.get('/activities', params);
+  return Axios.get('/activities', { params });
 }
 
 /**

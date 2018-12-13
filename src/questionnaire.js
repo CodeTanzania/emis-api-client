@@ -24,7 +24,7 @@ export function getQuestionnaireSchema() {
  * @since 0.1.0
  */
 export function getQuestionnaires(params) {
-  return Axios.get('/questionnaires', params);
+  return Axios.get('/questionnaires', { params });
 }
 
 /**

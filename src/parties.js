@@ -24,7 +24,7 @@ export function getPartySchema() {
  * @since 0.1.0
  */
 export function getParties(params) {
-  return Axios.get('/parties', params);
+  return Axios.get('/parties', { params });
 }
 
 /**

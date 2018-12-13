@@ -34,7 +34,7 @@ export function getFeatureSchema() {
  * @since 0.1.0
  */
 export function getFeatures(params) {
-  return Axios.get('/features', params);
+  return Axios.get('/features', { params });
 }
 
 /**

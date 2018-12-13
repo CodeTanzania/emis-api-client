@@ -24,7 +24,7 @@ export function getAdjustmentSchema() {
  * @since 0.1.0
  */
 export function getAdjustments(params) {
-  return Axios.get('/adjustments', params);
+  return Axios.get('/adjustments', { params });
 }
 
 /**

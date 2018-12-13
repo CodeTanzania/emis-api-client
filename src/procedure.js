@@ -25,7 +25,7 @@ export function getProcedureSchema() {
  */
 
 export function getProcedures(params) {
-  return Axios.get('/procedures', params);
+  return Axios.get('/procedures', { params });
 }
 
 /**

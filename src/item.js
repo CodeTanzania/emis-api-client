@@ -33,7 +33,7 @@ export function getItemSchema() {
  * @since 0.1.0
  */
 export function getItems(params) {
-  return Axios.get('/items', params);
+  return Axios.get('/items', { params });
 }
 
 /**

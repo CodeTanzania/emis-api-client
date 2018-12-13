@@ -4,7 +4,8 @@
   "rules": {
     "prettier/prettier": "error",
     "mocha/no-exclusive-tests": "error",
-    "no-unused-expressions": 0
+    "no-unused-expressions": "off",
+    "no-underscore-dangle": "off"
   },
   "env": {
     "mocha": true

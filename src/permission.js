@@ -24,7 +24,7 @@ export function getPermissionSchema() {
  * @since 0.1.0
  */
 export function getPermissions(params) {
-  return Axios.get('/permissions', params);
+  return Axios.get('/permissions', { params });
 }
 
 /**

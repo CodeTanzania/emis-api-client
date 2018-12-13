@@ -24,7 +24,7 @@ export function getWarehouseSchema() {
  * @since 0.1.0
  */
 export function getWarehouses(params) {
-  return Axios.get('/warehouses', params);
+  return Axios.get('/warehouses', { params });
 }
 
 /**

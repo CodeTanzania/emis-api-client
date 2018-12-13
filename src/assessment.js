@@ -32,7 +32,7 @@ export function getAssessmentSchema() {
  * @since 0.1.0
  */
 export function getAssessments(params) {
-  return Axios.get('/assessments', params);
+  return Axios.get('/assessments', { params });
 }
 
 /**
