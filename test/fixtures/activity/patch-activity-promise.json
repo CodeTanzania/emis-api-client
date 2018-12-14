@@ -1,0 +1,128 @@
+[
+    {
+        "scope": "https://emis-plan.herokuapp.com:443",
+        "method": "put",
+        "path": "/v1/activities/5c133fc4cc2b580004179594",
+        "body": {
+            "plan": {
+                "incidentType": "5be5733a266f3200041c7377",
+                "boundary": "5bf93f3cef046000044ece7c",
+                "owner": "5bea4b2a90a10a0004573f22",
+                "description": "Nihil excepturi debitis fugit autem voluptatem eligendi est.",
+                "publishedAt": "2018-02-21T00:11:54.351Z",
+                "_id": "5c133fc4cc2b58000417957e",
+                "updatedAt": "2018-12-14T05:29:40.665Z",
+                "createdAt": "2018-12-14T05:29:40.665Z"
+            },
+            "incidentType": {
+                "nature": "Natural",
+                "family": "Biological",
+                "code": "NBII",
+                "name": "Insect Infestation",
+                "color": "#F7EF80",
+                "_id": "5be5733a266f3200041c7377"
+            },
+            "phase": "Preparedness",
+            "name": "Ut a rerum impedit.",
+            "description": "This is the patched Activity",
+            "primary": [
+                {
+                    "name": "Village Executive Officer",
+                    "description": "Village Executive Officer",
+                    "_id": "5bea4b2a90a10a0004573f20"
+                }
+            ],
+            "supportive": [
+                {
+                    "name": "Village Management Team",
+                    "description": "Village Management Team",
+                    "_id": "5bea4b2a90a10a0004573f19"
+                },
+                {
+                    "name": "ICT Officer",
+                    "description": "ICT Officer",
+                    "_id": "5bea4b2a90a10a0004573f1e"
+                }
+            ],
+            "_id": "5c133fc4cc2b580004179594",
+            "updatedAt": "2018-12-14T05:29:40.938Z",
+            "createdAt": "2018-12-14T05:29:40.938Z"
+        },
+        "status": 200,
+        "response": {
+            "plan": {
+                "incidentType": "5be5733a266f3200041c7377",
+                "boundary": "5bf93f3cef046000044ece7c",
+                "owner": "5bea4b2a90a10a0004573f22",
+                "description": "Nihil excepturi debitis fugit autem voluptatem eligendi est.",
+                "publishedAt": "2018-02-21T00:11:54.351Z",
+                "_id": "5c133fc4cc2b58000417957e",
+                "updatedAt": "2018-12-14T05:29:40.665Z",
+                "createdAt": "2018-12-14T05:29:40.665Z"
+            },
+            "incidentType": {
+                "nature": "Natural",
+                "family": "Biological",
+                "code": "NBII",
+                "name": "Insect Infestation",
+                "color": "#F7EF80",
+                "_id": "5be5733a266f3200041c7377"
+            },
+            "phase": "Preparedness",
+            "name": "Ut a rerum impedit.",
+            "description": "This is the patched Activity",
+            "primary": [
+                {
+                    "name": "Village Executive Officer",
+                    "description": "Village Executive Officer",
+                    "_id": "5bea4b2a90a10a0004573f20"
+                }
+            ],
+            "supportive": [
+                {
+                    "name": "Village Management Team",
+                    "description": "Village Management Team",
+                    "_id": "5bea4b2a90a10a0004573f19"
+                },
+                {
+                    "name": "ICT Officer",
+                    "description": "ICT Officer",
+                    "_id": "5bea4b2a90a10a0004573f1e"
+                }
+            ],
+            "_id": "5c133fc4cc2b580004179594",
+            "updatedAt": "2018-12-14T16:05:34.988Z",
+            "createdAt": "2018-12-14T05:29:40.938Z"
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "1044",
+            "Etag",
+            "W/\"414-XYfpTe+GS12yFtplJIMIX0QpGaA\"",
+            "Vary",
+            "Accept-Encoding",
+            "Date",
+            "Fri, 14 Dec 2018 16:05:34 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]

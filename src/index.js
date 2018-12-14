@@ -6,7 +6,7 @@ export * from './feature';
 export * from './incidenttype';
 export * from './indicator';
 export * from './item';
-export * from './parties';
+export * from './party';
 export * from './permission';
 export * from './plan';
 export * from './procedure';

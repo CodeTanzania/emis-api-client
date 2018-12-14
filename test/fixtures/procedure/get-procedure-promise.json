@@ -1,0 +1,124 @@
+[
+    {
+        "scope": "https://emis-plan.herokuapp.com:443",
+        "method": "get",
+        "path": "/v1/procedures/5c133fc4cc2b5800041795ab",
+        "body": "",
+        "status": 200,
+        "response": {
+            "plan": {
+                "incidentType": {
+                    "nature": "Natural",
+                    "family": "Biological",
+                    "code": "NBAI",
+                    "name": "Animal Incident",
+                    "color": "#8997F4",
+                    "_id": "5be5733a266f3200041c7385"
+                },
+                "boundary": {
+                    "category": "Boundary",
+                    "type": "Administrative",
+                    "level": "ward",
+                    "name": "Rubeho",
+                    "_id": "5bf93f39ef046000044ec966",
+                    "region": "Morogoro",
+                    "district": "Gairo"
+                },
+                "owner": {
+                    "type": "Other",
+                    "name": "Edgar Vitus Mlowe",
+                    "title": "Ict Officer",
+                    "email": "mloweedgarvitus@gmail.com",
+                    "mobile": "255654988047",
+                    "_id": "5bea4b2a90a10a0004573f27"
+                },
+                "description": "Possimus sed aut minima aut molestiae fuga ipsam.",
+                "publishedAt": "2018-04-21T01:25:55.881Z",
+                "_id": "5c133fc4cc2b58000417957f",
+                "updatedAt": "2018-12-14T05:29:40.666Z",
+                "createdAt": "2018-12-14T05:29:40.666Z"
+            },
+            "incidentType": {
+                "nature": "Natural",
+                "family": "Biological",
+                "code": "NBAI",
+                "name": "Animal Incident",
+                "color": "#8997F4",
+                "_id": "5be5733a266f3200041c7385"
+            },
+            "activity": {
+                "plan": "5c133fc4cc2b58000417957f",
+                "incidentType": "5be5733a266f3200041c7385",
+                "phase": "Recovery",
+                "name": "Placeat iure suscipit similique qui ipsum.",
+                "description": "Autem ab magnam aspernatur blanditiis possimus praesentium.",
+                "primary": [
+                    "5bea4b2a90a10a0004573f1f"
+                ],
+                "supportive": [
+                    "5bea4b2a90a10a0004573f19",
+                    "5bea4b2a90a10a0004573f21"
+                ],
+                "_id": "5c133fc4cc2b580004179595",
+                "updatedAt": "2018-12-14T05:29:40.938Z",
+                "createdAt": "2018-12-14T05:29:40.938Z"
+            },
+            "phase": "Mitigation",
+            "name": "Eaque sint officiis odit quia nihil dolorum rerum consequatur.",
+            "description": "Dolor aliquam maiores.",
+            "number": 1,
+            "primary": [
+                {
+                    "name": "Ward Management Team",
+                    "description": "Ward Management Team",
+                    "_id": "5bea4b2a90a10a0004573f1d"
+                }
+            ],
+            "supportive": [
+                {
+                    "name": "Region Disaster Committee",
+                    "description": "Region Disaster Committee",
+                    "_id": "5bea4b2a90a10a0004573f1c"
+                },
+                {
+                    "name": "ICT Officer",
+                    "description": "ICT Officer",
+                    "_id": "5bea4b2a90a10a0004573f1e"
+                }
+            ],
+            "_id": "5c133fc4cc2b5800041795ab",
+            "updatedAt": "2018-12-14T05:29:41.436Z",
+            "createdAt": "2018-12-14T05:29:41.436Z"
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "1887",
+            "Etag",
+            "W/\"75f-ej+EuRFPUBU5V9yMu7wZl54dBEs\"",
+            "Vary",
+            "Accept-Encoding",
+            "Date",
+            "Fri, 14 Dec 2018 16:20:10 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]
