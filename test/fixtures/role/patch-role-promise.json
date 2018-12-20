@@ -1,0 +1,68 @@
+[
+    {
+        "scope": "http://emis-plan.herokuapp.com:80",
+        "method": "put",
+        "path": "/v1/roles/5c17661e3c9d520004e2b496",
+        "body": {
+            "name": "District Disaster Management Coordinator",
+            "abbreviation": "DDMC",
+            "description": "This is the patched Role",
+            "_id": "5c17661e3c9d520004e2b496",
+            "updatedAt": "2018-12-20T06:59:29.661Z",
+            "createdAt": "2018-12-17T09:02:22.549Z",
+            "tags": [
+                "district",
+                "disaster",
+                "management",
+                "coordinator",
+                "ddmc"
+            ]
+        },
+        "status": 200,
+        "response": {
+            "name": "District Disaster Management Coordinator",
+            "abbreviation": "DDMC",
+            "description": "This is the patched Role",
+            "_id": "5c17661e3c9d520004e2b496",
+            "updatedAt": "2018-12-20T08:27:10.578Z",
+            "createdAt": "2018-12-17T09:02:22.549Z",
+            "tags": [
+                "district",
+                "disaster",
+                "management",
+                "coordinator",
+                "ddmc"
+            ]
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "290",
+            "Etag",
+            "W/\"122-nt53uYGEYvA1b67SS9y/UZEmMjQ\"",
+            "Vary",
+            "Accept-Encoding",
+            "Date",
+            "Thu, 20 Dec 2018 08:27:10 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]

@@ -1,0 +1,94 @@
+[
+    {
+        "scope": "http://emis-plan.herokuapp.com:80",
+        "method": "post",
+        "path": "/v1/questions",
+        "body": {
+            "indicator": {
+                "subject": "port",
+                "topic": "interface",
+                "color": "#BFFF8C",
+                "_id": "5c1b3dce00d98400041df3f9"
+            },
+            "assess": "Other",
+            "stage": "After",
+            "phase": "Recovery",
+            "type": "file",
+            "name": "system",
+            "label": "Enim molestias voluptatem.",
+            "help": "Expedita quod impedit quam nulla ipsum soluta placeat repudiandae consequatur.",
+            "choices": [
+                {
+                    "label": "hic",
+                    "name": "dolores"
+                }
+            ],
+            "updatedAt": "2018-12-20T06:59:26.799Z",
+            "createdAt": "2018-12-20T06:59:26.799Z",
+            "tags": [
+                "recovery",
+                "file",
+                "enim",
+                "molestias",
+                "voluptatem"
+            ]
+        },
+        "status": 201,
+        "response": {
+            "indicator": "5c1b3dce00d98400041df3f9",
+            "assess": "Other",
+            "stage": "After",
+            "phase": "Recovery",
+            "type": "file",
+            "name": "system",
+            "label": "Enim molestias voluptatem.",
+            "help": "Expedita quod impedit quam nulla ipsum soluta placeat repudiandae consequatur.",
+            "choices": [
+                {
+                    "label": "hic",
+                    "name": "dolores"
+                }
+            ],
+            "_id": "5c1b617100d98400041df5de",
+            "updatedAt": "2018-12-20T06:59:26.799Z",
+            "createdAt": "2018-12-20T06:59:26.799Z",
+            "tags": [
+                "recovery",
+                "file",
+                "enim",
+                "molestias",
+                "voluptatem"
+            ]
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "Vary",
+            "X-HTTP-Method, X-HTTP-Method-Override, X-Method-Override, Accept-Encoding",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "462",
+            "Etag",
+            "W/\"1ce-cNmz2NgTx3uZt2O/DbFM85qpqc8\"",
+            "Date",
+            "Thu, 20 Dec 2018 09:31:29 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]

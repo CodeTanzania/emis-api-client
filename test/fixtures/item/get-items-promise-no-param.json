@@ -1,0 +1,243 @@
+[
+    {
+        "scope": "http://emis-plan.herokuapp.com:80",
+        "method": "get",
+        "path": "/v1/items",
+        "body": "",
+        "status": 200,
+        "response": {
+            "data": [
+                {
+                    "type": "Other",
+                    "code": "BFA",
+                    "name": "BLANKET FOR ADULTS",
+                    "description": "",
+                    "uom": "piece",
+                    "minStockAllowed": 0,
+                    "maxStockAllowed": 0,
+                    "color": "#D72E29",
+                    "expirable": false,
+                    "_id": "5c17661f3c9d520004e2b4b7",
+                    "updatedAt": "2018-12-20T06:59:30.274Z",
+                    "createdAt": "2018-12-17T09:02:23.258Z",
+                    "tags": [
+                        "bfa",
+                        "blanket",
+                        "adults",
+                        "piece"
+                    ]
+                },
+                {
+                    "type": "Other",
+                    "code": "CBCM(",
+                    "name": "CHALK BOARD COMPAS MM (10)",
+                    "uom": "piece",
+                    "minStockAllowed": 0,
+                    "maxStockAllowed": 0,
+                    "color": "#D72E29",
+                    "expirable": false,
+                    "_id": "5c17661f3c9d520004e2b4b8",
+                    "updatedAt": "2018-12-20T06:59:30.287Z",
+                    "createdAt": "2018-12-17T09:02:23.270Z",
+                    "tags": [
+                        "cbcm",
+                        "chalk",
+                        "board",
+                        "compas",
+                        "piece"
+                    ]
+                },
+                {
+                    "type": "Other",
+                    "code": "DBAB2",
+                    "name": "DRAWING EX- BOOKS AS BOX 240",
+                    "uom": "carton",
+                    "minStockAllowed": 0,
+                    "maxStockAllowed": 0,
+                    "color": "#D72E29",
+                    "expirable": false,
+                    "_id": "5c17661f3c9d520004e2b4b9",
+                    "updatedAt": "2018-12-20T06:59:30.281Z",
+                    "createdAt": "2018-12-17T09:02:23.279Z",
+                    "tags": [
+                        "dbab2",
+                        "drawing",
+                        "books",
+                        "box",
+                        "240",
+                        "carton"
+                    ]
+                },
+                {
+                    "type": "Other",
+                    "code": "JR",
+                    "name": "JUCKGUARD ROLLS",
+                    "uom": "roll",
+                    "minStockAllowed": 0,
+                    "maxStockAllowed": 0,
+                    "color": "#D72E29",
+                    "expirable": false,
+                    "_id": "5c17661f3c9d520004e2b4ba",
+                    "updatedAt": "2018-12-20T06:59:30.360Z",
+                    "createdAt": "2018-12-17T09:02:23.293Z",
+                    "tags": [
+                        "jr",
+                        "juckguard",
+                        "rolls",
+                        "roll"
+                    ]
+                },
+                {
+                    "type": "Other",
+                    "code": "MN",
+                    "name": "MOSQUITO NET",
+                    "uom": "piece",
+                    "minStockAllowed": 0,
+                    "maxStockAllowed": 0,
+                    "color": "#D72E29",
+                    "expirable": false,
+                    "_id": "5c17661f3c9d520004e2b4bb",
+                    "updatedAt": "2018-12-20T06:59:30.366Z",
+                    "createdAt": "2018-12-17T09:02:23.307Z",
+                    "tags": [
+                        "mosquito",
+                        "piece"
+                    ]
+                },
+                {
+                    "type": "Other",
+                    "code": "PK",
+                    "name": "PERSONAL KIT",
+                    "uom": "set",
+                    "minStockAllowed": 0,
+                    "maxStockAllowed": 0,
+                    "color": "#D72E29",
+                    "expirable": false,
+                    "_id": "5c17661f3c9d520004e2b4bc",
+                    "updatedAt": "2018-12-20T06:59:30.372Z",
+                    "createdAt": "2018-12-17T09:02:23.317Z",
+                    "tags": [
+                        "personal",
+                        "set"
+                    ]
+                },
+                {
+                    "type": "Other",
+                    "code": "SM3",
+                    "name": "SLEEPING  MAT 3X6",
+                    "uom": "piece",
+                    "minStockAllowed": 0,
+                    "maxStockAllowed": 0,
+                    "color": "#D72E29",
+                    "expirable": false,
+                    "_id": "5c17661f3c9d520004e2b4bd",
+                    "updatedAt": "2018-12-20T06:59:30.378Z",
+                    "createdAt": "2018-12-17T09:02:23.344Z",
+                    "tags": [
+                        "sm3",
+                        "sleeping",
+                        "3x6",
+                        "piece"
+                    ]
+                },
+                {
+                    "type": "Other",
+                    "code": "SP",
+                    "name": "SOUP PLATE",
+                    "uom": "piece",
+                    "minStockAllowed": 0,
+                    "maxStockAllowed": 0,
+                    "color": "#D72E29",
+                    "expirable": false,
+                    "_id": "5c17661f3c9d520004e2b4be",
+                    "updatedAt": "2018-12-20T06:59:30.384Z",
+                    "createdAt": "2018-12-17T09:02:23.356Z",
+                    "tags": [
+                        "sp",
+                        "soup",
+                        "plate",
+                        "piece"
+                    ]
+                },
+                {
+                    "type": "Other",
+                    "code": "CBD",
+                    "name": "CHALK BOARD DOUBLE",
+                    "uom": "piece",
+                    "minStockAllowed": 0,
+                    "maxStockAllowed": 0,
+                    "color": "#D72E29",
+                    "expirable": false,
+                    "_id": "5c17661f3c9d520004e2b4bf",
+                    "updatedAt": "2018-12-20T06:59:30.536Z",
+                    "createdAt": "2018-12-17T09:02:23.366Z",
+                    "tags": [
+                        "cbd",
+                        "chalk",
+                        "board",
+                        "double",
+                        "piece"
+                    ]
+                },
+                {
+                    "type": "Other",
+                    "code": "DEAB2",
+                    "name": "DRAWINGS EX-BOOKS AS BOX 250",
+                    "uom": "carton",
+                    "minStockAllowed": 0,
+                    "maxStockAllowed": 0,
+                    "color": "#D72E29",
+                    "expirable": false,
+                    "_id": "5c17661f3c9d520004e2b4c0",
+                    "updatedAt": "2018-12-20T06:59:30.553Z",
+                    "createdAt": "2018-12-17T09:02:23.377Z",
+                    "tags": [
+                        "deab2",
+                        "drawings",
+                        "books",
+                        "box",
+                        "250",
+                        "carton"
+                    ]
+                }
+            ],
+            "total": 43,
+            "size": 10,
+            "limit": 10,
+            "skip": 0,
+            "page": 1,
+            "pages": 5,
+            "lastModified": "2018-12-20T06:59:30.622Z"
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "3149",
+            "Etag",
+            "W/\"c4d-az1UhtMAv+uVGUqQdwA33a3sObw\"",
+            "Vary",
+            "Accept-Encoding",
+            "Date",
+            "Thu, 20 Dec 2018 08:26:44 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]

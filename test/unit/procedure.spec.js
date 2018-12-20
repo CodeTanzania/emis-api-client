@@ -89,7 +89,7 @@ describe('Procedure API Client', () => {
           .then(nockDone);
       }));
 
-  it('should be able PUT existing procedure', () =>
+  it('should be able to PUT existing procedure', () =>
     nock
       .back('/procedure/put-procedure-promise.json', defaultOptions)
       .then(({ nockDone }) => {

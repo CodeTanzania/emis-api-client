@@ -1,0 +1,66 @@
+[
+    {
+        "scope": "http://emis-plan.herokuapp.com:80",
+        "method": "post",
+        "path": "/v1/parties",
+        "body": {
+            "name": "John Doe",
+            "email": "johndoe1@mail.com",
+            "mobile": "255902213125"
+        },
+        "status": 201,
+        "response": {
+            "type": "Other",
+            "phases": [
+                "Mitigation"
+            ],
+            "name": "John Doe",
+            "locale": "en",
+            "timezone": "Africa/Abidjan",
+            "email": "johndoe1@mail.com",
+            "mobile": "255902213125",
+            "_id": "5c1b60f000d98400041df5cf",
+            "updatedAt": "2018-12-20T09:29:20.186Z",
+            "createdAt": "2018-12-20T09:29:20.186Z",
+            "tags": [
+                "mitigation",
+                "john",
+                "africa",
+                "abidjan",
+                "johndoe1",
+                "mail",
+                "255902213125"
+            ]
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "Vary",
+            "X-HTTP-Method, X-HTTP-Method-Override, X-Method-Override, Accept-Encoding",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "344",
+            "Etag",
+            "W/\"158-/2yhTGx3rlCm6q4pd9y1cnlKl3o\"",
+            "Date",
+            "Thu, 20 Dec 2018 09:29:20 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]

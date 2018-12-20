@@ -1,0 +1,146 @@
+[
+    {
+        "scope": "http://emis-plan.herokuapp.com:80",
+        "method": "get",
+        "path": "/v1/warehouses?limit=5",
+        "body": "",
+        "status": 200,
+        "response": {
+            "data": [
+                {
+                    "category": "Building",
+                    "type": "Warehouse",
+                    "level": "region",
+                    "name": "Lindi",
+                    "continent": "Africa",
+                    "country": "Tanzania",
+                    "_id": "5c17661e3c9d520004e2b475",
+                    "updatedAt": "2018-12-20T06:59:29.549Z",
+                    "createdAt": "2018-12-17T09:02:22.203Z",
+                    "tags": [
+                        "building",
+                        "warehouse",
+                        "region",
+                        "lindi",
+                        "africa",
+                        "tanzania"
+                    ]
+                },
+                {
+                    "category": "Building",
+                    "type": "Warehouse",
+                    "level": "region",
+                    "name": "Shinyanga",
+                    "continent": "Africa",
+                    "country": "Tanzania",
+                    "_id": "5c17661e3c9d520004e2b47d",
+                    "updatedAt": "2018-12-20T06:59:29.435Z",
+                    "createdAt": "2018-12-17T09:02:22.257Z",
+                    "tags": [
+                        "building",
+                        "warehouse",
+                        "region",
+                        "shinyanga",
+                        "africa",
+                        "tanzania"
+                    ]
+                },
+                {
+                    "category": "Building",
+                    "type": "Warehouse",
+                    "level": "region",
+                    "name": "DSM",
+                    "continent": "Africa",
+                    "country": "Tanzania",
+                    "_id": "5c17661e3c9d520004e2b485",
+                    "updatedAt": "2018-12-20T06:59:29.469Z",
+                    "createdAt": "2018-12-17T09:02:22.303Z",
+                    "tags": [
+                        "building",
+                        "warehouse",
+                        "region",
+                        "dsm",
+                        "africa",
+                        "tanzania"
+                    ]
+                },
+                {
+                    "category": "Building",
+                    "type": "Warehouse",
+                    "level": "region",
+                    "name": "Kilimanjaro",
+                    "continent": "Africa",
+                    "country": "Tanzania",
+                    "_id": "5c17661e3c9d520004e2b486",
+                    "updatedAt": "2018-12-20T06:59:29.475Z",
+                    "createdAt": "2018-12-17T09:02:22.311Z",
+                    "tags": [
+                        "building",
+                        "warehouse",
+                        "region",
+                        "kilimanjaro",
+                        "africa",
+                        "tanzania"
+                    ]
+                },
+                {
+                    "category": "Building",
+                    "type": "Warehouse",
+                    "level": "region",
+                    "name": "DSM TAMISEMI",
+                    "continent": "Africa",
+                    "country": "Tanzania",
+                    "_id": "5c17661e3c9d520004e2b48e",
+                    "updatedAt": "2018-12-20T06:59:29.482Z",
+                    "createdAt": "2018-12-17T09:02:22.367Z",
+                    "tags": [
+                        "building",
+                        "warehouse",
+                        "region",
+                        "dsm",
+                        "tamisemi",
+                        "africa",
+                        "tanzania"
+                    ]
+                }
+            ],
+            "total": 7,
+            "size": 5,
+            "limit": 5,
+            "skip": 0,
+            "page": 1,
+            "pages": 2,
+            "lastModified": "2018-12-20T06:59:29.549Z"
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "1626",
+            "Etag",
+            "W/\"65a-89fVZld1ViOjBmjuAqpvjgsBvc8\"",
+            "Vary",
+            "Accept-Encoding",
+            "Date",
+            "Thu, 20 Dec 2018 08:27:19 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]

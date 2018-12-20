@@ -88,7 +88,7 @@ describe('Activity API Client', () => {
           .then(nockDone);
       }));
 
-  it('should be able PUT existing activity', () =>
+  it('should be able to PUT existing activity', () =>
     nock
       .back('/activity/put-activity-promise.json', defaultOptions)
       .then(({ nockDone }) => {

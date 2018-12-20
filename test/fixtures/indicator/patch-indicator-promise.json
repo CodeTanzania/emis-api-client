@@ -1,0 +1,62 @@
+[
+    {
+        "scope": "http://emis-plan.herokuapp.com:80",
+        "method": "put",
+        "path": "/v1/indicators/5c1b3dce00d98400041df3fa",
+        "body": {
+            "subject": "card",
+            "topic": "program",
+            "description": "This is the patched Indicator",
+            "color": "#FFDAC6",
+            "_id": "5c1b3dce00d98400041df3fa",
+            "updatedAt": "2018-12-20T06:59:26.627Z",
+            "createdAt": "2018-12-20T06:59:26.627Z",
+            "tags": [
+                "card"
+            ]
+        },
+        "status": 200,
+        "response": {
+            "subject": "card",
+            "topic": "program",
+            "description": "This is the patched Indicator",
+            "color": "#FFDAC6",
+            "_id": "5c1b3dce00d98400041df3fa",
+            "updatedAt": "2018-12-20T08:26:43.069Z",
+            "createdAt": "2018-12-20T06:59:26.627Z",
+            "tags": [
+                "card"
+            ]
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "227",
+            "Etag",
+            "W/\"e3-49WC5tbye8jQA+7Vw/yT0E3dC78\"",
+            "Vary",
+            "Accept-Encoding",
+            "Date",
+            "Thu, 20 Dec 2018 08:26:43 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]

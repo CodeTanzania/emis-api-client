@@ -1,0 +1,66 @@
+[
+    {
+        "scope": "http://emis-plan.herokuapp.com:80",
+        "method": "post",
+        "path": "/v1/parties",
+        "body": {
+            "name": "Test Party one",
+            "email": "test1@mail.com",
+            "mobile": "255902213124"
+        },
+        "status": 201,
+        "response": {
+            "type": "Other",
+            "phases": [
+                "Mitigation"
+            ],
+            "name": "Test Party one",
+            "locale": "en",
+            "timezone": "Africa/Abidjan",
+            "email": "test1@mail.com",
+            "mobile": "255902213124",
+            "_id": "5c1b524800d98400041df497",
+            "updatedAt": "2018-12-20T08:26:48.120Z",
+            "createdAt": "2018-12-20T08:26:48.120Z",
+            "tags": [
+                "mitigation",
+                "party",
+                "africa",
+                "abidjan",
+                "test1",
+                "mail",
+                "255902213124"
+            ]
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "Vary",
+            "X-HTTP-Method, X-HTTP-Method-Override, X-Method-Override, Accept-Encoding",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "345",
+            "Etag",
+            "W/\"159-EXK8QRQLIa8z3BQQsCBhQsnWir4\"",
+            "Date",
+            "Thu, 20 Dec 2018 08:26:48 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]

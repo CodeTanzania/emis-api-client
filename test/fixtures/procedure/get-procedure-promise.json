@@ -1,94 +1,186 @@
 [
     {
-        "scope": "https://emis-plan.herokuapp.com:443",
+        "scope": "http://emis-plan.herokuapp.com:80",
         "method": "get",
-        "path": "/v1/procedures/5c133fc4cc2b5800041795ab",
+        "path": "/v1/procedures/5c1b3dd900d98400041df47d",
         "body": "",
         "status": 200,
         "response": {
             "plan": {
                 "incidentType": {
-                    "nature": "Natural",
-                    "family": "Biological",
-                    "code": "NBAI",
-                    "name": "Animal Incident",
-                    "color": "#8997F4",
-                    "_id": "5be5733a266f3200041c7385"
+                    "nature": "Technological",
+                    "family": "Technological",
+                    "code": "TTMA",
+                    "name": "Miscellaneous Accident",
+                    "color": "#F9C0C7",
+                    "_id": "5c1766243c9d520004e2b547"
                 },
                 "boundary": {
                     "category": "Boundary",
                     "type": "Administrative",
-                    "level": "ward",
-                    "name": "Rubeho",
-                    "_id": "5bf93f39ef046000044ec966",
-                    "region": "Morogoro",
-                    "district": "Gairo"
+                    "level": "region",
+                    "name": "Dar-es-salaam",
+                    "_id": "5c17661e3c9d520004e2b480"
                 },
                 "owner": {
-                    "type": "Other",
-                    "name": "Edgar Vitus Mlowe",
-                    "title": "Ict Officer",
-                    "email": "mloweedgarvitus@gmail.com",
-                    "mobile": "255654988047",
-                    "_id": "5bea4b2a90a10a0004573f27"
+                    "type": "Committee",
+                    "name": "Ilala Disaster Committee",
+                    "title": "Disaster Committee",
+                    "email": "ilala@darmaert.org",
+                    "mobile": "255775952671",
+                    "_id": "5c17661e3c9d520004e2b4aa"
                 },
-                "description": "Possimus sed aut minima aut molestiae fuga ipsam.",
-                "publishedAt": "2018-04-21T01:25:55.881Z",
-                "_id": "5c133fc4cc2b58000417957f",
-                "updatedAt": "2018-12-14T05:29:40.666Z",
-                "createdAt": "2018-12-14T05:29:40.666Z"
+                "description": "Repellendus omnis aut in nobis eaque voluptatem magni sunt et.",
+                "publishedAt": "2018-11-07T03:46:24.168Z",
+                "_id": "5c1b3dd700d98400041df451",
+                "updatedAt": "2018-12-20T06:59:36.407Z",
+                "createdAt": "2018-12-20T06:59:36.407Z",
+                "tags": [
+                    "technological",
+                    "ttma",
+                    "miscellaneous",
+                    "accident",
+                    "boundary",
+                    "administrative",
+                    "region",
+                    "salaam",
+                    "africa",
+                    "tanzania",
+                    "committee",
+                    "mitigation",
+                    "preparedness",
+                    "response",
+                    "recovery",
+                    "ilala",
+                    "disaster",
+                    "ildc",
+                    "abidjan",
+                    "darmaert",
+                    "255775952671",
+                    "district",
+                    "ddc"
+                ]
             },
             "incidentType": {
-                "nature": "Natural",
-                "family": "Biological",
-                "code": "NBAI",
-                "name": "Animal Incident",
-                "color": "#8997F4",
-                "_id": "5be5733a266f3200041c7385"
+                "nature": "Technological",
+                "family": "Technological",
+                "code": "TTMA",
+                "name": "Miscellaneous Accident",
+                "color": "#F9C0C7",
+                "_id": "5c1766243c9d520004e2b547"
             },
             "activity": {
-                "plan": "5c133fc4cc2b58000417957f",
-                "incidentType": "5be5733a266f3200041c7385",
+                "plan": "5c1b3dd700d98400041df451",
+                "incidentType": "5c1766243c9d520004e2b547",
                 "phase": "Recovery",
-                "name": "Placeat iure suscipit similique qui ipsum.",
-                "description": "Autem ab magnam aspernatur blanditiis possimus praesentium.",
+                "name": "Rerum fuga enim culpa ut totam iste quaerat id voluptates.",
+                "description": "Maxime nihil minima est repellat.",
+                "number": 217419251449856,
                 "primary": [
-                    "5bea4b2a90a10a0004573f1f"
+                    "5c17661e3c9d520004e2b49c"
                 ],
                 "supportive": [
-                    "5bea4b2a90a10a0004573f19",
-                    "5bea4b2a90a10a0004573f21"
+                    "5c17661e3c9d520004e2b499",
+                    "5c17661e3c9d520004e2b4a1"
                 ],
-                "_id": "5c133fc4cc2b580004179595",
-                "updatedAt": "2018-12-14T05:29:40.938Z",
-                "createdAt": "2018-12-14T05:29:40.938Z"
+                "_id": "5c1b3dd800d98400041df467",
+                "updatedAt": "2018-12-20T06:59:37.795Z",
+                "createdAt": "2018-12-20T06:59:37.795Z",
+                "tags": [
+                    "technological",
+                    "ttma",
+                    "miscellaneous",
+                    "accident",
+                    "boundary",
+                    "administrative",
+                    "region",
+                    "salaam",
+                    "africa",
+                    "tanzania",
+                    "committee",
+                    "mitigation",
+                    "preparedness",
+                    "response",
+                    "recovery",
+                    "ilala",
+                    "disaster",
+                    "ildc",
+                    "abidjan",
+                    "darmaert",
+                    "255775952671",
+                    "district",
+                    "ddc",
+                    "rerum",
+                    "fuga",
+                    "enim",
+                    "culpa",
+                    "totam",
+                    "quaerat",
+                    "voluptates"
+                ]
             },
-            "phase": "Mitigation",
-            "name": "Eaque sint officiis odit quia nihil dolorum rerum consequatur.",
-            "description": "Dolor aliquam maiores.",
-            "number": 1,
+            "phase": "Response",
+            "name": "Ipsum et perferendis et vitae veniam.",
+            "description": "Nobis rerum maiores.",
+            "number": 2,
             "primary": [
                 {
-                    "name": "Ward Management Team",
-                    "description": "Ward Management Team",
-                    "_id": "5bea4b2a90a10a0004573f1d"
+                    "name": "ICT Officer",
+                    "description": "ICT Officer",
+                    "_id": "5c17661e3c9d520004e2b4a1"
                 }
             ],
             "supportive": [
                 {
-                    "name": "Region Disaster Committee",
-                    "description": "Region Disaster Committee",
-                    "_id": "5bea4b2a90a10a0004573f1c"
+                    "name": "Village Executive Officer",
+                    "description": "Village Executive Officer",
+                    "_id": "5c17661e3c9d520004e2b49a"
                 },
                 {
-                    "name": "ICT Officer",
-                    "description": "ICT Officer",
-                    "_id": "5bea4b2a90a10a0004573f1e"
+                    "name": "Village Management Team",
+                    "description": "Village Management Team",
+                    "_id": "5c17661e3c9d520004e2b49e"
                 }
             ],
-            "_id": "5c133fc4cc2b5800041795ab",
-            "updatedAt": "2018-12-14T05:29:41.436Z",
-            "createdAt": "2018-12-14T05:29:41.436Z"
+            "_id": "5c1b3dd900d98400041df47d",
+            "updatedAt": "2018-12-20T06:59:40.374Z",
+            "createdAt": "2018-12-20T06:59:40.374Z",
+            "tags": [
+                "technological",
+                "ttma",
+                "miscellaneous",
+                "accident",
+                "boundary",
+                "administrative",
+                "region",
+                "salaam",
+                "africa",
+                "tanzania",
+                "committee",
+                "mitigation",
+                "preparedness",
+                "response",
+                "recovery",
+                "ilala",
+                "disaster",
+                "ildc",
+                "abidjan",
+                "darmaert",
+                "255775952671",
+                "district",
+                "ddc",
+                "rerum",
+                "fuga",
+                "enim",
+                "culpa",
+                "totam",
+                "quaerat",
+                "voluptates",
+                "ipsum",
+                "perferendis",
+                "vitae",
+                "veniam"
+            ]
         },
         "rawHeaders": [
             "Server",
@@ -110,13 +202,13 @@
             "Content-Type",
             "application/json; charset=utf-8",
             "Content-Length",
-            "1887",
+            "2864",
             "Etag",
-            "W/\"75f-ej+EuRFPUBU5V9yMu7wZl54dBEs\"",
+            "W/\"b30-mQ/tFX+R7/X2vFTLRwK/sqtBJL4\"",
             "Vary",
             "Accept-Encoding",
             "Date",
-            "Fri, 14 Dec 2018 16:20:10 GMT",
+            "Thu, 20 Dec 2018 08:27:00 GMT",
             "Via",
             "1.1 vegur"
         ]

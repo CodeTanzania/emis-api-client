@@ -72,9 +72,9 @@ describe('Plan API Client', () => {
       .back('/plan/post-plan-promise.json', defaultOptions)
       .then(({ nockDone }) => {
         const plan = {
-          incidentType: '5be5733a266f3200041c7382',
-          boundary: '5bf93f39ef046000044ec8b5',
-          owner: '5bea4b2a90a10a0004573f25',
+          incidentType: _plan.incidentType,
+          boundary: _plan.boundary,
+          owner: _plan.owner,
           description: 'Ut harum eveniet ipsa a quod dolores vel quas enim.',
         };
 
@@ -88,7 +88,7 @@ describe('Plan API Client', () => {
           .then(nockDone);
       }));
 
-  it('should be able PUT existing plan', () =>
+  it('should be able to PUT existing plan', () =>
     nock
       .back('/plan/put-plan-promise.json', defaultOptions)
       .then(({ nockDone }) => {

@@ -1,0 +1,68 @@
+[
+    {
+        "scope": "http://emis-plan.herokuapp.com:80",
+        "method": "post",
+        "path": "/v1/roles",
+        "body": {
+            "name": "Test Role",
+            "abbreviation": "DDMC",
+            "description": "District Disaster Management Coordinator",
+            "updatedAt": "2018-12-20T06:59:29.661Z",
+            "createdAt": "2018-12-17T09:02:22.549Z",
+            "tags": [
+                "district",
+                "disaster",
+                "management",
+                "coordinator",
+                "ddmc"
+            ]
+        },
+        "status": 201,
+        "response": {
+            "name": "Test Role",
+            "abbreviation": "DDMC",
+            "description": "District Disaster Management Coordinator",
+            "_id": "5c1b624000d98400041df5f8",
+            "updatedAt": "2018-12-17T09:02:22.549Z",
+            "createdAt": "2018-12-17T09:02:22.549Z",
+            "tags": [
+                "district",
+                "disaster",
+                "management",
+                "coordinator",
+                "ddmc",
+                "role"
+            ]
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "Vary",
+            "X-HTTP-Method, X-HTTP-Method-Override, X-Method-Override, Accept-Encoding",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "282",
+            "Etag",
+            "W/\"11a-U7Txjo5ZroZ+2W7tDyZmfveyEoI\"",
+            "Date",
+            "Thu, 20 Dec 2018 09:34:56 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]

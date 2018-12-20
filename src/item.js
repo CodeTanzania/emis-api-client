@@ -75,7 +75,7 @@ export function postItem(item) {
  * @since 0.1.0
  */
 export function putItem(item) {
-  return Axios.put(`/items/${item._id}`, items); // eslint-disable-line
+  return Axios.put(`/items/${item._id}`, item); // eslint-disable-line
 }
 
 /**
@@ -89,7 +89,7 @@ export function putItem(item) {
  * @since 0.1.0
  */
 export function patchItem(item) {
-  return Axios.patch(`/items/${item._id}`, items); // eslint-disable-line
+  return Axios.patch(`/items/${item._id}`, item); // eslint-disable-line
 }
 
 /**

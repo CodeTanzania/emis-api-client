@@ -1,0 +1,113 @@
+[
+    {
+        "scope": "http://emis-plan.herokuapp.com:80",
+        "method": "get",
+        "path": "/v1/indicators?limit=5",
+        "body": "",
+        "status": 200,
+        "response": {
+            "data": [
+                {
+                    "subject": "card",
+                    "topic": "program",
+                    "description": "Aut autem fuga.",
+                    "color": "#FFDAC6",
+                    "_id": "5c1b3dce00d98400041df3fa",
+                    "updatedAt": "2018-12-20T06:59:26.627Z",
+                    "createdAt": "2018-12-20T06:59:26.627Z",
+                    "tags": [
+                        "card"
+                    ]
+                },
+                {
+                    "subject": "port",
+                    "topic": "interface",
+                    "description": "Tempore alias eos animi omnis.",
+                    "color": "#BFFF8C",
+                    "_id": "5c1b3dce00d98400041df3f9",
+                    "updatedAt": "2018-12-20T06:59:26.643Z",
+                    "createdAt": "2018-12-20T06:59:26.643Z",
+                    "tags": [
+                        "port",
+                        "interface"
+                    ]
+                },
+                {
+                    "subject": "sensor",
+                    "topic": "circuit",
+                    "description": "Aut eius quam itaque soluta autem.",
+                    "color": "#A0FFC7",
+                    "_id": "5c1b3dce00d98400041df3fb",
+                    "updatedAt": "2018-12-20T06:59:26.653Z",
+                    "createdAt": "2018-12-20T06:59:26.653Z",
+                    "tags": [
+                        "sensor",
+                        "circuit"
+                    ]
+                },
+                {
+                    "subject": "card",
+                    "topic": "alarm",
+                    "description": "Voluptatem porro dolore expedita unde velit sunt totam dolor.",
+                    "color": "#FCD780",
+                    "_id": "5c1b3dce00d98400041df3f8",
+                    "updatedAt": "2018-12-20T06:59:26.663Z",
+                    "createdAt": "2018-12-20T06:59:26.663Z",
+                    "tags": [
+                        "card",
+                        "alarm"
+                    ]
+                },
+                {
+                    "subject": "matrix",
+                    "topic": "system",
+                    "description": "Dolorum voluptas consequatur magnam aut est et tempora.",
+                    "color": "#CEED7B",
+                    "_id": "5c1b3dce00d98400041df3fc",
+                    "updatedAt": "2018-12-20T06:59:26.671Z",
+                    "createdAt": "2018-12-20T06:59:26.671Z",
+                    "tags": [
+                        "matrix"
+                    ]
+                }
+            ],
+            "total": 5,
+            "size": 5,
+            "limit": 5,
+            "skip": 0,
+            "page": 1,
+            "pages": 1,
+            "lastModified": "2018-12-20T06:59:26.671Z"
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "1336",
+            "Etag",
+            "W/\"538-AEzOO1kRVygnusdHJbM/nqA44wU\"",
+            "Vary",
+            "Accept-Encoding",
+            "Date",
+            "Thu, 20 Dec 2018 08:26:39 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]
