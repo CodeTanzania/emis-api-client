@@ -25,6 +25,42 @@ For Node application(commonjs)
 const { getPlanSchema } = require('@codetanzania/emis-api-client');
 ```
 
+### Filtering results
+
+For filtering or searching data from the API you need to pass param object into the get methods e.g
+
+- Limit returned results
+
+```js
+getPlans({ limit: 5 })
+  .then(results => {})
+  .catch(error => {});
+```
+
+- Search using a keyword
+
+```js
+getAlerts({ q: 'Warning' })
+  .then(results => {})
+  .catch(error => {});
+```
+
+- Filtering using properties
+
+i.e Filtering plans which have incident type with `ObjectID` and are in specified boundary which object id(s) in array after `$in` operator.
+
+```js
+getPlans({ filter: { incidentType: ObjectID, boundary: { $in: [] } } })
+  .then(results => {
+    // continue here
+  })
+  .catch(() => {
+    // handle error here
+  });
+```
+
+Param object supports all [mongodb operators](https://docs.mongodb.com/manual/reference/operator/query/) ($regex, $gt, $gte, $lt, $lte, $ne, $in, etc.)
+
 > Note API URL will be picked from environment variable. This client reads process.env.REACT_APP_EMIS_API_URL or process.env.EMIS_API_URL
 
 ## Testing
@@ -33,9 +69,11 @@ If you want to test this library,
 
 - first clone this repo
 - Install all dependencies
+
   ```sh
   npm install
   ```
+
 - Run test
   ```sh
   npm test
@@ -56,3 +94,11 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+```
+
+```
+
+```
+
+```
