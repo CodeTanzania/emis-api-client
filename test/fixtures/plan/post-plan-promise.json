@@ -2,7 +2,7 @@
     {
         "scope": "http://emis-plan.herokuapp.com:80",
         "method": "post",
-        "path": "/v1/plans/",
+        "path": "/v1/plans",
         "body": {
             "incidentType": {
                 "nature": "Natural",

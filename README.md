@@ -16,13 +16,14 @@ npm install --save @codetanzani/emis-api-client
 For React application and ES6 usage
 
 ```js
-import { getPlanSchema } from '@codetanzania/emis-api-client';
+import client from '@codetanzania/emis-api-client';
+const { getPlanSchema } = client;
 ```
 
 For Node application(commonjs)
 
 ```js
-const { getPlanSchema } = require('@codetanzania/emis-api-client');
+const { getPlanSchema } = require('@codetanzania/emis-api-client').default;
 ```
 
 ### Filtering results
@@ -94,11 +95,3 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-```
-
-```
-
-```
-
-```

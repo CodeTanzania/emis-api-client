@@ -12,9 +12,7 @@
   "env": {
     "commonjs": {
       "plugins": [
-        ["@babel/plugin-transform-modules-commonjs", {
-          "strict": true,
-        }]
+        ["@babel/plugin-transform-modules-commonjs", {}]
       ]
     }
   }

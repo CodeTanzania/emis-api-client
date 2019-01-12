@@ -1,7 +1,7 @@
 [
     {
         "scope": "http://emis-plan.herokuapp.com:80",
-        "method": "put",
+        "method": "patch",
         "path": "/v1/activities/5c1b3dd800d98400041df466",
         "body": {
             "plan": {

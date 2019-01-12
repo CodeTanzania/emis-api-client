@@ -1,18 +1,47 @@
-export * from './activity';
-export * from './adjustment';
-export * from './alert';
-export * from './assessment';
-export * from './feature';
-export * from './incidenttype';
-export * from './indicator';
-export * from './item';
-export * from './party';
-export * from './permission';
-export * from './plan';
-export * from './procedure';
-export * from './question';
-export * from './questionnaire';
-export * from './role';
-export * from './stakeholder';
-export * from './stock';
-export * from './warehouse';
+import { forEach, merge } from 'lodash';
+import { get, post, put, patch, del, createHttpActionsFor } from './client';
+
+/**
+ * @name resources
+ * @description list of available api resource(or api endpoints)
+ * @type {Array}
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+const resources = [
+  'activity',
+  'adjustment',
+  'alert',
+  'assessment',
+  'feature',
+  'incidenttype',
+  'indicator',
+  'item',
+  'party',
+  'permission',
+  'plan',
+  'procedure',
+  'question',
+  'questionnaire',
+  'role',
+  'stock',
+  'warehouse',
+];
+
+/**
+ * @name actions
+ * @description resource shortcut actions
+ * @type {Object}
+ * @version 0.1.0
+ * @since 0.1.0
+ * @public
+ * @example
+ * import { getPlans } from 'emis-api-client';
+ * getPlans().then(plans => { ... }).catch(error => { ... });
+ */
+const actions = { get, post, put, patch, del };
+forEach(resources, resource => {
+  const resourceActions = createHttpActionsFor(resource);
+  merge(actions, resourceActions);
+});
+export default { resources, ...actions };
