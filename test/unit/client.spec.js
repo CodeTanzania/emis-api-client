@@ -1,3 +1,5 @@
+// jest: see https://flaviocopes.com/jest/
+import nock from 'nock';
 import { expect } from 'chai';
 import {
   CONTENT_TYPE,
@@ -9,7 +11,6 @@ import {
   patch,
   del
 } from '../../src/client';
-const contentType = 'application/json';
 
 describe('http client', () => {
 
@@ -70,6 +71,23 @@ describe('http client', () => {
     expect(created).to.exist;
     const disposed = disposeHttpClient();
     expect(disposed).to.not.exist;
+  });
+
+  it('should handle http get requests', (done) => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+    const data = { data: [] };
+    nock(baseUrl).get('/users').reply(200, data);
+    get('/users')
+      .then(response => {
+        expect(response).to.exist;
+        expect(response.data).to.exist;
+        expect(response.data).to.be.eql(data);
+        done(null, data);
+      })
+      .catch(error => {
+        done(error);
+      });
   });
 
   it('should export http actions shortcuts', () => {

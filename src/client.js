@@ -55,7 +55,30 @@ export const disposeHttpClient = () => {
   return client;
 };
 
-export const get = (url, params) => client.get(url, { params });
+/**
+ * @function get
+ * @name get
+ * @description issue http get request to specified url.
+ * @param {String} url valid http path.
+ * @param {Object} [params] params that will be encoded into url query params.
+ * @return {Promise} promise resolve with data on success or error on failure.
+ * @since 0.1.0
+ * @version 0.1.0
+ * @example
+ * import { get } from 'emis-api-client';
+ *
+ * // list
+ * const getUsers = get('/users', { age: { $in: [1, 2] } });
+ * getUsers.then(users => { ... }).catch(error => { ... });
+ *
+ * // single
+ * const getUser = get('/users/12');
+ * getUser.then(user => { ... }).catch(error => { ... });
+ */
+export const get = (url, params) => {
+  const httpClient = createHttpClient();
+  return httpClient.get(url, { params });
+};
 
 export const post = (url, data) => client.post(url, data);
 
