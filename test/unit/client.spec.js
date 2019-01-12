@@ -122,9 +122,9 @@ describe('http client', () => {
     const baseUrl = 'https://api.emis.io/v1';
     process.env.EMIS_API_URL = baseUrl;
     const data = {};
-    nock(baseUrl).get('/users/121212').reply(200, data);
+    nock(baseUrl).get('/users/5c1766243c9d520004e2b542').reply(200, data);
 
-    get('/users/121212')
+    get('/users/5c1766243c9d520004e2b542')
       .then(response => {
         expect(response).to.exist;
         expect(response.data).to.exist;
@@ -142,7 +142,7 @@ describe('http client', () => {
     const data = {};
     nock(baseUrl).post('/users').reply(201, data);
 
-    post('/users')
+    post('/users', { age: 11 })
       .then(response => {
         expect(response).to.exist;
         expect(response.data).to.exist;
@@ -151,6 +151,84 @@ describe('http client', () => {
       })
       .catch(error => {
         done(error);
+      });
+  });
+
+  it('should reject http post on /resource if no payload', (done) => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+    const data = {};
+    nock(baseUrl).post('/users').reply(201, data);
+
+    post('/users', {})
+      .catch(error => {
+        expect(error).to.exist;
+        expect(error.message).to.be.equal('Missing Payload');
+        done();
+      });
+  });
+
+  it('should handle http put on /resource/:id', (done) => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+    const data = {};
+    nock(baseUrl).put('/users/5c1766243c9d520004e2b542').reply(200, data);
+
+    put('/users/5c1766243c9d520004e2b542', { age: 11 })
+      .then(response => {
+        expect(response).to.exist;
+        expect(response.data).to.exist;
+        expect(response.data).to.be.eql(data);
+        done(null, data);
+      })
+      .catch(error => {
+        done(error);
+      });
+  });
+
+  it('should reject http put on /resource/:id if no payload', (done) => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+    const data = {};
+    nock(baseUrl).put('/users/5c1766243c9d520004e2b542').reply(200, data);
+
+    put('/users/5c1766243c9d520004e2b542', {})
+      .catch(error => {
+        expect(error).to.exist;
+        expect(error.message).to.be.equal('Missing Payload');
+        done();
+      });
+  });
+
+  it('should handle http patch on /resource/:id', (done) => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+    const data = {};
+    nock(baseUrl).patch('/users/5c1766243c9d520004e2b542').reply(200, data);
+
+    patch('/users/5c1766243c9d520004e2b542', { age: 11 })
+      .then(response => {
+        expect(response).to.exist;
+        expect(response.data).to.exist;
+        expect(response.data).to.be.eql(data);
+        done(null, data);
+      })
+      .catch(error => {
+        done(error);
+      });
+  });
+
+  it('should reject http patch on /resource/:id if no payload', (done) => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+    const data = {};
+    nock(baseUrl).patch('/users/5c1766243c9d520004e2b542').reply(200, data);
+
+    patch('/users/5c1766243c9d520004e2b542', {})
+      .catch(error => {
+        expect(error).to.exist;
+        expect(error.message).to.be.equal('Missing Payload');
+        done();
       });
   });
 

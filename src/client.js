@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { toLower, upperFirst } from 'lodash';
+import { isEmpty, toLower, upperFirst } from 'lodash';
 import { singularize, pluralize } from 'inflection';
 
 // default http client
@@ -97,12 +97,57 @@ export const get = (url, params) => {
  */
 export const post = (url, data) => {
   const httpClient = createHttpClient();
+  if (isEmpty(data)) {
+    return Promise.reject(new Error('Missing Payload'));
+  }
   return httpClient.post(url, data);
 };
 
-export const put = (url, data) => client.put(url, data);
+/**
+ * @function put
+ * @name put
+ * @description issue http put request to specified url.
+ * @param {String} url valid http path.
+ * @param {Object} data request payload to be encoded on http request body
+ * @return {Promise} promise resolve with data on success or error on failure.
+ * @since 0.1.0
+ * @version 0.1.0
+ * @example
+ * import { put } from 'emis-api-client';
+ *
+ * const putUser = put('/users/5c1766243c9d520004e2b542', { age: 11 });
+ * putUser.then(user => { ... }).catch(error => { ... });
+ */
+export const put = (url, data) => {
+  const httpClient = createHttpClient();
+  if (isEmpty(data)) {
+    return Promise.reject(new Error('Missing Payload'));
+  }
+  return httpClient.put(url, data);
+};
 
-export const patch = (url, data) => client.patch(url, data);
+/**
+ * @function patch
+ * @name patch
+ * @description issue http patch request to specified url.
+ * @param {String} url valid http path.
+ * @param {Object} data request payload to be encoded on http request body
+ * @return {Promise} promise resolve with data on success or error on failure.
+ * @since 0.1.0
+ * @version 0.1.0
+ * @example
+ * import { patch } from 'emis-api-client';
+ *
+ * const patchUser = patch('/users/5c1766243c9d520004e2b542', { age: 10 });
+ * patchUser.then(user => { ... }).catch(error => { ... });
+ */
+export const patch = (url, data) => {
+  const httpClient = createHttpClient();
+  if (isEmpty(data)) {
+    return Promise.reject(new Error('Missing Payload'));
+  }
+  return httpClient.patch(url, data);
+};
 
 export const del = url => client.delete(url);
 
