@@ -26,7 +26,7 @@ describe('http client', () => {
     expect(createHttpClient.length).to.be.equal(1);
   });
 
-  it('should be able to create http client use `env.EMIS_API_URL`', () => {
+  it('should create http client use `env.EMIS_API_URL`', () => {
     const baseUrl = 'https://api.emis.app';
     process.env.EMIS_API_URL = baseUrl;
     const client = createHttpClient(baseUrl);
@@ -36,7 +36,7 @@ describe('http client', () => {
     expect(client.defaults.baseURL).to.be.equal(baseUrl);
   });
 
-  it('should be able to create http client use `env.REACT_APP_EMIS_API_URL`', () => {
+  it('should create http client use `env.REACT_APP_EMIS_API_URL`', () => {
     const baseUrl = 'https://api.emis.dev';
     process.env.REACT_APP_EMIS_API_URL = baseUrl;
     const client = createHttpClient(baseUrl);
@@ -46,13 +46,22 @@ describe('http client', () => {
     expect(client.defaults.baseURL).to.be.equal(baseUrl);
   });
 
-  it('should be able to create http client from params', () => {
+  it('should create http client from params', () => {
     const baseUrl = 'https://api.emis.io';
     const client = createHttpClient(baseUrl);
     expect(client).to.exist;
     expect(client.defaults.headers.Accept).to.be.equal(CONTENT_TYPE);
     expect(client.defaults.headers['Content-Type']).to.be.equal(CONTENT_TYPE);
     expect(client.defaults.baseURL).to.be.equal(baseUrl);
+  });
+
+  it('should not re-create http client', () => {
+    const baseUrl = 'https://api.emis.io';
+    const first = createHttpClient(baseUrl);
+    const second = createHttpClient(baseUrl);
+    expect(first).to.exist;
+    expect(second).to.exist;
+    expect(first.id === second.id).to.be.true;
   });
 
   it('should export http actions shortcuts', () => {
