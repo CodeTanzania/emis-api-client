@@ -96,10 +96,10 @@ export const get = (url, params) => {
  * postUser.then(user => { ... }).catch(error => { ... });
  */
 export const post = (url, data) => {
-  const httpClient = createHttpClient();
   if (isEmpty(data)) {
     return Promise.reject(new Error('Missing Payload'));
   }
+  const httpClient = createHttpClient();
   return httpClient.post(url, data);
 };
 
@@ -119,10 +119,10 @@ export const post = (url, data) => {
  * putUser.then(user => { ... }).catch(error => { ... });
  */
 export const put = (url, data) => {
-  const httpClient = createHttpClient();
   if (isEmpty(data)) {
     return Promise.reject(new Error('Missing Payload'));
   }
+  const httpClient = createHttpClient();
   return httpClient.put(url, data);
 };
 
@@ -142,10 +142,10 @@ export const put = (url, data) => {
  * patchUser.then(user => { ... }).catch(error => { ... });
  */
 export const patch = (url, data) => {
-  const httpClient = createHttpClient();
   if (isEmpty(data)) {
     return Promise.reject(new Error('Missing Payload'));
   }
+  const httpClient = createHttpClient();
   return httpClient.patch(url, data);
 };
 
