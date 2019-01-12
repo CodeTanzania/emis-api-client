@@ -10,7 +10,24 @@ import {
   put,
   patch,
   del,
-  createHttpActionsFor
+  createHttpActionsFor,
+  getActivitySchema,
+  getAdjustmentSchema,
+  getAlertSchema,
+  getAssessmentSchema,
+  getFeatureSchema,
+  getIncidentTypeSchema,
+  getIndicatorSchema,
+  getItemSchema,
+  getPartySchema,
+  getPermissionSchema,
+  getPlanSchema,
+  getProcedureSchema,
+  getQuestionSchema,
+  getQuestionnaireSchema,
+  getRoleSchema,
+  getStockSchema,
+  getWarehouseSchema
 } from '../../src';
 
 describe('http client', () => {
@@ -295,6 +312,27 @@ describe('http client', () => {
     expect(deleteUser).to.be.a('function');
     expect(deleteUser.name).to.be.equal('deleteUser');
     expect(deleteUser.length).to.be.be.equal(1);
+  });
+
+  it('should export EMIS resource http action shortcuts', () => {
+    expect(createHttpActionsFor).to.exist;
+    expect(getActivitySchema).to.exist;
+    expect(getAdjustmentSchema).to.exist;
+    expect(getAlertSchema).to.exist;
+    expect(getAssessmentSchema).to.exist;
+    expect(getFeatureSchema).to.exist;
+    expect(getIncidentTypeSchema).to.exist;
+    expect(getIndicatorSchema).to.exist;
+    expect(getItemSchema).to.exist;
+    expect(getPartySchema).to.exist;
+    expect(getPermissionSchema).to.exist;
+    expect(getPlanSchema).to.exist;
+    expect(getProcedureSchema).to.exist;
+    expect(getQuestionSchema).to.exist;
+    expect(getQuestionnaireSchema).to.exist;
+    expect(getRoleSchema).to.exist;
+    expect(getStockSchema).to.exist;
+    expect(getWarehouseSchema).to.exist;
   });
 
   beforeEach(() => {

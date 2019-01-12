@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { isEmpty, camelCase, get as value } from 'lodash';
+import { isEmpty, camelCase, toLower as low, get as value } from 'lodash';
 import { singularize, pluralize } from 'inflection';
 
 // default http client
@@ -193,13 +193,14 @@ export const createHttpActionsFor = resource => {
   const singular = singularize(resource);
   const plural = pluralize(resource);
   const httpActions = {
-    [fn('get', singular, 'Schema')]: () => get(`/${plural}/schema`),
-    [fn('get', plural)]: params => get(`/${plural}`, params),
-    [fn('get', singular)]: id => get(`/${plural}/${id}`),
-    [fn('post', singular)]: data => post(`/${plural}`, data),
-    [fn('put', singular)]: data => put(`/${plural}/${idOf(data)}`, data),
-    [fn('patch', singular)]: data => patch(`/${plural}/${idOf(data)}`, data),
-    [fn('delete', singular)]: id => del(`/${plural}/${id}`),
+    [fn('get', singular, 'Schema')]: () => get(`/${low(plural)}/schema`),
+    [fn('get', plural)]: params => get(`/${low(plural)}`, params),
+    [fn('get', singular)]: id => get(`/${low(plural)}/${id}`),
+    [fn('post', singular)]: data => post(`/${low(plural)}`, data),
+    [fn('put', singular)]: data => put(`/${low(plural)}/${idOf(data)}`, data),
+    [fn('patch', singular)]: data =>
+      patch(`/${low(plural)}/${idOf(data)}`, data),
+    [fn('delete', singular)]: id => del(`/${low(plural)}/${id}`),
   };
   return httpActions;
 };

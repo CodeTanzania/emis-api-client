@@ -1,5 +1,5 @@
 {
-  "name": "emis-api-client",
+  "name": "@codetanzania/emis-api-client",
   "version": "0.1.0",
   "description": "API client for Emergency Management Information System(EMIS)",
   "main": "./lib/index.js",
@@ -22,13 +22,11 @@
     "emis-api",
     "emis-api-client"
   ],
-  "contributors": [
-    {
-      "name": "Benson Maruchu",
-      "email": "benmaruchu@gmail.com",
-      "url": "https://github.com/BenMaruchu"
-    }
-  ],
+  "contributors": [{
+    "name": "Benson Maruchu",
+    "email": "benmaruchu@gmail.com",
+    "url": "https://github.com/BenMaruchu"
+  }],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/CodeTanzania/emis-api-client/issues"
