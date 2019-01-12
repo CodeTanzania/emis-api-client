@@ -232,6 +232,24 @@ describe('http client', () => {
       });
   });
 
+  it('should handle http delete on /resource/:id', (done) => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+    const data = {};
+    nock(baseUrl).delete('/users/5c1766243c9d520004e2b542').reply(200, data);
+
+    del('/users/5c1766243c9d520004e2b542')
+      .then(response => {
+        expect(response).to.exist;
+        expect(response.data).to.exist;
+        expect(response.data).to.be.eql(data);
+        done(null, data);
+      })
+      .catch(error => {
+        done(error);
+      });
+  });
+
   beforeEach(() => {
     delete process.env.EMIS_API_URL;
     delete process.env.REACT_APP_EMIS_API_URL;

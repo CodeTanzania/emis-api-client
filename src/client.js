@@ -149,7 +149,24 @@ export const patch = (url, data) => {
   return httpClient.patch(url, data);
 };
 
-export const del = url => client.delete(url);
+/**
+ * @function del
+ * @name del
+ * @description issue http delete request to specified url.
+ * @param {String} url valid http path.
+ * @return {Promise} promise resolve with data on success or error on failure.
+ * @since 0.1.0
+ * @version 0.1.0
+ * @example
+ * import { del } from 'emis-api-client';
+ *
+ * const deleteUser = del('/users/5c1766243c9d520004e2b542');
+ * deleteUser.then(user => { ... }).catch(error => { ... });
+ */
+export const del = url => {
+  const httpClient = createHttpClient();
+  return httpClient.delete(url);
+};
 
 export function createHttpActionsFor(resource) {
   const _upperFirst = v => upperFirst(toLower(v)); //eslint-disable-line
