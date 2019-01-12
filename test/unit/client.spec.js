@@ -73,12 +73,31 @@ describe('http client', () => {
     expect(disposed).to.not.exist;
   });
 
-  it('should handle http get requests', (done) => {
+  it('should handle http get on /resource', (done) => {
     const baseUrl = 'https://api.emis.io/v1';
     process.env.EMIS_API_URL = baseUrl;
     const data = { data: [] };
     nock(baseUrl).get('/users').reply(200, data);
+
     get('/users')
+      .then(response => {
+        expect(response).to.exist;
+        expect(response.data).to.exist;
+        expect(response.data).to.be.eql(data);
+        done(null, data);
+      })
+      .catch(error => {
+        done(error);
+      });
+  });
+
+  it('should handle http get on /resource/:id', (done) => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+    const data = {};
+    nock(baseUrl).get('/users/121212').reply(200, data);
+
+    get('/users/121212')
       .then(response => {
         expect(response).to.exist;
         expect(response.data).to.exist;
