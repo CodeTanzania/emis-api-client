@@ -15,14 +15,34 @@ npm install --save @codetanzani/emis-api-client
 For React application and ES6 usage
 
 ```js
-import { getPlans } from '@codetanzania/emis-api-client';
+import {
+  getPlans,
+  getPlan,
+  postPlan,
+  putPlan,
+  patchPlan,
+  deletePlan
+} from '@codetanzania/emis-api-client';
+
 getPlans().then(plans => { ... }).catch(error => { ... });
+
+getPlan('5c1766243c9d520004e2b542').then(plan => { ... }).catch(error => { ... });
+
+postPlan({ description: 'Voluptas' }).then(plan => { ... }).catch(error => { ... });
+
+putPlan({ _id: '5c1766243c9d520004e2b542', description: 'Voluptas' })
+  .then(plan => { ... }).catch(error => { ... });
+
+patchPlan({ _id: '5c1766243c9d520004e2b542', description: 'Voluptas' })
+  .then(plan => { ... }).catch(error => { ... });
+
+deletePlan('5c1766243c9d520004e2b542').then(plan => { ... }).catch(error => { ... });
 ```
 
 For Node application(commonjs)
 
 ```js
-const { getPlans } = require('@codetanzania/emis-api-client').default;
+const { getPlans } = require('@codetanzania/emis-api-client');
 getPlans().then(plans => { ... }).catch(error => { ... });
 ```
 
