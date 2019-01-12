@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { isEmpty, toLower, upperFirst } from 'lodash';
+import { isEmpty, camelCase, get as value } from 'lodash';
 import { singularize, pluralize } from 'inflection';
 
 // default http client
@@ -168,20 +168,38 @@ export const del = url => {
   return httpClient.delete(url);
 };
 
-export function createHttpActionsFor(resource) {
-  const _upperFirst = v => upperFirst(toLower(v)); //eslint-disable-line
+// create dynamic camelized function name
+const fn = (...name) => camelCase([...name].join(' '));
+
+// get resource id from payload
+const idOf = data => value(data, '_id') || value(data, 'id');
+
+/**
+ * @function createHttpActionsFor
+ * @name createHttpActionsFor
+ * @description generate name http action shortcut to interact with resource
+ * @param {String} resource valid http resource.
+ * @return {Object} http actions to interact with a resource
+ * @since 0.1.0
+ * @version 0.1.0
+ * @example
+ * import { createHttpActionsFor } from 'emis-api-client';
+ *
+ * const { deleteUser } = createHttpActionsFor('user');
+ * const deleteUser = del('/users/5c1766243c9d520004e2b542');
+ * deleteUser.then(user => { ... }).catch(error => { ... });
+ */
+export const createHttpActionsFor = resource => {
   const singular = singularize(resource);
-  const _singular = _upperFirst(singular); //eslint-disable-line 
   const plural = pluralize(resource);
-  const _plural = _upperFirst(plural); //eslint-disable-line 
-  const _resource = { //eslint-disable-line
-    [`get${_singular}Schema`]: () => get(`/${plural}/schema`),
-    [`get${_plural}`]: params => get(`/${plural}`, params),
-    [`get${_singular}`]: id => get(`/${plural}/${id}`),
-    [`post${_singular}`]: data => post(`/${plural}`, data),
-    [`put${_singular}`]: data => put(`/${plural}/${data._id}`, data), //eslint-disable-line
-    [`patch${_singular}`]: data => patch(`/${plural}/${data._id}`, data), //eslint-disable-line
-    [`delete${_singular}`]: _id => del(`/${plural}/${_id}`),
+  const httpActions = {
+    [fn('get', singular, 'Schema')]: () => get(`/${plural}/schema`),
+    [fn('get', plural)]: params => get(`/${plural}`, params),
+    [fn('get', singular)]: id => get(`/${plural}/${id}`),
+    [fn('post', singular)]: data => post(`/${plural}`, data),
+    [fn('put', singular)]: data => put(`/${plural}/${idOf(data)}`, data),
+    [fn('patch', singular)]: data => patch(`/${plural}/${idOf(data)}`, data),
+    [fn('delete', singular)]: id => del(`/${plural}/${id}`),
   };
-  return _resource; //eslint-disable-line
-}
+  return httpActions;
+};

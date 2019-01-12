@@ -9,8 +9,9 @@ import {
   post,
   put,
   patch,
-  del
-} from '../../src/client';
+  del,
+  createHttpActionsFor
+} from '../../src';
 
 describe('http client', () => {
 
@@ -248,6 +249,52 @@ describe('http client', () => {
       .catch(error => {
         done(error);
       });
+  });
+
+  it('should create named http actions for a resource', () => {
+    const {
+      getUserSchema,
+      getUsers,
+      getUser,
+      postUser,
+      putUser,
+      patchUser,
+      deleteUser
+    } = createHttpActionsFor('user');
+    expect(getUserSchema).to.exist;
+    expect(getUserSchema).to.be.a('function');
+    expect(getUserSchema.name).to.be.equal('getUserSchema');
+    expect(getUserSchema.length).to.be.be.equal(0);
+
+    expect(getUsers).to.exist;
+    expect(getUsers).to.be.a('function');
+    expect(getUsers.name).to.be.equal('getUsers');
+    expect(getUsers.length).to.be.be.equal(1);
+
+    expect(getUser).to.exist;
+    expect(getUser).to.be.a('function');
+    expect(getUser.name).to.be.equal('getUser');
+    expect(getUser.length).to.be.be.equal(1);
+
+    expect(postUser).to.exist;
+    expect(postUser).to.be.a('function');
+    expect(postUser.name).to.be.equal('postUser');
+    expect(postUser.length).to.be.be.equal(1);
+
+    expect(putUser).to.exist;
+    expect(putUser).to.be.a('function');
+    expect(putUser.name).to.be.equal('putUser');
+    expect(putUser.length).to.be.be.equal(1);
+
+    expect(patchUser).to.exist;
+    expect(patchUser).to.be.a('function');
+    expect(patchUser.name).to.be.equal('patchUser');
+    expect(patchUser.length).to.be.be.equal(1);
+
+    expect(deleteUser).to.exist;
+    expect(deleteUser).to.be.a('function');
+    expect(deleteUser.name).to.be.equal('deleteUser');
+    expect(deleteUser.length).to.be.be.equal(1);
   });
 
   beforeEach(() => {
