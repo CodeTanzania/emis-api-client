@@ -27,7 +27,13 @@ import {
   getQuestionnaireSchema,
   getRoleSchema,
   getStockSchema,
-  getWarehouseSchema
+  getWarehouseSchema,
+  getPlans,
+  getPlan,
+  postPlan,
+  putPlan,
+  patchPlan,
+  deletePlan,
 } from '../../src';
 
 describe('http client', () => {
@@ -333,6 +339,108 @@ describe('http client', () => {
     expect(getRoleSchema).to.exist;
     expect(getStockSchema).to.exist;
     expect(getWarehouseSchema).to.exist;
+  });
+
+  it('should handle http get on /resource use generated actions', (done) => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+    const data = { data: [] };
+    nock(baseUrl).get('/plans').reply(200, data);
+
+    getPlans()
+      .then(plans => {
+        expect(plans).to.exist;
+        expect(plans).to.be.eql(data);
+        done(null, data);
+      })
+      .catch(error => {
+        done(error);
+      });
+  });
+
+  it('should handle http get on /resource/:id use generated actions', (done) => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+    const data = {};
+    nock(baseUrl).get('/plans/5c1766243c9d520004e2b542').reply(200, data);
+
+    getPlan('5c1766243c9d520004e2b542')
+      .then(plan => {
+        expect(plan).to.exist;
+        expect(plan).to.be.eql(data);
+        done(null, data);
+      })
+      .catch(error => {
+        done(error);
+      });
+  });
+
+  it('should handle http post on /resource use generated actions', (done) => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+    const data = {};
+    nock(baseUrl).post('/plans').reply(201, data);
+
+    postPlan({ description: 'Voluptas' })
+      .then(plan => {
+        expect(plan).to.exist;
+        expect(plan).to.be.eql(data);
+        done(null, data);
+      })
+      .catch(error => {
+        done(error);
+      });
+  });
+
+  it('should handle http put on /resource/:id use generated actions', (done) => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+    const data = {};
+    nock(baseUrl).put('/plans/5c1766243c9d520004e2b542').reply(200, data);
+
+    putPlan({ _id: '5c1766243c9d520004e2b542', description: 'Voluptas' })
+      .then(plan => {
+        expect(plan).to.exist;
+        expect(plan).to.be.eql(data);
+        done(null, data);
+      })
+      .catch(error => {
+        done(error);
+      });
+  });
+
+  it('should handle http patch on /resource/:id use generated actions', (done) => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+    const data = {};
+    nock(baseUrl).patch('/plans/5c1766243c9d520004e2b542').reply(200, data);
+
+    patchPlan({ _id: '5c1766243c9d520004e2b542', description: 'Voluptas' })
+      .then(plan => {
+        expect(plan).to.exist;
+        expect(plan).to.be.eql(data);
+        done(null, data);
+      })
+      .catch(error => {
+        done(error);
+      });
+  });
+
+  it('should handle http delete on /resource/:id use generated actions', (done) => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+    const data = {};
+    nock(baseUrl).delete('/plans/5c1766243c9d520004e2b542').reply(200, data);
+
+    deletePlan('5c1766243c9d520004e2b542')
+      .then(plan => {
+        expect(plan).to.exist;
+        expect(plan).to.be.eql(data);
+        done(null, data);
+      })
+      .catch(error => {
+        done(error);
+      });
   });
 
   beforeEach(() => {
