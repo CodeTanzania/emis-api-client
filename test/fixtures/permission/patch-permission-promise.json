@@ -1,0 +1,64 @@
+[
+    {
+        "scope": "http://emis-plan.herokuapp.com:80",
+        "method": "put",
+        "path": "/v1/permissions/5c17661c3c9d520004e2b3da",
+        "body": {
+            "resource": "Permission",
+            "action": "delete",
+            "description": "This is the patched Permission",
+            "wildcard": "permission:delete",
+            "_id": "5c17661c3c9d520004e2b3da",
+            "updatedAt": "2018-12-20T06:59:27.452Z",
+            "createdAt": "2018-12-17T09:02:20.370Z",
+            "tags": [
+                "permission",
+                "delete"
+            ]
+        },
+        "status": 200,
+        "response": {
+            "resource": "Permission",
+            "action": "delete",
+            "description": "This is the patched Permission",
+            "wildcard": "permission:delete",
+            "_id": "5c17661c3c9d520004e2b3da",
+            "updatedAt": "2018-12-20T08:26:53.382Z",
+            "createdAt": "2018-12-17T09:02:20.370Z",
+            "tags": [
+                "permission",
+                "delete"
+            ]
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "263",
+            "Etag",
+            "W/\"107-f9nnDdATAA+4xx1nNWXUjd+IBe8\"",
+            "Vary",
+            "Accept-Encoding",
+            "Date",
+            "Thu, 20 Dec 2018 08:26:53 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]

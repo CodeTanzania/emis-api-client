@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "http://emis-plan.herokuapp.com:80",
+        "method": "get",
+        "path": "/v1/indicators/5c1b3dce00d98400041df3fa",
+        "body": "",
+        "status": 200,
+        "response": {
+            "subject": "card",
+            "topic": "program",
+            "description": "Aut autem fuga.",
+            "color": "#FFDAC6",
+            "_id": "5c1b3dce00d98400041df3fa",
+            "updatedAt": "2018-12-20T06:59:26.627Z",
+            "createdAt": "2018-12-20T06:59:26.627Z",
+            "tags": [
+                "card"
+            ]
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "213",
+            "Etag",
+            "W/\"d5-EzfvASj7+OOEkqO632GsVdaFx1I\"",
+            "Vary",
+            "Accept-Encoding",
+            "Date",
+            "Thu, 20 Dec 2018 08:26:40 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]

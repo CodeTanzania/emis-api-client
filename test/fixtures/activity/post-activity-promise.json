@@ -1,0 +1,58 @@
+[
+    {
+        "scope": "http://emis-plan.herokuapp.com:80",
+        "method": "post",
+        "path": "/v1/activities",
+        "body": {
+            "plan": "5c1b3dd700d98400041df450",
+            "incidentType": "5c1766243c9d520004e2b542",
+            "name": "Test Incident",
+            "description": "Ut harum eveniet ipsa a quod dolores vel quas enim."
+        },
+        "status": 201,
+        "response": {
+            "plan": "5c1b3dd700d98400041df450",
+            "incidentType": "5c1766243c9d520004e2b542",
+            "phase": "Mitigation",
+            "name": "Test Incident",
+            "description": "Ut harum eveniet ipsa a quod dolores vel quas enim.",
+            "_id": "5c1b522e00d98400041df47e",
+            "updatedAt": "2018-12-20T08:26:22.028Z",
+            "createdAt": "2018-12-20T08:26:22.028Z",
+            "tags": [
+                "mitigation",
+                "incident"
+            ]
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "Vary",
+            "X-HTTP-Method, X-HTTP-Method-Override, X-Method-Override, Accept-Encoding",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "333",
+            "Etag",
+            "W/\"14d-Sv98SuYuzb9jREvyYis7Gpnr6mU\"",
+            "Date",
+            "Thu, 20 Dec 2018 08:26:22 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]

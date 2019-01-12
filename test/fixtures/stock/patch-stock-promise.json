@@ -1,0 +1,171 @@
+[
+    {
+        "scope": "http://emis-plan.herokuapp.com:80",
+        "method": "put",
+        "path": "/v1/stocks/5c1766203c9d520004e2b4e7",
+        "body": {
+            "store": {
+                "category": "Building",
+                "type": "Warehouse",
+                "name": "Lindi",
+                "_id": "5c17661e3c9d520004e2b475"
+            },
+            "owner": {
+                "name": "Nancy Victor",
+                "email": "navish45@gmail.com",
+                "mobile": "255782120252",
+                "_id": "5c17661e3c9d520004e2b4a5"
+            },
+            "item": {
+                "type": "Other",
+                "code": "PK",
+                "name": "PERSONAL KIT",
+                "color": "#D72E29",
+                "_id": "5c17661f3c9d520004e2b4bc"
+            },
+            "quantity": 982,
+            "minAllowed": 10,
+            "maxAllowed": 10,
+            "_id": "5c1766203c9d520004e2b4e7",
+            "updatedAt": "2018-12-20T06:59:32.389Z",
+            "createdAt": "2018-12-17T09:02:25.543Z",
+            "tags": [
+                "building",
+                "warehouse",
+                "region",
+                "lindi",
+                "africa",
+                "tanzania",
+                "mitigation",
+                "preparedness",
+                "response",
+                "recovery",
+                "nancy",
+                "victor",
+                "navish",
+                "ict",
+                "officer",
+                "abidjan",
+                "navish45",
+                "gmail",
+                "255782120252",
+                "personal",
+                "set"
+            ]
+        },
+        "status": 200,
+        "response": {
+            "store": {
+                "category": "Building",
+                "type": "Warehouse",
+                "level": "other",
+                "name": "Lindi",
+                "continent": "Africa",
+                "country": "Tanzania",
+                "_id": "5c17661e3c9d520004e2b475",
+                "tags": [
+                    "building",
+                    "warehouse",
+                    "lindi",
+                    "africa",
+                    "tanzania"
+                ]
+            },
+            "owner": {
+                "type": "Other",
+                "phases": [
+                    "Mitigation"
+                ],
+                "name": "Nancy Victor",
+                "locale": "en",
+                "timezone": "Africa/Abidjan",
+                "email": "navish45@gmail.com",
+                "mobile": "255782120252",
+                "_id": "5c17661e3c9d520004e2b4a5",
+                "tags": [
+                    "mitigation",
+                    "nancy",
+                    "victor",
+                    "africa",
+                    "abidjan",
+                    "navish45",
+                    "gmail",
+                    "255782120252"
+                ]
+            },
+            "item": {
+                "type": "Other",
+                "code": "PK",
+                "name": "PERSONAL KIT",
+                "uom": "unit",
+                "minStockAllowed": 0,
+                "maxStockAllowed": 0,
+                "color": "#D72E29",
+                "expirable": false,
+                "_id": "5c17661f3c9d520004e2b4bc",
+                "tags": [
+                    "personal"
+                ]
+            },
+            "quantity": 982,
+            "minAllowed": 10,
+            "maxAllowed": 10,
+            "_id": "5c1766203c9d520004e2b4e7",
+            "updatedAt": "2018-12-20T09:55:04.254Z",
+            "createdAt": "2018-12-17T09:02:25.543Z",
+            "tags": [
+                "building",
+                "warehouse",
+                "region",
+                "lindi",
+                "africa",
+                "tanzania",
+                "mitigation",
+                "preparedness",
+                "response",
+                "recovery",
+                "nancy",
+                "victor",
+                "navish",
+                "ict",
+                "officer",
+                "abidjan",
+                "navish45",
+                "gmail",
+                "255782120252",
+                "personal",
+                "set"
+            ]
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "1089",
+            "Etag",
+            "W/\"441-Dv3Ot/trIA6scaqKxmNRiVsuH/I\"",
+            "Vary",
+            "Accept-Encoding",
+            "Date",
+            "Thu, 20 Dec 2018 09:55:04 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]

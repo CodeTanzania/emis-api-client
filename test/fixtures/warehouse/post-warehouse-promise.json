@@ -1,0 +1,75 @@
+[
+    {
+        "scope": "http://emis-plan.herokuapp.com:80",
+        "method": "post",
+        "path": "/v1/warehouses",
+        "body": {
+            "category": "Building",
+            "type": "Warehouse",
+            "level": "region",
+            "name": "Test Warehouse",
+            "continent": "Africa",
+            "country": "Tanzania",
+            "updatedAt": "2018-12-20T06:59:29.549Z",
+            "createdAt": "2018-12-17T09:02:22.203Z",
+            "tags": [
+                "building",
+                "warehouse",
+                "region",
+                "lindi",
+                "africa",
+                "tanzania"
+            ]
+        },
+        "status": 201,
+        "response": {
+            "category": "Building",
+            "type": "Warehouse",
+            "level": "region",
+            "name": "Test Warehouse",
+            "continent": "Africa",
+            "country": "Tanzania",
+            "_id": "5c1b63ad00d98400041df636",
+            "updatedAt": "2018-12-17T09:02:22.203Z",
+            "createdAt": "2018-12-17T09:02:22.203Z",
+            "tags": [
+                "building",
+                "warehouse",
+                "region",
+                "lindi",
+                "africa",
+                "tanzania"
+            ]
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "Vary",
+            "X-HTTP-Method, X-HTTP-Method-Override, X-Method-Override, Accept-Encoding",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "305",
+            "Etag",
+            "W/\"131-MPnlrJejNuqt8fqmdQq3vHT/hrM\"",
+            "Date",
+            "Thu, 20 Dec 2018 09:41:01 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]

@@ -1,0 +1,308 @@
+[
+    {
+        "scope": "http://emis-plan.herokuapp.com:80",
+        "method": "get",
+        "path": "/v1/stocks?limit=5",
+        "body": "",
+        "status": 200,
+        "response": {
+            "data": [
+                {
+                    "store": {
+                        "category": "Building",
+                        "type": "Warehouse",
+                        "name": "Lindi",
+                        "_id": "5c17661e3c9d520004e2b475"
+                    },
+                    "owner": {
+                        "name": "Nancy Victor",
+                        "email": "navish45@gmail.com",
+                        "mobile": "255782120252",
+                        "_id": "5c17661e3c9d520004e2b4a5"
+                    },
+                    "item": {
+                        "type": "Other",
+                        "code": "PK",
+                        "name": "PERSONAL KIT",
+                        "color": "#D72E29",
+                        "_id": "5c17661f3c9d520004e2b4bc"
+                    },
+                    "quantity": 982,
+                    "minAllowed": 6,
+                    "maxAllowed": 4727,
+                    "_id": "5c1766203c9d520004e2b4e7",
+                    "updatedAt": "2018-12-20T06:59:32.389Z",
+                    "createdAt": "2018-12-17T09:02:25.543Z",
+                    "tags": [
+                        "building",
+                        "warehouse",
+                        "region",
+                        "lindi",
+                        "africa",
+                        "tanzania",
+                        "mitigation",
+                        "preparedness",
+                        "response",
+                        "recovery",
+                        "nancy",
+                        "victor",
+                        "navish",
+                        "ict",
+                        "officer",
+                        "abidjan",
+                        "navish45",
+                        "gmail",
+                        "255782120252",
+                        "personal",
+                        "set"
+                    ]
+                },
+                {
+                    "store": {
+                        "category": "Building",
+                        "type": "Warehouse",
+                        "name": "Lindi",
+                        "_id": "5c17661e3c9d520004e2b475"
+                    },
+                    "owner": {
+                        "name": "Ilala Disaster Committee",
+                        "email": "ilala@darmaert.org",
+                        "mobile": "255775952671",
+                        "_id": "5c17661e3c9d520004e2b4aa"
+                    },
+                    "item": {
+                        "type": "Other",
+                        "code": "DEAB2",
+                        "name": "DRAWINGS EX-BOOKS AS BOX 250",
+                        "color": "#D72E29",
+                        "_id": "5c17661f3c9d520004e2b4c0"
+                    },
+                    "quantity": 955,
+                    "minAllowed": 7,
+                    "maxAllowed": 5203,
+                    "_id": "5c1766203c9d520004e2b4ec",
+                    "updatedAt": "2018-12-20T06:59:32.422Z",
+                    "createdAt": "2018-12-17T09:02:25.543Z",
+                    "tags": [
+                        "building",
+                        "warehouse",
+                        "region",
+                        "lindi",
+                        "africa",
+                        "tanzania",
+                        "committee",
+                        "mitigation",
+                        "preparedness",
+                        "response",
+                        "recovery",
+                        "ilala",
+                        "disaster",
+                        "ildc",
+                        "abidjan",
+                        "darmaert",
+                        "255775952671",
+                        "deab2",
+                        "drawings",
+                        "books",
+                        "box",
+                        "250",
+                        "carton",
+                        "district",
+                        "ddc"
+                    ]
+                },
+                {
+                    "store": {
+                        "category": "Building",
+                        "type": "Warehouse",
+                        "name": "Mbeya",
+                        "_id": "5c17661e3c9d520004e2b48f"
+                    },
+                    "owner": {
+                        "name": "Nyambiri Kimacha",
+                        "email": "nyambirik@gmail.com",
+                        "mobile": "255621008922",
+                        "_id": "5c17661e3c9d520004e2b4a4"
+                    },
+                    "item": {
+                        "type": "Other",
+                        "code": "CJ",
+                        "name": "COLLAPSIBLE JERRYCAN",
+                        "color": "#D72E29",
+                        "_id": "5c17661f3c9d520004e2b4c2"
+                    },
+                    "quantity": 587,
+                    "minAllowed": 1,
+                    "maxAllowed": 604,
+                    "_id": "5c1766203c9d520004e2b4f1",
+                    "updatedAt": "2018-12-20T06:59:32.288Z",
+                    "createdAt": "2018-12-17T09:02:25.543Z",
+                    "tags": [
+                        "building",
+                        "warehouse",
+                        "region",
+                        "mbeya",
+                        "africa",
+                        "tanzania",
+                        "mitigation",
+                        "preparedness",
+                        "response",
+                        "recovery",
+                        "nyambiri",
+                        "kimacha",
+                        "nk",
+                        "ict",
+                        "officer",
+                        "abidjan",
+                        "nyambirik",
+                        "gmail",
+                        "255621008922",
+                        "cj",
+                        "collapsible",
+                        "jerrycan",
+                        "piece"
+                    ]
+                },
+                {
+                    "store": {
+                        "category": "Building",
+                        "type": "Warehouse",
+                        "name": "Shinyanga",
+                        "_id": "5c17661e3c9d520004e2b47d"
+                    },
+                    "owner": {
+                        "name": "Edgar Vitus Mlowe",
+                        "email": "mloweedgarvitus@gmail.com",
+                        "mobile": "255654988047",
+                        "_id": "5c17661e3c9d520004e2b4ab"
+                    },
+                    "item": {
+                        "type": "Other",
+                        "code": "T",
+                        "name": "TARPAULIN",
+                        "color": "#D72E29",
+                        "_id": "5c17661f3c9d520004e2b4d1"
+                    },
+                    "quantity": 24,
+                    "minAllowed": 8,
+                    "maxAllowed": 2872,
+                    "_id": "5c1766203c9d520004e2b500",
+                    "updatedAt": "2018-12-20T06:59:32.288Z",
+                    "createdAt": "2018-12-17T09:02:25.543Z",
+                    "tags": [
+                        "building",
+                        "warehouse",
+                        "region",
+                        "shinyanga",
+                        "africa",
+                        "tanzania",
+                        "mitigation",
+                        "preparedness",
+                        "response",
+                        "recovery",
+                        "edgar",
+                        "vitus",
+                        "mlowe",
+                        "edga",
+                        "evm",
+                        "ict",
+                        "officer",
+                        "abidjan",
+                        "mloweedgarvitus",
+                        "gmail",
+                        "255654988047",
+                        "tarpaulin",
+                        "piece"
+                    ]
+                },
+                {
+                    "store": {
+                        "category": "Building",
+                        "type": "Warehouse",
+                        "name": "Dodoma",
+                        "_id": "5c17661e3c9d520004e2b495"
+                    },
+                    "owner": {
+                        "name": "Msilikale Msilanga",
+                        "email": "msilikalemsilanga@gmail.com",
+                        "mobile": "255765952971",
+                        "_id": "5c17661e3c9d520004e2b4a6"
+                    },
+                    "item": {
+                        "type": "Other",
+                        "code": "MC",
+                        "name": "METAL CABINET",
+                        "color": "#D72E29",
+                        "_id": "5c17661f3c9d520004e2b4d6"
+                    },
+                    "quantity": 801,
+                    "minAllowed": 1,
+                    "maxAllowed": 6169,
+                    "_id": "5c1766213c9d520004e2b505",
+                    "updatedAt": "2018-12-20T06:59:32.389Z",
+                    "createdAt": "2018-12-17T09:02:25.543Z",
+                    "tags": [
+                        "building",
+                        "warehouse",
+                        "region",
+                        "dodoma",
+                        "africa",
+                        "tanzania",
+                        "mitigation",
+                        "preparedness",
+                        "response",
+                        "recovery",
+                        "msilikale",
+                        "msilanga",
+                        "ict",
+                        "officer",
+                        "abidjan",
+                        "msilikalemsilanga",
+                        "gmail",
+                        "255765952971",
+                        "metal",
+                        "cabinet",
+                        "piece"
+                    ]
+                }
+            ],
+            "total": 43,
+            "size": 5,
+            "limit": 5,
+            "skip": 0,
+            "page": 1,
+            "pages": 9,
+            "lastModified": "2018-12-20T06:59:32.431Z"
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "3825",
+            "Etag",
+            "W/\"ef1-c9FqqMTjyaoVeIxbvwYyWH74X7Q\"",
+            "Vary",
+            "Accept-Encoding",
+            "Date",
+            "Thu, 20 Dec 2018 08:27:15 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]

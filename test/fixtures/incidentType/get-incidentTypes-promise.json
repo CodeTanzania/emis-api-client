@@ -1,0 +1,141 @@
+[
+    {
+        "scope": "http://emis-plan.herokuapp.com:80",
+        "method": "get",
+        "path": "/v1/incidenttypes?limit=5",
+        "body": "",
+        "status": 200,
+        "response": {
+            "data": [
+                {
+                    "nature": "Natural",
+                    "family": "Meteorological",
+                    "code": "NMS",
+                    "cap": "Other",
+                    "name": "Storm",
+                    "description": "This is the patched IncidentType",
+                    "color": "#FD7676",
+                    "_id": "5c1766243c9d520004e2b538",
+                    "updatedAt": "2018-12-20T08:26:38.616Z",
+                    "createdAt": "2018-12-17T09:02:28.771Z",
+                    "tags": [
+                        "natural",
+                        "meteorological",
+                        "nms",
+                        "storm",
+                        "rescue"
+                    ]
+                },
+                {
+                    "nature": "Natural",
+                    "family": "Hydrological",
+                    "code": "NHWA",
+                    "cap": "Other",
+                    "name": "Wave Action",
+                    "color": "#FFBCC9",
+                    "_id": "5c1766243c9d520004e2b539",
+                    "updatedAt": "2018-12-20T06:59:35.703Z",
+                    "createdAt": "2018-12-17T09:02:28.777Z",
+                    "tags": [
+                        "natural",
+                        "hydrological",
+                        "nhwa",
+                        "wave",
+                        "action"
+                    ]
+                },
+                {
+                    "nature": "Natural",
+                    "family": "Biological",
+                    "code": "NBII",
+                    "cap": "Other",
+                    "name": "Insect Infestation",
+                    "color": "#F49E8B",
+                    "_id": "5c1766243c9d520004e2b53a",
+                    "updatedAt": "2018-12-20T06:59:35.712Z",
+                    "createdAt": "2018-12-17T09:02:28.782Z",
+                    "tags": [
+                        "natural",
+                        "biological",
+                        "nbii",
+                        "insect",
+                        "infestation"
+                    ]
+                },
+                {
+                    "nature": "Natural",
+                    "family": "Hydrological",
+                    "code": "NHWMM",
+                    "cap": "Other",
+                    "name": "Wet Mass Movement",
+                    "color": "#F1A5F7",
+                    "_id": "5c1766243c9d520004e2b53b",
+                    "updatedAt": "2018-12-20T06:59:35.644Z",
+                    "createdAt": "2018-12-17T09:02:28.788Z",
+                    "tags": [
+                        "natural",
+                        "hydrological",
+                        "nhwmm",
+                        "wet",
+                        "mass",
+                        "movement"
+                    ]
+                },
+                {
+                    "nature": "Natural",
+                    "family": "Biological",
+                    "code": "NBE",
+                    "cap": "Other",
+                    "name": "Epidemic",
+                    "color": "#B9FC9F",
+                    "_id": "5c1766243c9d520004e2b53c",
+                    "updatedAt": "2018-12-20T06:59:35.651Z",
+                    "createdAt": "2018-12-17T09:02:28.794Z",
+                    "tags": [
+                        "natural",
+                        "biological",
+                        "nbe",
+                        "epidemic"
+                    ]
+                }
+            ],
+            "total": 25,
+            "size": 5,
+            "limit": 5,
+            "skip": 0,
+            "page": 1,
+            "pages": 5,
+            "lastModified": "2018-12-20T08:26:38.616Z"
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "1568",
+            "Etag",
+            "W/\"620-3UMRd5hvZ4UlDQFnuXOlCjTigtA\"",
+            "Vary",
+            "Accept-Encoding",
+            "Date",
+            "Thu, 20 Dec 2018 08:50:10 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]

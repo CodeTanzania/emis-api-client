@@ -1,0 +1,121 @@
+[
+    {
+        "scope": "http://emis-plan.herokuapp.com:80",
+        "method": "get",
+        "path": "/v1/roles?limit=5",
+        "body": "",
+        "status": 200,
+        "response": {
+            "data": [
+                {
+                    "name": "District Disaster Management Coordinator",
+                    "abbreviation": "DDMC",
+                    "description": "District Disaster Management Coordinator",
+                    "_id": "5c17661e3c9d520004e2b496",
+                    "updatedAt": "2018-12-20T06:59:29.661Z",
+                    "createdAt": "2018-12-17T09:02:22.549Z",
+                    "tags": [
+                        "district",
+                        "disaster",
+                        "management",
+                        "coordinator",
+                        "ddmc"
+                    ]
+                },
+                {
+                    "name": "Ward Executive Officer",
+                    "abbreviation": "WEO",
+                    "description": "Ward Executive Officer",
+                    "_id": "5c17661e3c9d520004e2b497",
+                    "updatedAt": "2018-12-20T06:59:29.667Z",
+                    "createdAt": "2018-12-17T09:02:22.554Z",
+                    "tags": [
+                        "ward",
+                        "executive",
+                        "officer",
+                        "weo"
+                    ]
+                },
+                {
+                    "name": "Ward Disaster Committee",
+                    "abbreviation": "WDC",
+                    "description": "Ward Disaster Committee",
+                    "_id": "5c17661e3c9d520004e2b499",
+                    "updatedAt": "2018-12-20T06:59:29.685Z",
+                    "createdAt": "2018-12-17T09:02:22.565Z",
+                    "tags": [
+                        "ward",
+                        "disaster",
+                        "committee",
+                        "wdc"
+                    ]
+                },
+                {
+                    "name": "Village Executive Officer",
+                    "abbreviation": "VEO",
+                    "description": "Village Executive Officer",
+                    "_id": "5c17661e3c9d520004e2b49a",
+                    "updatedAt": "2018-12-20T06:59:29.692Z",
+                    "createdAt": "2018-12-17T09:02:22.571Z",
+                    "tags": [
+                        "village",
+                        "executive",
+                        "officer"
+                    ]
+                },
+                {
+                    "name": "Regional Disaster Management Coordinator",
+                    "abbreviation": "RDMC",
+                    "description": "Regional Disaster Management Coordinator",
+                    "_id": "5c17661e3c9d520004e2b49b",
+                    "updatedAt": "2018-12-20T06:59:29.650Z",
+                    "createdAt": "2018-12-17T09:02:22.577Z",
+                    "tags": [
+                        "regional",
+                        "disaster",
+                        "management",
+                        "coordinator",
+                        "rdmc"
+                    ]
+                }
+            ],
+            "total": 12,
+            "size": 5,
+            "limit": 5,
+            "skip": 0,
+            "page": 1,
+            "pages": 3,
+            "lastModified": "2018-12-20T06:59:29.816Z"
+        },
+        "rawHeaders": [
+            "Server",
+            "Cowboy",
+            "Connection",
+            "close",
+            "Access-Control-Allow-Origin",
+            "*",
+            "X-Dns-Prefetch-Control",
+            "off",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "X-Download-Options",
+            "noopen",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Xss-Protection",
+            "1; mode=block",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Content-Length",
+            "1477",
+            "Etag",
+            "W/\"5c5-a7IjAmxllKz+IUWzqc/buUFyR4c\"",
+            "Vary",
+            "Accept-Encoding",
+            "Date",
+            "Thu, 20 Dec 2018 08:27:07 GMT",
+            "Via",
+            "1.1 vegur"
+        ]
+    }
+]
