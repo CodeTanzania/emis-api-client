@@ -1,9 +1,8 @@
-# EMIS API CLIENT (WIP)
+# emis-api-client(WIP)
 
 [![Build Status](https://travis-ci.org/CodeTanzania/emis-api-client.svg?branch=develop)](https://travis-ci.org/CodeTanzania/emis-api-client)
 
-This is the client for EMIS API, It exposes all the shortcuts that the API offers
-through a client which can be used for browser and nodejs.
+http client for EMIS API.
 
 ## Installation
 
@@ -16,14 +15,15 @@ npm install --save @codetanzani/emis-api-client
 For React application and ES6 usage
 
 ```js
-import client from '@codetanzania/emis-api-client';
-const { getPlanSchema } = client;
+import { getPlans } from '@codetanzania/emis-api-client';
+getPlans().then(plans => { ... }).catch(error => { ... });
 ```
 
 For Node application(commonjs)
 
 ```js
-const { getPlanSchema } = require('@codetanzania/emis-api-client').default;
+const { getPlans } = require('@codetanzania/emis-api-client').default;
+getPlans().then(plans => { ... }).catch(error => { ... });
 ```
 
 ### Filtering results
