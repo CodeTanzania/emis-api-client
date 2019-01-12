@@ -29,11 +29,11 @@ export const HEADERS = {
  * const httpClient = createHttpClient();
  */
 export const createHttpClient = API_BASE_URL => {
-  const { env } = process;
-  const { EMIS_API_URL, REACT_APP_EMIS_API_URL } = env;
-  const BASE_URL = API_BASE_URL || EMIS_API_URL || REACT_APP_EMIS_API_URL;
-  const options = { baseURL: BASE_URL, headers: HEADERS };
   if (!client) {
+    const { env } = process;
+    const { EMIS_API_URL, REACT_APP_EMIS_API_URL } = env;
+    const BASE_URL = API_BASE_URL || EMIS_API_URL || REACT_APP_EMIS_API_URL;
+    const options = { baseURL: BASE_URL, headers: HEADERS };
     client = axios.create(options);
     client.id = Date.now();
   }
