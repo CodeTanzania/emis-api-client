@@ -52,6 +52,7 @@ export const createHttpClient = API_BASE_URL => {
  */
 export const disposeHttpClient = () => {
   client = null;
+  return client;
 };
 
 export const get = (url, params) => client.get(url, { params });

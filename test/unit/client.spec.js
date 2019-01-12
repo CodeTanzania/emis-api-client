@@ -64,6 +64,14 @@ describe('http client', () => {
     expect(first.id === second.id).to.be.true;
   });
 
+  it('should dispose the client', () => {
+    const baseUrl = 'https://api.emis.io';
+    const created = createHttpClient(baseUrl);
+    expect(created).to.exist;
+    const disposed = disposeHttpClient();
+    expect(disposed).to.not.exist;
+  });
+
   it('should export http actions shortcuts', () => {
     expect(get).to.exist;
     expect(get).to.exist.and.to.be.a('function');
