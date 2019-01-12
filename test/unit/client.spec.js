@@ -73,6 +73,33 @@ describe('http client', () => {
     expect(disposed).to.not.exist;
   });
 
+  it('should export http actions shortcuts', () => {
+    expect(get).to.exist;
+    expect(get).to.exist.and.to.be.a('function');
+    expect(get.name).to.be.equal('get');
+    expect(get.length).to.be.equal(2);
+
+    expect(post).to.exist;
+    expect(post).to.exist.and.to.be.a('function');
+    expect(post.name).to.be.equal('post');
+    expect(post.length).to.be.equal(2);
+
+    expect(put).to.exist;
+    expect(put).to.exist.and.to.be.a('function');
+    expect(put.name).to.be.equal('put');
+    expect(put.length).to.be.equal(2);
+
+    expect(patch).to.exist;
+    expect(patch).to.exist.and.to.be.a('function');
+    expect(patch.name).to.be.equal('patch');
+    expect(patch.length).to.be.equal(2);
+
+    expect(del).to.exist;
+    expect(del).to.exist.and.to.be.a('function');
+    expect(del.name).to.be.equal('del');
+    expect(del.length).to.be.equal(1);
+  });
+
   it('should handle http get on /resource', (done) => {
     const baseUrl = 'https://api.emis.io/v1';
     process.env.EMIS_API_URL = baseUrl;
@@ -109,31 +136,22 @@ describe('http client', () => {
       });
   });
 
-  it('should export http actions shortcuts', () => {
-    expect(get).to.exist;
-    expect(get).to.exist.and.to.be.a('function');
-    expect(get.name).to.be.equal('get');
-    expect(get.length).to.be.equal(2);
+  it('should handle http post on /resource', (done) => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+    const data = {};
+    nock(baseUrl).post('/users').reply(201, data);
 
-    expect(post).to.exist;
-    expect(post).to.exist.and.to.be.a('function');
-    expect(post.name).to.be.equal('post');
-    expect(post.length).to.be.equal(2);
-
-    expect(put).to.exist;
-    expect(put).to.exist.and.to.be.a('function');
-    expect(put.name).to.be.equal('put');
-    expect(put.length).to.be.equal(2);
-
-    expect(patch).to.exist;
-    expect(patch).to.exist.and.to.be.a('function');
-    expect(patch.name).to.be.equal('patch');
-    expect(patch.length).to.be.equal(2);
-
-    expect(del).to.exist;
-    expect(del).to.exist.and.to.be.a('function');
-    expect(del.name).to.be.equal('del');
-    expect(del.length).to.be.equal(1);
+    post('/users')
+      .then(response => {
+        expect(response).to.exist;
+        expect(response.data).to.exist;
+        expect(response.data).to.be.eql(data);
+        done(null, data);
+      })
+      .catch(error => {
+        done(error);
+      });
   });
 
   beforeEach(() => {

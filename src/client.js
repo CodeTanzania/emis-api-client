@@ -80,7 +80,25 @@ export const get = (url, params) => {
   return httpClient.get(url, { params });
 };
 
-export const post = (url, data) => client.post(url, data);
+/**
+ * @function post
+ * @name post
+ * @description issue http post request to specified url.
+ * @param {String} url valid http path.
+ * @param {Object} data request payload to be encoded on http request body
+ * @return {Promise} promise resolve with data on success or error on failure.
+ * @since 0.1.0
+ * @version 0.1.0
+ * @example
+ * import { post } from 'emis-api-client';
+ *
+ * const postUser = post('/users', { age: 14 });
+ * postUser.then(user => { ... }).catch(error => { ... });
+ */
+export const post = (url, data) => {
+  const httpClient = createHttpClient();
+  return httpClient.post(url, data);
+};
 
 export const put = (url, data) => client.put(url, data);
 
