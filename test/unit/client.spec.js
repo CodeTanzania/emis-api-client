@@ -1,7 +1,6 @@
-// jest: see https://flaviocopes.com/jest/
-import nock from 'nock';
-import { expect } from 'chai';
-import {
+const nock = require('nock');
+const { expect } = require('chai');
+const {
   CONTENT_TYPE,
   createHttpClient,
   disposeHttpClient,
@@ -34,7 +33,7 @@ import {
   putPlan,
   patchPlan,
   deletePlan,
-} from '../../src';
+} = require('../../');
 
 describe('http client', () => {
 
