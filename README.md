@@ -1,4 +1,4 @@
-# emis-api-client(WIP)
+# emis-api-client
 
 [![Build Status](https://travis-ci.org/CodeTanzania/emis-api-client.svg?branch=develop)](https://travis-ci.org/CodeTanzania/emis-api-client)
 

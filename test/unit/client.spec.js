@@ -1,7 +1,6 @@
-// jest: see https://flaviocopes.com/jest/
-import nock from 'nock';
-import { expect } from 'chai';
-import {
+const nock = require('nock');
+const { expect } = require('chai');
+const {
   CONTENT_TYPE,
   createHttpClient,
   disposeHttpClient,
@@ -34,10 +33,9 @@ import {
   putPlan,
   patchPlan,
   deletePlan,
-} from '../../src';
+} = require('../../');
 
 describe('http client', () => {
-
   beforeEach(() => {
     delete process.env.EMIS_API_URL;
     delete process.env.REACT_APP_EMIS_API_URL;
@@ -124,11 +122,13 @@ describe('http client', () => {
     expect(del.length).to.be.equal(1);
   });
 
-  it('should handle http get on /resource', (done) => {
+  it('should handle http get on /resource', done => {
     const baseUrl = 'https://api.emis.io/v1';
     process.env.EMIS_API_URL = baseUrl;
     const data = { data: [] };
-    nock(baseUrl).get('/users').reply(200, data);
+    nock(baseUrl)
+      .get('/users')
+      .reply(200, data);
 
     get('/users')
       .then(response => {
@@ -142,11 +142,13 @@ describe('http client', () => {
       });
   });
 
-  it('should handle http get on /resource/:id', (done) => {
+  it('should handle http get on /resource/:id', done => {
     const baseUrl = 'https://api.emis.io/v1';
     process.env.EMIS_API_URL = baseUrl;
     const data = {};
-    nock(baseUrl).get('/users/5c1766243c9d520004e2b542').reply(200, data);
+    nock(baseUrl)
+      .get('/users/5c1766243c9d520004e2b542')
+      .reply(200, data);
 
     get('/users/5c1766243c9d520004e2b542')
       .then(response => {
@@ -160,11 +162,13 @@ describe('http client', () => {
       });
   });
 
-  it('should handle http post on /resource', (done) => {
+  it('should handle http post on /resource', done => {
     const baseUrl = 'https://api.emis.io/v1';
     process.env.EMIS_API_URL = baseUrl;
     const data = {};
-    nock(baseUrl).post('/users').reply(201, data);
+    nock(baseUrl)
+      .post('/users')
+      .reply(201, data);
 
     post('/users', { age: 11 })
       .then(response => {
@@ -178,25 +182,28 @@ describe('http client', () => {
       });
   });
 
-  it('should reject http post on /resource if no payload', (done) => {
+  it('should reject http post on /resource if no payload', done => {
     const baseUrl = 'https://api.emis.io/v1';
     process.env.EMIS_API_URL = baseUrl;
     const data = {};
-    nock(baseUrl).post('/users').reply(201, data);
+    nock(baseUrl)
+      .post('/users')
+      .reply(201, data);
 
-    post('/users', {})
-      .catch(error => {
-        expect(error).to.exist;
-        expect(error.message).to.be.equal('Missing Payload');
-        done();
-      });
+    post('/users', {}).catch(error => {
+      expect(error).to.exist;
+      expect(error.message).to.be.equal('Missing Payload');
+      done();
+    });
   });
 
-  it('should handle http put on /resource/:id', (done) => {
+  it('should handle http put on /resource/:id', done => {
     const baseUrl = 'https://api.emis.io/v1';
     process.env.EMIS_API_URL = baseUrl;
     const data = {};
-    nock(baseUrl).put('/users/5c1766243c9d520004e2b542').reply(200, data);
+    nock(baseUrl)
+      .put('/users/5c1766243c9d520004e2b542')
+      .reply(200, data);
 
     put('/users/5c1766243c9d520004e2b542', { age: 11 })
       .then(response => {
@@ -210,25 +217,28 @@ describe('http client', () => {
       });
   });
 
-  it('should reject http put on /resource/:id if no payload', (done) => {
+  it('should reject http put on /resource/:id if no payload', done => {
     const baseUrl = 'https://api.emis.io/v1';
     process.env.EMIS_API_URL = baseUrl;
     const data = {};
-    nock(baseUrl).put('/users/5c1766243c9d520004e2b542').reply(200, data);
+    nock(baseUrl)
+      .put('/users/5c1766243c9d520004e2b542')
+      .reply(200, data);
 
-    put('/users/5c1766243c9d520004e2b542', {})
-      .catch(error => {
-        expect(error).to.exist;
-        expect(error.message).to.be.equal('Missing Payload');
-        done();
-      });
+    put('/users/5c1766243c9d520004e2b542', {}).catch(error => {
+      expect(error).to.exist;
+      expect(error.message).to.be.equal('Missing Payload');
+      done();
+    });
   });
 
-  it('should handle http patch on /resource/:id', (done) => {
+  it('should handle http patch on /resource/:id', done => {
     const baseUrl = 'https://api.emis.io/v1';
     process.env.EMIS_API_URL = baseUrl;
     const data = {};
-    nock(baseUrl).patch('/users/5c1766243c9d520004e2b542').reply(200, data);
+    nock(baseUrl)
+      .patch('/users/5c1766243c9d520004e2b542')
+      .reply(200, data);
 
     patch('/users/5c1766243c9d520004e2b542', { age: 11 })
       .then(response => {
@@ -242,25 +252,28 @@ describe('http client', () => {
       });
   });
 
-  it('should reject http patch on /resource/:id if no payload', (done) => {
+  it('should reject http patch on /resource/:id if no payload', done => {
     const baseUrl = 'https://api.emis.io/v1';
     process.env.EMIS_API_URL = baseUrl;
     const data = {};
-    nock(baseUrl).patch('/users/5c1766243c9d520004e2b542').reply(200, data);
+    nock(baseUrl)
+      .patch('/users/5c1766243c9d520004e2b542')
+      .reply(200, data);
 
-    patch('/users/5c1766243c9d520004e2b542', {})
-      .catch(error => {
-        expect(error).to.exist;
-        expect(error.message).to.be.equal('Missing Payload');
-        done();
-      });
+    patch('/users/5c1766243c9d520004e2b542', {}).catch(error => {
+      expect(error).to.exist;
+      expect(error.message).to.be.equal('Missing Payload');
+      done();
+    });
   });
 
-  it('should handle http delete on /resource/:id', (done) => {
+  it('should handle http delete on /resource/:id', done => {
     const baseUrl = 'https://api.emis.io/v1';
     process.env.EMIS_API_URL = baseUrl;
     const data = {};
-    nock(baseUrl).delete('/users/5c1766243c9d520004e2b542').reply(200, data);
+    nock(baseUrl)
+      .delete('/users/5c1766243c9d520004e2b542')
+      .reply(200, data);
 
     del('/users/5c1766243c9d520004e2b542')
       .then(response => {
@@ -282,7 +295,7 @@ describe('http client', () => {
       postUser,
       putUser,
       patchUser,
-      deleteUser
+      deleteUser,
     } = createHttpActionsFor('user');
     expect(getUserSchema).to.exist;
     expect(getUserSchema).to.be.a('function');
@@ -341,11 +354,13 @@ describe('http client', () => {
     expect(getWarehouseSchema).to.exist;
   });
 
-  it('should handle http get on /resource use generated actions', (done) => {
+  it('should handle http get on /resource use generated actions', done => {
     const baseUrl = 'https://api.emis.io/v1';
     process.env.EMIS_API_URL = baseUrl;
     const data = { data: [] };
-    nock(baseUrl).get('/plans').reply(200, data);
+    nock(baseUrl)
+      .get('/plans')
+      .reply(200, data);
 
     getPlans()
       .then(plans => {
@@ -358,11 +373,13 @@ describe('http client', () => {
       });
   });
 
-  it('should handle http get on /resource/:id use generated actions', (done) => {
+  it('should handle http get on /resource/:id use generated actions', done => {
     const baseUrl = 'https://api.emis.io/v1';
     process.env.EMIS_API_URL = baseUrl;
     const data = {};
-    nock(baseUrl).get('/plans/5c1766243c9d520004e2b542').reply(200, data);
+    nock(baseUrl)
+      .get('/plans/5c1766243c9d520004e2b542')
+      .reply(200, data);
 
     getPlan('5c1766243c9d520004e2b542')
       .then(plan => {
@@ -375,11 +392,13 @@ describe('http client', () => {
       });
   });
 
-  it('should handle http post on /resource use generated actions', (done) => {
+  it('should handle http post on /resource use generated actions', done => {
     const baseUrl = 'https://api.emis.io/v1';
     process.env.EMIS_API_URL = baseUrl;
     const data = {};
-    nock(baseUrl).post('/plans').reply(201, data);
+    nock(baseUrl)
+      .post('/plans')
+      .reply(201, data);
 
     postPlan({ description: 'Voluptas' })
       .then(plan => {
@@ -392,11 +411,13 @@ describe('http client', () => {
       });
   });
 
-  it('should handle http put on /resource/:id use generated actions', (done) => {
+  it('should handle http put on /resource/:id use generated actions', done => {
     const baseUrl = 'https://api.emis.io/v1';
     process.env.EMIS_API_URL = baseUrl;
     const data = {};
-    nock(baseUrl).put('/plans/5c1766243c9d520004e2b542').reply(200, data);
+    nock(baseUrl)
+      .put('/plans/5c1766243c9d520004e2b542')
+      .reply(200, data);
 
     putPlan({ _id: '5c1766243c9d520004e2b542', description: 'Voluptas' })
       .then(plan => {
@@ -409,11 +430,13 @@ describe('http client', () => {
       });
   });
 
-  it('should handle http patch on /resource/:id use generated actions', (done) => {
+  it('should handle http patch on /resource/:id use generated actions', done => {
     const baseUrl = 'https://api.emis.io/v1';
     process.env.EMIS_API_URL = baseUrl;
     const data = {};
-    nock(baseUrl).patch('/plans/5c1766243c9d520004e2b542').reply(200, data);
+    nock(baseUrl)
+      .patch('/plans/5c1766243c9d520004e2b542')
+      .reply(200, data);
 
     patchPlan({ _id: '5c1766243c9d520004e2b542', description: 'Voluptas' })
       .then(plan => {
@@ -426,11 +449,13 @@ describe('http client', () => {
       });
   });
 
-  it('should handle http delete on /resource/:id use generated actions', (done) => {
+  it('should handle http delete on /resource/:id use generated actions', done => {
     const baseUrl = 'https://api.emis.io/v1';
     process.env.EMIS_API_URL = baseUrl;
     const data = {};
-    nock(baseUrl).delete('/plans/5c1766243c9d520004e2b542').reply(200, data);
+    nock(baseUrl)
+      .delete('/plans/5c1766243c9d520004e2b542')
+      .reply(200, data);
 
     deletePlan('5c1766243c9d520004e2b542')
       .then(plan => {
@@ -448,5 +473,4 @@ describe('http client', () => {
     delete process.env.REACT_APP_EMIS_API_URL;
     disposeHttpClient();
   });
-
 });

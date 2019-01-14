@@ -1,12 +1,6 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var axios = _interopDefault(require('axios'));
-var lodash = require('lodash');
-var inflection = require('inflection');
+import axios from 'axios';
+import { isEmpty, camelCase, toLower, get } from 'lodash';
+import { singularize, pluralize } from 'inflection';
 
 // default http client
 let client;
@@ -81,7 +75,7 @@ const disposeHttpClient = () => {
  * const getUser = get('/users/12');
  * getUser.then(user => { ... }).catch(error => { ... });
  */
-const get = (url, params) => {
+const get$1 = (url, params) => {
   const httpClient = createHttpClient();
   return httpClient.get(url, { params });
 };
@@ -102,7 +96,7 @@ const get = (url, params) => {
  * postUser.then(user => { ... }).catch(error => { ... });
  */
 const post = (url, data) => {
-  if (lodash.isEmpty(data)) {
+  if (isEmpty(data)) {
     return Promise.reject(new Error('Missing Payload'));
   }
   const httpClient = createHttpClient();
@@ -125,7 +119,7 @@ const post = (url, data) => {
  * putUser.then(user => { ... }).catch(error => { ... });
  */
 const put = (url, data) => {
-  if (lodash.isEmpty(data)) {
+  if (isEmpty(data)) {
     return Promise.reject(new Error('Missing Payload'));
   }
   const httpClient = createHttpClient();
@@ -148,7 +142,7 @@ const put = (url, data) => {
  * patchUser.then(user => { ... }).catch(error => { ... });
  */
 const patch = (url, data) => {
-  if (lodash.isEmpty(data)) {
+  if (isEmpty(data)) {
     return Promise.reject(new Error('Missing Payload'));
   }
   const httpClient = createHttpClient();
@@ -175,10 +169,10 @@ const del = url => {
 };
 
 // create dynamic camelized function name
-const fn = (...name) => lodash.camelCase([...name].join(' '));
+const fn = (...name) => camelCase([...name].join(' '));
 
 // get resource id from payload
-const idOf = data => lodash.get(data, '_id') || lodash.get(data, 'id');
+const idOf = data => get(data, '_id') || get(data, 'id');
 
 /**
  * @function createHttpActionsFor
@@ -196,27 +190,27 @@ const idOf = data => lodash.get(data, '_id') || lodash.get(data, 'id');
  * deleteUser.then(user => { ... }).catch(error => { ... });
  */
 const createHttpActionsFor = resource => {
-  const singular = inflection.singularize(resource);
-  const plural = inflection.pluralize(resource);
+  const singular = singularize(resource);
+  const plural = pluralize(resource);
   const httpActions = {
     [fn('get', singular, 'Schema')]: () =>
-      get(`/${lodash.toLower(plural)}/schema`).then(response => response.data),
+      get$1(`/${toLower(plural)}/schema`).then(response => response.data),
     [fn('get', plural)]: params =>
-      get(`/${lodash.toLower(plural)}`, params).then(response => response.data),
+      get$1(`/${toLower(plural)}`, params).then(response => response.data),
     [fn('get', singular)]: id =>
-      get(`/${lodash.toLower(plural)}/${id}`).then(response => response.data),
+      get$1(`/${toLower(plural)}/${id}`).then(response => response.data),
     [fn('post', singular)]: data =>
-      post(`/${lodash.toLower(plural)}`, data).then(response => response.data),
+      post(`/${toLower(plural)}`, data).then(response => response.data),
     [fn('put', singular)]: data =>
-      put(`/${lodash.toLower(plural)}/${idOf(data)}`, data).then(
+      put(`/${toLower(plural)}/${idOf(data)}`, data).then(
         response => response.data
       ),
     [fn('patch', singular)]: data =>
-      patch(`/${lodash.toLower(plural)}/${idOf(data)}`, data).then(
+      patch(`/${toLower(plural)}/${idOf(data)}`, data).then(
         response => response.data
       ),
     [fn('delete', singular)]: id =>
-      del(`/${lodash.toLower(plural)}/${id}`).then(response => response.data),
+      del(`/${toLower(plural)}/${id}`).then(response => response.data),
   };
   return httpActions;
 };
@@ -391,132 +385,4 @@ const {
   deleteWarehouse,
 } = createHttpActionsFor('warehouse');
 
-exports.getActivitySchema = getActivitySchema;
-exports.getActivities = getActivities;
-exports.getActivity = getActivity;
-exports.postActivity = postActivity;
-exports.putActivity = putActivity;
-exports.patchActivity = patchActivity;
-exports.deleteActivity = deleteActivity;
-exports.getAdjustmentSchema = getAdjustmentSchema;
-exports.getAdjustments = getAdjustments;
-exports.getAdjustment = getAdjustment;
-exports.postAdjustment = postAdjustment;
-exports.putAdjustment = putAdjustment;
-exports.patchAdjustment = patchAdjustment;
-exports.deleteAdjustment = deleteAdjustment;
-exports.getAlertSchema = getAlertSchema;
-exports.getAlerts = getAlerts;
-exports.getAlert = getAlert;
-exports.postAlert = postAlert;
-exports.putAlert = putAlert;
-exports.patchAlert = patchAlert;
-exports.deleteAlert = deleteAlert;
-exports.getAssessmentSchema = getAssessmentSchema;
-exports.getAssessments = getAssessments;
-exports.getAssessment = getAssessment;
-exports.postAssessment = postAssessment;
-exports.putAssessment = putAssessment;
-exports.patchAssessment = patchAssessment;
-exports.deleteAssessment = deleteAssessment;
-exports.getFeatureSchema = getFeatureSchema;
-exports.getFeatures = getFeatures;
-exports.getFeature = getFeature;
-exports.postFeature = postFeature;
-exports.putFeature = putFeature;
-exports.patchFeature = patchFeature;
-exports.deleteFeature = deleteFeature;
-exports.getIncidentTypeSchema = getIncidentTypeSchema;
-exports.getIncidentTypes = getIncidentTypes;
-exports.getIncidentType = getIncidentType;
-exports.postIncidentType = postIncidentType;
-exports.putIncidentType = putIncidentType;
-exports.patchIncidentType = patchIncidentType;
-exports.deleteIncidentType = deleteIncidentType;
-exports.getIndicatorSchema = getIndicatorSchema;
-exports.getIndicators = getIndicators;
-exports.getIndicator = getIndicator;
-exports.postIndicator = postIndicator;
-exports.putIndicator = putIndicator;
-exports.patchIndicator = patchIndicator;
-exports.deleteIndicator = deleteIndicator;
-exports.getItemSchema = getItemSchema;
-exports.getItems = getItems;
-exports.getItem = getItem;
-exports.postItem = postItem;
-exports.putItem = putItem;
-exports.patchItem = patchItem;
-exports.deleteItem = deleteItem;
-exports.getPartySchema = getPartySchema;
-exports.getParties = getParties;
-exports.getParty = getParty;
-exports.postParty = postParty;
-exports.putParty = putParty;
-exports.patchParty = patchParty;
-exports.deleteParty = deleteParty;
-exports.getPermissionSchema = getPermissionSchema;
-exports.getPermissions = getPermissions;
-exports.getPermission = getPermission;
-exports.postPermission = postPermission;
-exports.putPermission = putPermission;
-exports.patchPermission = patchPermission;
-exports.deletePermission = deletePermission;
-exports.getPlanSchema = getPlanSchema;
-exports.getPlans = getPlans;
-exports.getPlan = getPlan;
-exports.postPlan = postPlan;
-exports.putPlan = putPlan;
-exports.patchPlan = patchPlan;
-exports.deletePlan = deletePlan;
-exports.getProcedureSchema = getProcedureSchema;
-exports.getProcedures = getProcedures;
-exports.getProcedure = getProcedure;
-exports.postProcedure = postProcedure;
-exports.putProcedure = putProcedure;
-exports.patchProcedure = patchProcedure;
-exports.deleteProcedure = deleteProcedure;
-exports.getQuestionSchema = getQuestionSchema;
-exports.getQuestions = getQuestions;
-exports.getQuestion = getQuestion;
-exports.postQuestion = postQuestion;
-exports.putQuestion = putQuestion;
-exports.patchQuestion = patchQuestion;
-exports.deleteQuestion = deleteQuestion;
-exports.getQuestionnaireSchema = getQuestionnaireSchema;
-exports.getQuestionnaires = getQuestionnaires;
-exports.getQuestionnaire = getQuestionnaire;
-exports.postQuestionnaire = postQuestionnaire;
-exports.putQuestionnaire = putQuestionnaire;
-exports.patchQuestionnaire = patchQuestionnaire;
-exports.deleteQuestionnaire = deleteQuestionnaire;
-exports.getRoleSchema = getRoleSchema;
-exports.getRoles = getRoles;
-exports.getRole = getRole;
-exports.postRole = postRole;
-exports.putRole = putRole;
-exports.patchRole = patchRole;
-exports.deleteRole = deleteRole;
-exports.getStockSchema = getStockSchema;
-exports.getStocks = getStocks;
-exports.getStock = getStock;
-exports.postStock = postStock;
-exports.putStock = putStock;
-exports.patchStock = patchStock;
-exports.deleteStock = deleteStock;
-exports.getWarehouseSchema = getWarehouseSchema;
-exports.getWarehouses = getWarehouses;
-exports.getWarehouse = getWarehouse;
-exports.postWarehouse = postWarehouse;
-exports.putWarehouse = putWarehouse;
-exports.patchWarehouse = patchWarehouse;
-exports.deleteWarehouse = deleteWarehouse;
-exports.CONTENT_TYPE = CONTENT_TYPE;
-exports.HEADERS = HEADERS;
-exports.createHttpClient = createHttpClient;
-exports.disposeHttpClient = disposeHttpClient;
-exports.get = get;
-exports.post = post;
-exports.put = put;
-exports.patch = patch;
-exports.del = del;
-exports.createHttpActionsFor = createHttpActionsFor;
+export { getActivitySchema, getActivities, getActivity, postActivity, putActivity, patchActivity, deleteActivity, getAdjustmentSchema, getAdjustments, getAdjustment, postAdjustment, putAdjustment, patchAdjustment, deleteAdjustment, getAlertSchema, getAlerts, getAlert, postAlert, putAlert, patchAlert, deleteAlert, getAssessmentSchema, getAssessments, getAssessment, postAssessment, putAssessment, patchAssessment, deleteAssessment, getFeatureSchema, getFeatures, getFeature, postFeature, putFeature, patchFeature, deleteFeature, getIncidentTypeSchema, getIncidentTypes, getIncidentType, postIncidentType, putIncidentType, patchIncidentType, deleteIncidentType, getIndicatorSchema, getIndicators, getIndicator, postIndicator, putIndicator, patchIndicator, deleteIndicator, getItemSchema, getItems, getItem, postItem, putItem, patchItem, deleteItem, getPartySchema, getParties, getParty, postParty, putParty, patchParty, deleteParty, getPermissionSchema, getPermissions, getPermission, postPermission, putPermission, patchPermission, deletePermission, getPlanSchema, getPlans, getPlan, postPlan, putPlan, patchPlan, deletePlan, getProcedureSchema, getProcedures, getProcedure, postProcedure, putProcedure, patchProcedure, deleteProcedure, getQuestionSchema, getQuestions, getQuestion, postQuestion, putQuestion, patchQuestion, deleteQuestion, getQuestionnaireSchema, getQuestionnaires, getQuestionnaire, postQuestionnaire, putQuestionnaire, patchQuestionnaire, deleteQuestionnaire, getRoleSchema, getRoles, getRole, postRole, putRole, patchRole, deleteRole, getStockSchema, getStocks, getStock, postStock, putStock, patchStock, deleteStock, getWarehouseSchema, getWarehouses, getWarehouse, postWarehouse, putWarehouse, patchWarehouse, deleteWarehouse, CONTENT_TYPE, HEADERS, createHttpClient, disposeHttpClient, get$1 as get, post, put, patch, del, createHttpActionsFor };
