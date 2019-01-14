@@ -6,11 +6,10 @@
   "module": "es/index.js",
   "scripts": {
     "clean": "rimraf lib dist es umd",
-    "build": "npm run lint:fix && npm run lint -s && npm run clean && rollup -c",
-    "lint": "eslint --ext .js src/ /test/unit rollup.config.js",
-    "lint:fix": "eslint --fix --ext .js src/ /test/unit rollup.config.js",
-    "test": "npm run lint:fix && npm run lint -s && mocha test/**/*.spec.js",
-    "pretest": "npm run build"
+    "build": "npm run clean && rollup -c",
+    "lint:src": "eslint --fix --ext .js src/ rollup.config.js",
+    "lint": "npm run build && eslint --fix --ext .js src/ test/unit rollup.config.js",
+    "test": "npm run lint -s && mocha test/**/*.spec.js"
   },
   "repository": {
     "type": "git",
