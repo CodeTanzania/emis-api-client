@@ -30,7 +30,7 @@ const HEADERS = {
  */
 const createHttpClient = API_BASE_URL => {
   if (!client) {
-    //Dont destructure: Fix:ReferenceError: process is not defined in react
+    // Dont destructure: Fix:ReferenceError: process is not defined in react
     const env = process.env; // eslint-disable-line
     const { EMIS_API_URL, REACT_APP_EMIS_API_URL } = env;
     const BASE_URL = API_BASE_URL || EMIS_API_URL || REACT_APP_EMIS_API_URL;

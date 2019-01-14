@@ -1,3 +1,9 @@
+#### 0.1.2 (2019-01-14)
+
+##### Bug Fixes
+
+*  ReferenceError: process is not defined in react ([7a58433f](https://github.com/CodeTanzania/emis-api-client/commit/7a58433f938cbe0f7aff53fe7eef8c6072c58c3d))
+
 #### 0.1.0 (2019-01-12)
 
 ##### Documentation Changes
