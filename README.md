@@ -7,7 +7,7 @@ http client for EMIS API.
 ## Installation
 
 ```sh
-npm install --save @codetanzani/emis-api-client
+npm install --save @codetanzania/emis-api-client
 ```
 
 ## Usage
