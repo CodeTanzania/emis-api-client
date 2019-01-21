@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { spread as toSimpleArgs } from 'axios';
 import { isEmpty, camelCase, toLower as low, get as value } from 'lodash';
 import { singularize, pluralize } from 'inflection';
 
@@ -55,6 +55,33 @@ export const disposeHttpClient = () => {
   client = null;
   return client;
 };
+
+/**
+ * @function all
+ * @name all
+ * @description performing multiple concurrent requests.
+ * @since 0.2.0
+ * @version 0.1.0
+ * @example
+ * import { all, spread } from 'emis-api-client';
+ * const request = all(getIncidentTypes(), getPlans());
+ * request.then(spread((incidentTypes, plans) => { ... }));
+ */
+export const all = (...promises) => axios.all([...promises]);
+
+/**
+ * @function spread
+ * @name spread
+ * @description Flattened array fullfillment to the formal parameters of the
+ * fulfillment handler.
+ * @since 0.2.0
+ * @version 0.1.0
+ * @example
+ * import { all, spread } from 'emis-api-client';
+ * const request = all(getIncidentTypes(), getPlans());
+ * request.then(spread((incidentTypes, plans) => { ... }));
+ */
+export const spread = toSimpleArgs;
 
 /**
  * @function get

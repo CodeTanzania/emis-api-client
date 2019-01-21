@@ -46,6 +46,19 @@ const { getPlans } = require('@codetanzania/emis-api-client');
 getPlans().then(plans => { ... }).catch(error => { ... });
 ```
 
+To issue parallel request
+```js
+const { 
+ getIncidentTypes, 
+ getPlans, 
+ all, 
+ spread 
+} = require('@codetanzania/emis-api-client');
+
+const request = all(getIncidentTypes(), getPlans());
+request.then(spread((incidentTypes, plans) => { ... })).catch(error => { ... }); 
+```
+
 ### Filtering results
 
 For filtering or searching data from the API you need to pass param object into the get methods e.g

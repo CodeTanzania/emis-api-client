@@ -1,6 +1,6 @@
 {
   "name": "@codetanzania/emis-api-client",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "http client for EMIS API.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -38,9 +38,9 @@
   "devDependencies": {
     "axios": "^0.18.0",
     "chai": "^4.2.0",
-    "eslint": "^5.12.0",
+    "eslint": "^5.12.1",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-prettier": "^3.4.0",
+    "eslint-config-prettier": "^3.6.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-mocha": "^5.2.1",
     "eslint-plugin-prettier": "^3.0.1",
@@ -48,9 +48,9 @@
     "lodash": ">=4.17.11",
     "mocha": "^5.2.0",
     "nock": "^10.0.6",
-    "prettier": "^1.15.3",
+    "prettier": "^1.16.0",
     "rimraf": "^2.6.3",
-    "rollup": "^1.1.0"
+    "rollup": "^1.1.2"
   },
   "peerDependencies": {
     "axios": ">=0.18.0",
