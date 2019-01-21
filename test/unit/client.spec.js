@@ -4,6 +4,8 @@ const {
   CONTENT_TYPE,
   createHttpClient,
   disposeHttpClient,
+  all,
+  spread,
   get,
   post,
   put,
@@ -463,6 +465,32 @@ describe('http client', () => {
         expect(plan).to.be.eql(data);
         done(null, data);
       })
+      .catch(error => {
+        done(error);
+      });
+  });
+
+  it('should be able to issue request in parallel', done => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+    const data = [{}];
+    nock(baseUrl)
+      .get('/incidenttypes/schema')
+      .reply(200, data);
+    nock(baseUrl)
+      .get('/plans/schema')
+      .reply(200, data);
+
+    all(getIncidentTypeSchema(), getPlanSchema())
+      .then(
+        spread((incidentTypeSchema, planSchema) => {
+          expect(incidentTypeSchema).to.exist;
+          expect(planSchema).to.exist;
+          expect(incidentTypeSchema).to.be.eql(data);
+          expect(planSchema).to.be.eql(data);
+          done();
+        })
+      )
       .catch(error => {
         done(error);
       });

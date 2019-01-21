@@ -1,3 +1,9 @@
+#### 0.2.0 (2019-01-21)
+
+##### New Features
+
+*  impliment parallel request helpers ([e939fe63](https://github.com/CodeTanzania/emis-api-client/commit/e939fe63d76d17542f681dbbf86e14fb74a043d8))
+
 #### 0.1.2 (2019-01-14)
 
 ##### Bug Fixes

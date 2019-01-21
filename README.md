@@ -7,7 +7,7 @@ http client for EMIS API.
 ## Installation
 
 ```sh
-npm install --save @codetanzani/emis-api-client
+npm install --save @codetanzania/emis-api-client
 ```
 
 ## Usage
@@ -44,6 +44,19 @@ For Node application(commonjs)
 ```js
 const { getPlans } = require('@codetanzania/emis-api-client');
 getPlans().then(plans => { ... }).catch(error => { ... });
+```
+
+To issue parallel request
+```js
+const { 
+ getIncidentTypes, 
+ getPlans, 
+ all, 
+ spread 
+} = require('@codetanzania/emis-api-client');
+
+const request = all(getIncidentTypes(), getPlans());
+request.then(spread((incidentTypes, plans) => { ... })).catch(error => { ... }); 
 ```
 
 ### Filtering results
