@@ -27,6 +27,7 @@ const {
   getQuestionSchema,
   getQuestionnaireSchema,
   getRoleSchema,
+  getStakeholderSchema,
   getStockSchema,
   getWarehouseSchema,
   getPlans,
@@ -354,6 +355,7 @@ describe('http client', () => {
     expect(getRoleSchema).to.exist;
     expect(getStockSchema).to.exist;
     expect(getWarehouseSchema).to.exist;
+    expect(getStakeholderSchema).to.exist;
   });
 
   it('should handle http get on /resource use generated actions', done => {
