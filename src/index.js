@@ -171,3 +171,13 @@ export const {
   patchWarehouse,
   deleteWarehouse,
 } = createHttpActionsFor('warehouse');
+
+export {
+  getPartySchema as getStakeholderSchema,
+  getParties as getStakeholders,
+  getParty as getStakeholder,
+  postParty as postStakeholder,
+  putParty as putStakeholder,
+  patchParty as patchStakeholder,
+  deleteParty as deleteStakeholder,
+};
