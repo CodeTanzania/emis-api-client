@@ -1,3 +1,13 @@
+#### 0.3.0 (2019-01-23)
+
+##### Chores
+
+*  force lateste dependencies & audit fix ([de834d43](https://github.com/CodeTanzania/emis-api-client/commit/de834d434e3a5ccf8cb761cffede76db0226212d))
+
+##### New Features
+
+* **stakeholder:**  add alias to parties functions ([d18b114f](https://github.com/CodeTanzania/emis-api-client/commit/d18b114f807e730c6eacaa039e95fb59ba65152e))
+
 #### 0.2.0 (2019-01-21)
 
 ##### New Features
