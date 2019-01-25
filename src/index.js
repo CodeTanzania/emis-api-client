@@ -53,6 +53,16 @@ export const {
 } = createHttpActionsFor('feature');
 
 export const {
+  getIncidentSchema,
+  getIncidents,
+  getIncident,
+  postIncident,
+  putIncident,
+  patchIncident,
+  deleteIncident,
+} = createHttpActionsFor('incident');
+
+export const {
   getIncidentTypeSchema,
   getIncidentTypes,
   getIncidentType,

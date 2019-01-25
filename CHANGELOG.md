@@ -1,3 +1,14 @@
+#### 0.3.1 (2019-01-25)
+
+##### Chores
+
+*  add code linting before commit ([8ae1f38d](https://github.com/CodeTanzania/emis-api-client/commit/8ae1f38da9835a46ed874d3d8fcf8a581a5b2b6a))
+*  add commit lint hook ([9f43d169](https://github.com/CodeTanzania/emis-api-client/commit/9f43d1692411985a566ac3ba3ffd3930e7870de9))
+
+##### New Features
+
+*  expose incident resource actions ([9128b036](https://github.com/CodeTanzania/emis-api-client/commit/9128b036f7ea89e59ff7736744765d61430d703f))
+
 #### 0.3.0 (2019-01-23)
 
 ##### Chores
