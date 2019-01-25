@@ -79,7 +79,7 @@
     ]
   },
   "lint-staged": {
-    "*.js": [
+    "src/**/*.js": [
       "npm run lint:src",
       "git add ."
     ]
