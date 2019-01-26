@@ -1,3 +1,17 @@
+#### 0.5.0 (2019-01-26)
+
+##### New Features
+
+*  allow from(>=) and to(<=) date filter ([1ee2d200](https://github.com/CodeTanzania/emis-api-client/commit/1ee2d2009b2459ea1399bce7dbae9be9164deb64))
+*  allow min(<=) and max(>=) filter on number ([06fe49c1](https://github.com/CodeTanzania/emis-api-client/commit/06fe49c10b91ab18fdfc3f20687096fcaac0e7ec))
+*  add bate between & range filter prepare ([8ef5637f](https://github.com/CodeTanzania/emis-api-client/commit/8ef5637fae85bbb3e57bf1f45b0c58fd88ff538d))
+*  add prepare params for get requests ([bea8fdbb](https://github.com/CodeTanzania/emis-api-client/commit/bea8fdbbc19df2a354597a324c07506069761422))
+
+##### Code Style Changes
+
+*  add prepareParams number range jsdoc example ([835f7e82](https://github.com/CodeTanzania/emis-api-client/commit/835f7e8214ce3ff6563e7607ffff5d7d29b0b5de))
+*  add valid jdocs on HEADERS & CONTENT_TYPE ([7304fe73](https://github.com/CodeTanzania/emis-api-client/commit/7304fe732ba593489c7482800eccdd5648ac08ce))
+
 #### 0.4.0 (2019-01-26)
 
 ##### Chores
