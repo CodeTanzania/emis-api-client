@@ -1,3 +1,4 @@
+const moment = require('moment');
 const nock = require('nock');
 const { expect } = require('chai');
 const {
@@ -48,13 +49,6 @@ describe('http client', () => {
     disposeHttpClient();
   });
 
-  it('should export prepareParams helper', () => {
-    expect(prepareParams).to.exist;
-    expect(prepareParams).to.exist.and.to.be.a('function');
-    expect(prepareParams.name).to.be.equal('prepareParams');
-    expect(prepareParams.length).to.be.equal(1);
-  });
-
   it('should prepare list array params', () => {
     const filter = { name: ['joe', 'doe'] };
     const params = prepareParams({ filter });
@@ -71,6 +65,53 @@ describe('http client', () => {
     expect(params.filter).to.exist;
     expect(params.filter.name).to.exist;
     expect(params.filter.name).to.be.equal('joe');
+  });
+
+  it('should prepare number range params', () => {
+    let filter = { age: { min: 4, max: 5 } };
+    let params = prepareParams({ filter });
+    expect(params.filter).to.exist;
+    expect(params.filter.age).to.be.eql({ $gte: 4, $lte: 5 });
+
+    filter = { age: { min: 5, max: 4 } };
+    params = prepareParams({ filter });
+    expect(params.filter).to.exist;
+    expect(params.filter.age).to.be.eql({ $gte: 4, $lte: 5 });
+
+    filter = { age: { min: 4 } };
+    params = prepareParams({ filter });
+    expect(params.filter).to.exist;
+    expect(params.filter.age).to.be.eql({ $gte: 4, $lte: 4 });
+
+    filter = { age: { max: 4 } };
+    params = prepareParams({ filter });
+    expect(params.filter).to.exist;
+    expect(params.filter.age).to.be.eql({ $gte: 4, $lte: 4 });
+  });
+
+  it('should prepare date between params', () => {
+    const start = new Date('2019-01-01');
+    const end = new Date('2019-01-03');
+    const expected = {
+      $gte: moment(start)
+        .utc()
+        .startOf('date')
+        .toDate(),
+      $lte: moment(end)
+        .utc()
+        .endOf('date')
+        .toDate(),
+    };
+
+    let filter = { createdAt: { from: start, to: end } };
+    let params = prepareParams({ filter });
+    expect(params.filter).to.exist;
+    expect(params.filter.createdAt).to.be.eql(expected);
+
+    filter = { createdAt: { from: end, to: start } };
+    params = prepareParams({ filter });
+    expect(params.filter).to.exist;
+    expect(params.filter.createdAt).to.be.eql(expected);
   });
 
   it('should export create client factory', () => {

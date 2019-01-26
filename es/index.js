@@ -1,9 +1,95 @@
 import axios from 'axios';
 import { singularize, pluralize } from 'inflection';
-import { merge, forEach, isEmpty, camelCase, toLower, isArray, uniq, compact, first } from 'lodash';
+import moment from 'moment';
+import { merge, forEach, isEmpty, camelCase, toLower, isArray, isPlainObject, uniq, compact, first, max, min } from 'lodash';
 
 // default http client
 let client;
+
+// create duplicate free array of values
+const distinct = (...values) => uniq(compact([...values]));
+
+// create dynamic camelized function name
+const fn = (...name) => camelCase([...name].join(' '));
+
+// get resource id from payload
+const idOf = data => (data ? data._id || data.id : undefined); // eslint-disable-line
+
+/**
+ * @function mapIn
+ * @name mapIn
+ * @description map array values to params
+ * @param {...Object} values values for in query
+ * @returns {Object} in query options
+ * @since 0.4.0
+ * @version 0.1.0
+ * @private
+ */
+const mapIn = (...values) => {
+  let params = distinct(...values);
+  params = params.length > 1 ? { $in: params } : first(params);
+  return params;
+};
+
+/**
+ * @function mapBetween
+ * @name mapBetween
+ * @description map date range values to params
+ * @param {Object} between valid date range options
+ * @param {Date} between.from min date value
+ * @param {Date} between.to max date value
+ * @returns {Object} between query options
+ * @since 0.4.0
+ * @version 0.1.0
+ * @private
+ */
+const mapBetween = between => {
+  const isBetween = between && (between.from || between.to);
+  if (isBetween) {
+    const span = merge({}, between);
+    let upper = max(distinct(span.to, span.from));
+    let lower = min(distinct(span.from, span.to));
+    upper = moment(upper)
+      .utc()
+      .endOf('date')
+      .toDate();
+    lower = moment(lower)
+      .utc()
+      .startOf('date')
+      .toDate();
+    return {
+      $gte: lower,
+      $lte: upper,
+    };
+  }
+  return between;
+};
+
+/**
+ * @function mapRange
+ * @name mapRange
+ * @description map range(int, float, decimal) values to params
+ * @param {Object} range valid range options
+ * @param {Number} range.min range minimum value
+ * @param {Number} range.max range maximum value
+ * @returns {Object} range query options
+ * @since 0.4.0
+ * @version 0.1.0
+ * @private
+ */
+const mapRange = range => {
+  const isRange = (range && range.min) || range.max;
+  if (isRange) {
+    const span = merge({}, range);
+    const upper = max(distinct(span.max, span.min));
+    const lower = min(distinct(span.min, span.max));
+    return {
+      $gte: lower,
+      $lte: upper,
+    };
+  }
+  return range;
+};
 
 // supported content type
 const CONTENT_TYPE = 'application/json';
@@ -13,9 +99,6 @@ const HEADERS = {
   Accept: CONTENT_TYPE,
   'Content-Type': CONTENT_TYPE,
 };
-
-// create duplicate free array of values
-const distinct = (...values) => uniq(compact([...values]));
 
 /**
  * @function prepareParams
@@ -34,24 +117,31 @@ const distinct = (...values) => uniq(compact([...values]));
  * // => { filter: {name: {$in: ['Joe', 'Doe'] } } }
  *
  * // date
- * const filters =
- *   prepareFilter({ filter: { createdAt: { from: '2019-01-01', to: '2019-01-02' } } });
- * // => { filter: { createdAt: { $gte: '2019-01-', $lte: '2019-01-02' } } }
+ * let filters = { filter: { createdAt: { from: '2019-01-01', to: '2019-01-02' } } };
+ * filters = prepareFilter(filters);
+ * // => { filter: { createdAt: { $gte: '2019-01-01', $lte: '2019-01-02' } } }
  */
 const prepareParams = params => {
   // clone params
   const options = merge({}, params);
 
-  // transform array filters
+  // transform filters
   if (options.filter) {
-    const transformArray = (val, key) => {
+    const transformFilter = (val, key) => {
+      // array
       if (isArray(val)) {
-        const values = distinct(...val);
-        options.filter[key] =
-          values.length > 1 ? { $in: values } : first(values);
+        options.filter[key] = mapIn(...val);
+      }
+      // date between
+      if (isPlainObject(val) && (val.from || val.to)) {
+        options.filter[key] = mapBetween(val);
+      }
+      // range between
+      if (isPlainObject(val) && (val.min || val.max)) {
+        options.filter[key] = mapRange(val);
       }
     };
-    forEach(options.filter, transformArray);
+    forEach(options.filter, transformFilter);
   }
 
   // return params
@@ -240,12 +330,6 @@ const del = url => {
   const httpClient = createHttpClient();
   return httpClient.delete(url);
 };
-
-// create dynamic camelized function name
-const fn = (...name) => camelCase([...name].join(' '));
-
-// get resource id from payload
-const idOf = data => (data ? data._id || data.id : undefined); // eslint-disable-line
 
 /**
  * @function createHttpActionsFor
