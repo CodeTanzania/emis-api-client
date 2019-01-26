@@ -1,7 +1,9 @@
+const moment = require('moment');
 const nock = require('nock');
 const { expect } = require('chai');
 const {
   CONTENT_TYPE,
+  prepareParams,
   createHttpClient,
   disposeHttpClient,
   all,
@@ -45,6 +47,81 @@ describe('http client', () => {
     delete process.env.EMIS_API_URL;
     delete process.env.REACT_APP_EMIS_API_URL;
     disposeHttpClient();
+  });
+
+  it('should prepare list array params', () => {
+    const filter = { name: ['joe', 'doe'] };
+    const params = prepareParams({ filter });
+    expect(params).to.exist;
+    expect(params.filter).to.exist;
+    expect(params.filter.name).to.exist;
+    expect(params.filter.name).to.be.eql({ $in: ['joe', 'doe'] });
+  });
+
+  it('should prepare single item array params', () => {
+    const filter = { name: ['joe'] };
+    const params = prepareParams({ filter });
+    expect(params).to.exist;
+    expect(params.filter).to.exist;
+    expect(params.filter.name).to.exist;
+    expect(params.filter.name).to.be.equal('joe');
+  });
+
+  it('should prepare number range params', () => {
+    let filter = { age: { min: 4, max: 5 } };
+    let params = prepareParams({ filter });
+    expect(params.filter).to.exist;
+    expect(params.filter.age).to.be.eql({ $gte: 4, $lte: 5 });
+
+    filter = { age: { min: 5, max: 4 } };
+    params = prepareParams({ filter });
+    expect(params.filter).to.exist;
+    expect(params.filter.age).to.be.eql({ $gte: 4, $lte: 5 });
+
+    filter = { age: { min: 4 } };
+    params = prepareParams({ filter });
+    expect(params.filter).to.exist;
+    expect(params.filter.age).to.be.eql({ $gte: 4 });
+
+    filter = { age: { max: 4 } };
+    params = prepareParams({ filter });
+    expect(params.filter).to.exist;
+    expect(params.filter.age).to.be.eql({ $lte: 4 });
+  });
+
+  it('should prepare date between params', () => {
+    const start = new Date('2019-01-01');
+    const end = new Date('2019-01-03');
+    const expected = {
+      $gte: moment(start)
+        .utc()
+        .startOf('date')
+        .toDate(),
+      $lte: moment(end)
+        .utc()
+        .endOf('date')
+        .toDate(),
+    };
+
+    let filter = { createdAt: { from: start, to: end } };
+    let params = prepareParams({ filter });
+    expect(params.filter).to.exist;
+    expect(params.filter.createdAt).to.be.eql(expected);
+
+    filter = { createdAt: { from: end, to: start } };
+    params = prepareParams({ filter });
+    expect(params.filter).to.exist;
+    expect(params.filter.createdAt).to.be.eql(expected);
+
+    filter = { createdAt: { from: start } };
+    params = prepareParams({ filter });
+    expect(params.filter).to.exist;
+    expect(params.filter.createdAt).to.be.eql({ $gte: expected.$gte });
+
+    filter = { createdAt: { to: end } };
+    params = prepareParams({ filter });
+    expect(params.filter).to.exist;
+    expect(params.filter.createdAt).to.be.eql({ $lte: expected.$lte });
   });
 
   it('should export create client factory', () => {

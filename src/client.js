@@ -1,24 +1,213 @@
 import axios from 'axios';
-import { isEmpty, camelCase, toLower as low } from 'lodash';
+import moment from 'moment';
 import { singularize, pluralize } from 'inflection';
+import {
+  uniq,
+  compact,
+  merge,
+  isArray,
+  isPlainObject,
+  forEach,
+  first,
+  isEmpty,
+  camelCase,
+  max,
+  min,
+  toLower as low,
+} from 'lodash';
 
 // default http client
 let client;
 
-// supported content type
+// create duplicate free array of values
+const distinct = (...values) => uniq(compact([...values]));
+
+// create dynamic camelized function name
+const fn = (...name) => camelCase([...name].join(' '));
+
+// get resource id from payload
+const idOf = data => (data ? data._id || data.id : undefined); // eslint-disable-line
+
+/**
+ * @function mapIn
+ * @name mapIn
+ * @description map array values to params
+ * @param {...Object} values values for in query
+ * @returns {Object} in query options
+ * @since 0.4.0
+ * @version 0.1.0
+ * @private
+ */
+const mapIn = (...values) => {
+  let params = distinct(...values);
+  params = params.length > 1 ? { $in: params } : first(params);
+  return params;
+};
+
+/**
+ * @function mapBetween
+ * @name mapBetween
+ * @description map date range values to params
+ * @param {Object} between valid date range options
+ * @param {Date} between.from min date value
+ * @param {Date} between.to max date value
+ * @returns {Object} between query options
+ * @since 0.4.0
+ * @version 0.1.0
+ * @private
+ */
+const mapBetween = between => {
+  const isBetween = between && (between.from || between.to);
+  if (isBetween) {
+    const { to: upper, from: lower } = merge({}, between);
+    // <= to
+    if (upper && !lower) {
+      return {
+        $lte: moment(upper)
+          .utc()
+          .endOf('date')
+          .toDate(),
+      };
+    }
+    // >= from
+    if (!upper && lower) {
+      return {
+        $gte: moment(lower)
+          .utc()
+          .startOf('date')
+          .toDate(),
+      };
+    }
+    // >= from && <= to
+    if (upper && lower) {
+      return {
+        $gte: moment(min([upper, lower]))
+          .utc()
+          .startOf('date')
+          .toDate(),
+        $lte: moment(max([upper, lower]))
+          .utc()
+          .endOf('date')
+          .toDate(),
+      };
+    }
+  }
+  return between;
+};
+
+/**
+ * @function mapRange
+ * @name mapRange
+ * @description map range(int, float, decimal) values to params
+ * @param {Object} range valid range options
+ * @param {Number} range.min range minimum value
+ * @param {Number} range.max range maximum value
+ * @returns {Object} range query options
+ * @since 0.4.0
+ * @version 0.1.0
+ * @private
+ */
+const mapRange = range => {
+  const isRange = (range && range.min) || range.max;
+  if (isRange) {
+    const { max: upper, min: lower } = merge({}, range);
+    // <= max
+    if (upper && !lower) {
+      return { $lte: upper };
+    }
+    // >= min
+    if (!upper && lower) {
+      return { $gte: lower };
+    }
+    // >= min && <= max
+    if (upper && lower) {
+      return { $gte: min([upper, lower]), $lte: max([upper, lower]) };
+    }
+  }
+  return range;
+};
+
+/**
+ * @name CONTENT_TYPE
+ * @description supported content type
+ * @since 0.1.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
 export const CONTENT_TYPE = 'application/json';
 
-// default http headers
+/**
+ * @name HEADERS
+ * @description default http headers
+ * @since 0.1.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
 export const HEADERS = {
   Accept: CONTENT_TYPE,
   'Content-Type': CONTENT_TYPE,
 };
 
 /**
+ * @function prepareParams
+ * @name prepareParams
+ * @description convert api query params as per API filtering specifications
+ * @param {Object} params api call query params
+ * @since 0.4.0
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ * import { prepareParams } from 'emis-api-client';
+ *
+ * // array
+ * const filters = prepareFilter({ filter: {name: ['Joe', 'Doe']} });
+ * // => { filter: {name: {$in: ['Joe', 'Doe'] } } }
+ *
+ * // date
+ * let filters = { filter: { createdAt: { from: '2019-01-01', to: '2019-01-02' } } };
+ * filters = prepareFilter(filters);
+ * // => { filter: { createdAt: { $gte: '2019-01-01', $lte: '2019-01-02' } } }
+ *
+ * // number
+ * let filters = { filter: { age: { min: 4, max: 14 } } };
+ * filters = prepareFilter(filters);
+ * // => { filter: { age: { $gte: 14, $lte: 4 } } }
+ */
+export const prepareParams = params => {
+  // clone params
+  const options = merge({}, params);
+
+  // transform filters
+  if (options.filter) {
+    const transformFilter = (val, key) => {
+      // array
+      if (isArray(val)) {
+        options.filter[key] = mapIn(...val);
+      }
+      // date between
+      if (isPlainObject(val) && (val.from || val.to)) {
+        options.filter[key] = mapBetween(val);
+      }
+      // range between
+      if (isPlainObject(val) && (val.min || val.max)) {
+        options.filter[key] = mapRange(val);
+      }
+    };
+    forEach(options.filter, transformFilter);
+  }
+
+  // return params
+  return options;
+};
+
+/**
  * @function createHttpClient
  * @name createHttpClient
  * @description create an http client if not exists
- * @param  {String} API_URL base url to use to api calls
+ * @param {String} API_URL base url to use to api calls
  * @return {Axios} A new instance of Axios
  * @since 0.1.0
  * @version 0.1.0
@@ -105,7 +294,8 @@ export const spread = axios.spread; // eslint-disable-line
  */
 export const get = (url, params) => {
   const httpClient = createHttpClient();
-  return httpClient.get(url, { params });
+  const options = prepareParams(params);
+  return httpClient.get(url, { params: options });
 };
 
 /**
@@ -195,12 +385,6 @@ export const del = url => {
   const httpClient = createHttpClient();
   return httpClient.delete(url);
 };
-
-// create dynamic camelized function name
-const fn = (...name) => camelCase([...name].join(' '));
-
-// get resource id from payload
-const idOf = data => (data ? data._id || data.id : undefined); // eslint-disable-line
 
 /**
  * @function createHttpActionsFor
