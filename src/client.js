@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { singularize, pluralize } from 'inflection';
 import moment from 'moment';
+import { singularize, pluralize } from 'inflection';
 import {
   uniq,
   compact,
@@ -59,21 +59,38 @@ const mapIn = (...values) => {
 const mapBetween = between => {
   const isBetween = between && (between.from || between.to);
   if (isBetween) {
-    const span = merge({}, between);
-    let upper = max(distinct(span.to, span.from));
-    let lower = min(distinct(span.from, span.to));
-    upper = moment(upper)
-      .utc()
-      .endOf('date')
-      .toDate();
-    lower = moment(lower)
-      .utc()
-      .startOf('date')
-      .toDate();
-    return {
-      $gte: lower,
-      $lte: upper,
-    };
+    const { to: upper, from: lower } = merge({}, between);
+    // <= to
+    if (upper && !lower) {
+      return {
+        $lte: moment(upper)
+          .utc()
+          .endOf('date')
+          .toDate(),
+      };
+    }
+    // >= from
+    if (!upper && lower) {
+      return {
+        $gte: moment(lower)
+          .utc()
+          .startOf('date')
+          .toDate(),
+      };
+    }
+    // >= from && <= to
+    if (upper && lower) {
+      return {
+        $gte: moment(min([upper, lower]))
+          .utc()
+          .startOf('date')
+          .toDate(),
+        $lte: moment(max([upper, lower]))
+          .utc()
+          .endOf('date')
+          .toDate(),
+      };
+    }
   }
   return between;
 };

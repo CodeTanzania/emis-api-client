@@ -112,6 +112,16 @@ describe('http client', () => {
     params = prepareParams({ filter });
     expect(params.filter).to.exist;
     expect(params.filter.createdAt).to.be.eql(expected);
+
+    filter = { createdAt: { from: start } };
+    params = prepareParams({ filter });
+    expect(params.filter).to.exist;
+    expect(params.filter.createdAt).to.be.eql({ $gte: expected.$gte });
+
+    filter = { createdAt: { to: end } };
+    params = prepareParams({ filter });
+    expect(params.filter).to.exist;
+    expect(params.filter.createdAt).to.be.eql({ $lte: expected.$lte });
   });
 
   it('should export create client factory', () => {
