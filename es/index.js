@@ -1,5 +1,5 @@
-import axios, { spread } from 'axios';
-import { isEmpty, camelCase, toLower, get } from 'lodash';
+import axios from 'axios';
+import { isEmpty, camelCase, toLower } from 'lodash';
 import { singularize, pluralize } from 'inflection';
 
 // default http client
@@ -81,7 +81,7 @@ const all = (...promises) => axios.all([...promises]);
  * const request = all(getIncidentTypes(), getPlans());
  * request.then(spread((incidentTypes, plans) => { ... }));
  */
-const spread$1 = spread;
+const spread = axios.spread; // eslint-disable-line
 
 /**
  * @function get
@@ -103,7 +103,7 @@ const spread$1 = spread;
  * const getUser = get('/users/12');
  * getUser.then(user => { ... }).catch(error => { ... });
  */
-const get$1 = (url, params) => {
+const get = (url, params) => {
   const httpClient = createHttpClient();
   return httpClient.get(url, { params });
 };
@@ -200,7 +200,7 @@ const del = url => {
 const fn = (...name) => camelCase([...name].join(' '));
 
 // get resource id from payload
-const idOf = data => get(data, '_id') || get(data, 'id');
+const idOf = data => (data ? data._id || data.id : undefined); // eslint-disable-line
 
 /**
  * @function createHttpActionsFor
@@ -222,11 +222,11 @@ const createHttpActionsFor = resource => {
   const plural = pluralize(resource);
   const httpActions = {
     [fn('get', singular, 'Schema')]: () =>
-      get$1(`/${toLower(plural)}/schema`).then(response => response.data),
+      get(`/${toLower(plural)}/schema`).then(response => response.data),
     [fn('get', plural)]: params =>
-      get$1(`/${toLower(plural)}`, params).then(response => response.data),
+      get(`/${toLower(plural)}`, params).then(response => response.data),
     [fn('get', singular)]: id =>
-      get$1(`/${toLower(plural)}/${id}`).then(response => response.data),
+      get(`/${toLower(plural)}/${id}`).then(response => response.data),
     [fn('post', singular)]: data =>
       post(`/${toLower(plural)}`, data).then(response => response.data),
     [fn('put', singular)]: data =>
@@ -242,6 +242,15 @@ const createHttpActionsFor = resource => {
   };
   return httpActions;
 };
+
+const getSchemas = () =>
+  get('/schemas').then(response => {
+    const schemas = response.data;
+    if (schemas) {
+      schemas.Warehouse = schemas.Feature;
+    }
+    return schemas;
+  });
 
 const {
   getActivitySchema,
@@ -423,150 +432,4 @@ const {
   deleteWarehouse,
 } = createHttpActionsFor('warehouse');
 
-export {
-  getActivitySchema,
-  getActivities,
-  getActivity,
-  postActivity,
-  putActivity,
-  patchActivity,
-  deleteActivity,
-  getAdjustmentSchema,
-  getAdjustments,
-  getAdjustment,
-  postAdjustment,
-  putAdjustment,
-  patchAdjustment,
-  deleteAdjustment,
-  getAlertSchema,
-  getAlerts,
-  getAlert,
-  postAlert,
-  putAlert,
-  patchAlert,
-  deleteAlert,
-  getAssessmentSchema,
-  getAssessments,
-  getAssessment,
-  postAssessment,
-  putAssessment,
-  patchAssessment,
-  deleteAssessment,
-  getFeatureSchema,
-  getFeatures,
-  getFeature,
-  postFeature,
-  putFeature,
-  patchFeature,
-  deleteFeature,
-  getIncidentSchema,
-  getIncidents,
-  getIncident,
-  postIncident,
-  putIncident,
-  patchIncident,
-  deleteIncident,
-  getIncidentTypeSchema,
-  getIncidentTypes,
-  getIncidentType,
-  postIncidentType,
-  putIncidentType,
-  patchIncidentType,
-  deleteIncidentType,
-  getIndicatorSchema,
-  getIndicators,
-  getIndicator,
-  postIndicator,
-  putIndicator,
-  patchIndicator,
-  deleteIndicator,
-  getItemSchema,
-  getItems,
-  getItem,
-  postItem,
-  putItem,
-  patchItem,
-  deleteItem,
-  getPartySchema,
-  getPartySchema as getStakeholderSchema,
-  getParties,
-  getParties as getStakeholders,
-  getParty,
-  getParty as getStakeholder,
-  postParty,
-  postParty as postStakeholder,
-  putParty,
-  putParty as putStakeholder,
-  patchParty,
-  patchParty as patchStakeholder,
-  deleteParty,
-  deleteParty as deleteStakeholder,
-  getPermissionSchema,
-  getPermissions,
-  getPermission,
-  postPermission,
-  putPermission,
-  patchPermission,
-  deletePermission,
-  getPlanSchema,
-  getPlans,
-  getPlan,
-  postPlan,
-  putPlan,
-  patchPlan,
-  deletePlan,
-  getProcedureSchema,
-  getProcedures,
-  getProcedure,
-  postProcedure,
-  putProcedure,
-  patchProcedure,
-  deleteProcedure,
-  getQuestionSchema,
-  getQuestions,
-  getQuestion,
-  postQuestion,
-  putQuestion,
-  patchQuestion,
-  deleteQuestion,
-  getQuestionnaireSchema,
-  getQuestionnaires,
-  getQuestionnaire,
-  postQuestionnaire,
-  putQuestionnaire,
-  patchQuestionnaire,
-  deleteQuestionnaire,
-  getRoleSchema,
-  getRoles,
-  getRole,
-  postRole,
-  putRole,
-  patchRole,
-  deleteRole,
-  getStockSchema,
-  getStocks,
-  getStock,
-  postStock,
-  putStock,
-  patchStock,
-  deleteStock,
-  getWarehouseSchema,
-  getWarehouses,
-  getWarehouse,
-  postWarehouse,
-  putWarehouse,
-  patchWarehouse,
-  deleteWarehouse,
-  CONTENT_TYPE,
-  HEADERS,
-  createHttpClient,
-  disposeHttpClient,
-  all,
-  spread$1 as spread,
-  get$1 as get,
-  post,
-  put,
-  patch,
-  del,
-  createHttpActionsFor,
-};
+export { getSchemas, getActivitySchema, getActivities, getActivity, postActivity, putActivity, patchActivity, deleteActivity, getAdjustmentSchema, getAdjustments, getAdjustment, postAdjustment, putAdjustment, patchAdjustment, deleteAdjustment, getAlertSchema, getAlerts, getAlert, postAlert, putAlert, patchAlert, deleteAlert, getAssessmentSchema, getAssessments, getAssessment, postAssessment, putAssessment, patchAssessment, deleteAssessment, getFeatureSchema, getFeatures, getFeature, postFeature, putFeature, patchFeature, deleteFeature, getIncidentSchema, getIncidents, getIncident, postIncident, putIncident, patchIncident, deleteIncident, getIncidentTypeSchema, getIncidentTypes, getIncidentType, postIncidentType, putIncidentType, patchIncidentType, deleteIncidentType, getIndicatorSchema, getIndicators, getIndicator, postIndicator, putIndicator, patchIndicator, deleteIndicator, getItemSchema, getItems, getItem, postItem, putItem, patchItem, deleteItem, getPartySchema, getPartySchema as getStakeholderSchema, getParties, getParties as getStakeholders, getParty, getParty as getStakeholder, postParty, postParty as postStakeholder, putParty, putParty as putStakeholder, patchParty, patchParty as patchStakeholder, deleteParty, deleteParty as deleteStakeholder, getPermissionSchema, getPermissions, getPermission, postPermission, putPermission, patchPermission, deletePermission, getPlanSchema, getPlans, getPlan, postPlan, putPlan, patchPlan, deletePlan, getProcedureSchema, getProcedures, getProcedure, postProcedure, putProcedure, patchProcedure, deleteProcedure, getQuestionSchema, getQuestions, getQuestion, postQuestion, putQuestion, patchQuestion, deleteQuestion, getQuestionnaireSchema, getQuestionnaires, getQuestionnaire, postQuestionnaire, putQuestionnaire, patchQuestionnaire, deleteQuestionnaire, getRoleSchema, getRoles, getRole, postRole, putRole, patchRole, deleteRole, getStockSchema, getStocks, getStock, postStock, putStock, patchStock, deleteStock, getWarehouseSchema, getWarehouses, getWarehouse, postWarehouse, putWarehouse, patchWarehouse, deleteWarehouse, CONTENT_TYPE, HEADERS, createHttpClient, disposeHttpClient, all, spread, get, post, put, patch, del, createHttpActionsFor };

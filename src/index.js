@@ -1,6 +1,15 @@
-import { createHttpActionsFor } from './client';
+import { get, createHttpActionsFor } from './client';
 
 export * from './client';
+
+export const getSchemas = () =>
+  get('/schemas').then(response => {
+    const schemas = response.data;
+    if (schemas) {
+      schemas.Warehouse = schemas.Feature;
+    }
+    return schemas;
+  });
 
 export const {
   getActivitySchema,
