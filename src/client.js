@@ -104,10 +104,24 @@ const mapRange = range => {
   return range;
 };
 
-// supported content type
+/**
+ * @name CONTENT_TYPE
+ * @description supported content type
+ * @since 0.1.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
 export const CONTENT_TYPE = 'application/json';
 
-// default http headers
+/**
+ * @name HEADERS
+ * @description default http headers
+ * @since 0.1.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
 export const HEADERS = {
   Accept: CONTENT_TYPE,
   'Content-Type': CONTENT_TYPE,
