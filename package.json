@@ -8,7 +8,7 @@
     "clean": "rimraf lib dist es umd",
     "build": "npm run clean && rollup -c",
     "lint:src": "eslint --fix --ext .js src/ rollup.config.js",
-    "lint": "npm run build && eslint --fix --ext .js src/ test/unit rollup.config.js",
+    "lint": "npm run build && eslint --fix --ext .js src/ test/ rollup.config.js",
     "test": "npm run lint -s && mocha test/**/*.spec.js",
     "cmt": "git add . && git-cz",
     "changelog": "changelog"

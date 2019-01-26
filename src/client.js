@@ -1,5 +1,5 @@
-import axios, { spread as toSimpleArgs } from 'axios';
-import { isEmpty, camelCase, toLower as low, get as value } from 'lodash';
+import axios from 'axios';
+import { isEmpty, camelCase, toLower as low } from 'lodash';
 import { singularize, pluralize } from 'inflection';
 
 // default http client
@@ -81,7 +81,7 @@ export const all = (...promises) => axios.all([...promises]);
  * const request = all(getIncidentTypes(), getPlans());
  * request.then(spread((incidentTypes, plans) => { ... }));
  */
-export const spread = toSimpleArgs;
+export const spread = axios.spread; // eslint-disable-line
 
 /**
  * @function get
@@ -200,7 +200,7 @@ export const del = url => {
 const fn = (...name) => camelCase([...name].join(' '));
 
 // get resource id from payload
-const idOf = data => value(data, '_id') || value(data, 'id');
+const idOf = data => (data ? data._id || data.id : undefined); // eslint-disable-line
 
 /**
  * @function createHttpActionsFor

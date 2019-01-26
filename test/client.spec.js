@@ -12,6 +12,7 @@ const {
   patch,
   del,
   createHttpActionsFor,
+  getSchemas,
   getActivitySchema,
   getAdjustmentSchema,
   getAlertSchema,
@@ -37,7 +38,7 @@ const {
   putPlan,
   patchPlan,
   deletePlan,
-} = require('../../');
+} = require('..');
 
 describe('http client', () => {
   beforeEach(() => {
@@ -339,6 +340,7 @@ describe('http client', () => {
 
   it('should export EMIS resource http action shortcuts', () => {
     expect(createHttpActionsFor).to.exist;
+    expect(getSchemas).to.exist;
     expect(getActivitySchema).to.exist;
     expect(getAdjustmentSchema).to.exist;
     expect(getAlertSchema).to.exist;
@@ -495,6 +497,28 @@ describe('http client', () => {
           done();
         })
       )
+      .catch(error => {
+        done(error);
+      });
+  });
+
+  it('should handle http get on /schemas', done => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+    const data = { Plan: {}, Feature: {} };
+    nock(baseUrl)
+      .get('/schemas')
+      .reply(200, data);
+
+    getSchemas()
+      .then(schemas => {
+        expect(schemas).to.exist;
+        expect(schemas).to.be.an('object');
+        expect(schemas.Plan).to.exist;
+        expect(schemas.Feature).to.exist;
+        expect(schemas.Warehouse).to.exist;
+        done(null, data);
+      })
       .catch(error => {
         done(error);
       });
