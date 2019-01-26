@@ -81,12 +81,12 @@ describe('http client', () => {
     filter = { age: { min: 4 } };
     params = prepareParams({ filter });
     expect(params.filter).to.exist;
-    expect(params.filter.age).to.be.eql({ $gte: 4, $lte: 4 });
+    expect(params.filter.age).to.be.eql({ $gte: 4 });
 
     filter = { age: { max: 4 } };
     params = prepareParams({ filter });
     expect(params.filter).to.exist;
-    expect(params.filter.age).to.be.eql({ $gte: 4, $lte: 4 });
+    expect(params.filter.age).to.be.eql({ $lte: 4 });
   });
 
   it('should prepare date between params', () => {

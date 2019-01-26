@@ -80,17 +80,22 @@ const mapBetween = between => {
 const mapRange = range => {
   const isRange = (range && range.min) || range.max;
   if (isRange) {
-    const span = merge({}, range);
-    const upper = max(distinct(span.max, span.min));
-    const lower = min(distinct(span.min, span.max));
-    return {
-      $gte: lower,
-      $lte: upper,
-    };
+    const { max: upper, min: lower } = merge({}, range);
+    // <= max
+    if (upper && !lower) {
+      return { $lte: upper };
+    }
+    // >= min
+    if (!upper && lower) {
+      return { $gte: lower };
+    }
+    // >= min && <= max
+    if (upper && lower) {
+      return { $gte: min([upper, lower]), $lte: max([upper, lower]) };
+    }
   }
   return range;
 };
-
 
 /**
  * @name CONTENT_TYPE
@@ -135,6 +140,11 @@ const HEADERS = {
  * let filters = { filter: { createdAt: { from: '2019-01-01', to: '2019-01-02' } } };
  * filters = prepareFilter(filters);
  * // => { filter: { createdAt: { $gte: '2019-01-01', $lte: '2019-01-02' } } }
+ *
+ * // number
+ * let filters = { filter: { age: { min: 4, max: 14 } } };
+ * filters = prepareFilter(filters);
+ * // => { filter: { age: { $gte: 14, $lte: 4 } } }
  */
 const prepareParams = params => {
   // clone params
