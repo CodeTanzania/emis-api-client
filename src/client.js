@@ -147,6 +147,11 @@ export const HEADERS = {
  * let filters = { filter: { createdAt: { from: '2019-01-01', to: '2019-01-02' } } };
  * filters = prepareFilter(filters);
  * // => { filter: { createdAt: { $gte: '2019-01-01', $lte: '2019-01-02' } } }
+ *
+ * // number
+ * let filters = { filter: { age: { min: 4, max: 14 } } };
+ * filters = prepareFilter(filters);
+ * // => { filter: { age: { $gte: 14, $lte: 4 } } }
  */
 export const prepareParams = params => {
   // clone params
