@@ -2,6 +2,7 @@ const nock = require('nock');
 const { expect } = require('chai');
 const {
   CONTENT_TYPE,
+  prepareParams,
   createHttpClient,
   disposeHttpClient,
   all,
@@ -45,6 +46,31 @@ describe('http client', () => {
     delete process.env.EMIS_API_URL;
     delete process.env.REACT_APP_EMIS_API_URL;
     disposeHttpClient();
+  });
+
+  it('should export prepareParams helper', () => {
+    expect(prepareParams).to.exist;
+    expect(prepareParams).to.exist.and.to.be.a('function');
+    expect(prepareParams.name).to.be.equal('prepareParams');
+    expect(prepareParams.length).to.be.equal(1);
+  });
+
+  it('should prepare list array params', () => {
+    const filter = { name: ['joe', 'doe'] };
+    const params = prepareParams({ filter });
+    expect(params).to.exist;
+    expect(params.filter).to.exist;
+    expect(params.filter.name).to.exist;
+    expect(params.filter.name).to.be.eql({ $in: ['joe', 'doe'] });
+  });
+
+  it('should prepare single item array params', () => {
+    const filter = { name: ['joe'] };
+    const params = prepareParams({ filter });
+    expect(params).to.exist;
+    expect(params.filter).to.exist;
+    expect(params.filter.name).to.exist;
+    expect(params.filter.name).to.be.equal('joe');
   });
 
   it('should export create client factory', () => {

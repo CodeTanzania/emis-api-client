@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { isEmpty, camelCase, toLower } from 'lodash';
 import { singularize, pluralize } from 'inflection';
+import { merge, forEach, isEmpty, camelCase, toLower, isArray, uniq, compact, first } from 'lodash';
 
 // default http client
 let client;
@@ -14,11 +14,55 @@ const HEADERS = {
   'Content-Type': CONTENT_TYPE,
 };
 
+// create duplicate free array of values
+const distinct = (...values) => uniq(compact([...values]));
+
+/**
+ * @function prepareParams
+ * @name prepareParams
+ * @description convert api query params as per API filtering specifications
+ * @param {Object} params api call query params
+ * @since 0.4.0
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ * import { prepareParams } from 'emis-api-client';
+ *
+ * // array
+ * const filters = prepareFilter({ filter: {name: ['Joe', 'Doe']} });
+ * // => { filter: {name: {$in: ['Joe', 'Doe'] } } }
+ *
+ * // date
+ * const filters =
+ *   prepareFilter({ filter: { createdAt: { from: '2019-01-01', to: '2019-01-02' } } });
+ * // => { filter: { createdAt: { $gte: '2019-01-', $lte: '2019-01-02' } } }
+ */
+const prepareParams = params => {
+  // clone params
+  const options = merge({}, params);
+
+  // transform array filters
+  if (options.filter) {
+    const transformArray = (val, key) => {
+      if (isArray(val)) {
+        const values = distinct(...val);
+        options.filter[key] =
+          values.length > 1 ? { $in: values } : first(values);
+      }
+    };
+    forEach(options.filter, transformArray);
+  }
+
+  // return params
+  return options;
+};
+
 /**
  * @function createHttpClient
  * @name createHttpClient
  * @description create an http client if not exists
- * @param  {String} API_URL base url to use to api calls
+ * @param {String} API_URL base url to use to api calls
  * @return {Axios} A new instance of Axios
  * @since 0.1.0
  * @version 0.1.0
@@ -105,7 +149,8 @@ const spread = axios.spread; // eslint-disable-line
  */
 const get = (url, params) => {
   const httpClient = createHttpClient();
-  return httpClient.get(url, { params });
+  const options = prepareParams(params);
+  return httpClient.get(url, { params: options });
 };
 
 /**
@@ -432,4 +477,4 @@ const {
   deleteWarehouse,
 } = createHttpActionsFor('warehouse');
 
-export { getSchemas, getActivitySchema, getActivities, getActivity, postActivity, putActivity, patchActivity, deleteActivity, getAdjustmentSchema, getAdjustments, getAdjustment, postAdjustment, putAdjustment, patchAdjustment, deleteAdjustment, getAlertSchema, getAlerts, getAlert, postAlert, putAlert, patchAlert, deleteAlert, getAssessmentSchema, getAssessments, getAssessment, postAssessment, putAssessment, patchAssessment, deleteAssessment, getFeatureSchema, getFeatures, getFeature, postFeature, putFeature, patchFeature, deleteFeature, getIncidentSchema, getIncidents, getIncident, postIncident, putIncident, patchIncident, deleteIncident, getIncidentTypeSchema, getIncidentTypes, getIncidentType, postIncidentType, putIncidentType, patchIncidentType, deleteIncidentType, getIndicatorSchema, getIndicators, getIndicator, postIndicator, putIndicator, patchIndicator, deleteIndicator, getItemSchema, getItems, getItem, postItem, putItem, patchItem, deleteItem, getPartySchema, getPartySchema as getStakeholderSchema, getParties, getParties as getStakeholders, getParty, getParty as getStakeholder, postParty, postParty as postStakeholder, putParty, putParty as putStakeholder, patchParty, patchParty as patchStakeholder, deleteParty, deleteParty as deleteStakeholder, getPermissionSchema, getPermissions, getPermission, postPermission, putPermission, patchPermission, deletePermission, getPlanSchema, getPlans, getPlan, postPlan, putPlan, patchPlan, deletePlan, getProcedureSchema, getProcedures, getProcedure, postProcedure, putProcedure, patchProcedure, deleteProcedure, getQuestionSchema, getQuestions, getQuestion, postQuestion, putQuestion, patchQuestion, deleteQuestion, getQuestionnaireSchema, getQuestionnaires, getQuestionnaire, postQuestionnaire, putQuestionnaire, patchQuestionnaire, deleteQuestionnaire, getRoleSchema, getRoles, getRole, postRole, putRole, patchRole, deleteRole, getStockSchema, getStocks, getStock, postStock, putStock, patchStock, deleteStock, getWarehouseSchema, getWarehouses, getWarehouse, postWarehouse, putWarehouse, patchWarehouse, deleteWarehouse, CONTENT_TYPE, HEADERS, createHttpClient, disposeHttpClient, all, spread, get, post, put, patch, del, createHttpActionsFor };
+export { getSchemas, getActivitySchema, getActivities, getActivity, postActivity, putActivity, patchActivity, deleteActivity, getAdjustmentSchema, getAdjustments, getAdjustment, postAdjustment, putAdjustment, patchAdjustment, deleteAdjustment, getAlertSchema, getAlerts, getAlert, postAlert, putAlert, patchAlert, deleteAlert, getAssessmentSchema, getAssessments, getAssessment, postAssessment, putAssessment, patchAssessment, deleteAssessment, getFeatureSchema, getFeatures, getFeature, postFeature, putFeature, patchFeature, deleteFeature, getIncidentSchema, getIncidents, getIncident, postIncident, putIncident, patchIncident, deleteIncident, getIncidentTypeSchema, getIncidentTypes, getIncidentType, postIncidentType, putIncidentType, patchIncidentType, deleteIncidentType, getIndicatorSchema, getIndicators, getIndicator, postIndicator, putIndicator, patchIndicator, deleteIndicator, getItemSchema, getItems, getItem, postItem, putItem, patchItem, deleteItem, getPartySchema, getPartySchema as getStakeholderSchema, getParties, getParties as getStakeholders, getParty, getParty as getStakeholder, postParty, postParty as postStakeholder, putParty, putParty as putStakeholder, patchParty, patchParty as patchStakeholder, deleteParty, deleteParty as deleteStakeholder, getPermissionSchema, getPermissions, getPermission, postPermission, putPermission, patchPermission, deletePermission, getPlanSchema, getPlans, getPlan, postPlan, putPlan, patchPlan, deletePlan, getProcedureSchema, getProcedures, getProcedure, postProcedure, putProcedure, patchProcedure, deleteProcedure, getQuestionSchema, getQuestions, getQuestion, postQuestion, putQuestion, patchQuestion, deleteQuestion, getQuestionnaireSchema, getQuestionnaires, getQuestionnaire, postQuestionnaire, putQuestionnaire, patchQuestionnaire, deleteQuestionnaire, getRoleSchema, getRoles, getRole, postRole, putRole, patchRole, deleteRole, getStockSchema, getStocks, getStock, postStock, putStock, patchStock, deleteStock, getWarehouseSchema, getWarehouses, getWarehouse, postWarehouse, putWarehouse, patchWarehouse, deleteWarehouse, CONTENT_TYPE, HEADERS, prepareParams, createHttpClient, disposeHttpClient, all, spread, get, post, put, patch, del, createHttpActionsFor };

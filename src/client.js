@@ -1,6 +1,16 @@
 import axios from 'axios';
-import { isEmpty, camelCase, toLower as low } from 'lodash';
 import { singularize, pluralize } from 'inflection';
+import {
+  uniq,
+  compact,
+  merge,
+  isArray,
+  forEach,
+  first,
+  isEmpty,
+  camelCase,
+  toLower as low,
+} from 'lodash';
 
 // default http client
 let client;
@@ -14,11 +24,55 @@ export const HEADERS = {
   'Content-Type': CONTENT_TYPE,
 };
 
+// create duplicate free array of values
+const distinct = (...values) => uniq(compact([...values]));
+
+/**
+ * @function prepareParams
+ * @name prepareParams
+ * @description convert api query params as per API filtering specifications
+ * @param {Object} params api call query params
+ * @since 0.4.0
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ * import { prepareParams } from 'emis-api-client';
+ *
+ * // array
+ * const filters = prepareFilter({ filter: {name: ['Joe', 'Doe']} });
+ * // => { filter: {name: {$in: ['Joe', 'Doe'] } } }
+ *
+ * // date
+ * const filters =
+ *   prepareFilter({ filter: { createdAt: { from: '2019-01-01', to: '2019-01-02' } } });
+ * // => { filter: { createdAt: { $gte: '2019-01-', $lte: '2019-01-02' } } }
+ */
+export const prepareParams = params => {
+  // clone params
+  const options = merge({}, params);
+
+  // transform array filters
+  if (options.filter) {
+    const transformArray = (val, key) => {
+      if (isArray(val)) {
+        const values = distinct(...val);
+        options.filter[key] =
+          values.length > 1 ? { $in: values } : first(values);
+      }
+    };
+    forEach(options.filter, transformArray);
+  }
+
+  // return params
+  return options;
+};
+
 /**
  * @function createHttpClient
  * @name createHttpClient
  * @description create an http client if not exists
- * @param  {String} API_URL base url to use to api calls
+ * @param {String} API_URL base url to use to api calls
  * @return {Axios} A new instance of Axios
  * @since 0.1.0
  * @version 0.1.0
@@ -105,7 +159,8 @@ export const spread = axios.spread; // eslint-disable-line
  */
 export const get = (url, params) => {
   const httpClient = createHttpClient();
-  return httpClient.get(url, { params });
+  const options = prepareParams(params);
+  return httpClient.get(url, { params: options });
 };
 
 /**
