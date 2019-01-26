@@ -1,3 +1,13 @@
+#### 0.4.0 (2019-01-26)
+
+##### Chores
+
+*  switch git add . to git add -A ([23fb8d6e](https://github.com/CodeTanzania/emis-api-client/commit/23fb8d6e88450feba92e1597678b4ddbf1e16895))
+
+##### New Features
+
+*  add getSchemas to fetch /v1/schemas of api ([5e08bd88](https://github.com/CodeTanzania/emis-api-client/commit/5e08bd889fd73fbe7a11aa50c0b0462a04df0105))
+
 #### 0.3.1 (2019-01-25)
 
 ##### Chores
