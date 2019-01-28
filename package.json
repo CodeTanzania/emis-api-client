@@ -1,6 +1,6 @@
 {
   "name": "@codetanzania/emis-api-client",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "http client for EMIS API.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -38,9 +38,9 @@
   },
   "homepage": "https://github.com/CodeTanzania/emis-api-client#readme",
   "devDependencies": {
-    "@commitlint/cli": "^7.3.2",
+    "@commitlint/cli": "^7.4.0",
     "@commitlint/config-conventional": "^7.3.1",
-    "@commitlint/travis-cli": "^7.3.2",
+    "@commitlint/travis-cli": "^7.4.0",
     "axios": "^0.18.0",
     "chai": "^4.2.0",
     "commitizen": "^3.0.5",

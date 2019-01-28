@@ -164,8 +164,10 @@ const HEADERS = {
  * // => { filter: { age: { $gte: 14, $lte: 4 } } }
  */
 const prepareParams = params => {
+  // default params
+  const defaults = { sort: { updatedAt: -1 } };
   // clone params
-  const options = merge({}, params);
+  const options = merge({}, defaults, params);
 
   // transform filters
   if (options.filter) {

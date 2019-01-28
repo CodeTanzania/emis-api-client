@@ -210,6 +210,7 @@ describe('http client', () => {
     const data = { data: [] };
     nock(baseUrl)
       .get('/users')
+      .query(true)
       .reply(200, data);
 
     get('/users')
@@ -230,6 +231,7 @@ describe('http client', () => {
     const data = {};
     nock(baseUrl)
       .get('/users/5c1766243c9d520004e2b542')
+      .query(true)
       .reply(200, data);
 
     get('/users/5c1766243c9d520004e2b542')
@@ -250,6 +252,7 @@ describe('http client', () => {
     const data = {};
     nock(baseUrl)
       .post('/users')
+      .query(true)
       .reply(201, data);
 
     post('/users', { age: 11 })
@@ -270,6 +273,7 @@ describe('http client', () => {
     const data = {};
     nock(baseUrl)
       .post('/users')
+      .query(true)
       .reply(201, data);
 
     post('/users', {}).catch(error => {
@@ -285,6 +289,7 @@ describe('http client', () => {
     const data = {};
     nock(baseUrl)
       .put('/users/5c1766243c9d520004e2b542')
+      .query(true)
       .reply(200, data);
 
     put('/users/5c1766243c9d520004e2b542', { age: 11 })
@@ -305,6 +310,7 @@ describe('http client', () => {
     const data = {};
     nock(baseUrl)
       .put('/users/5c1766243c9d520004e2b542')
+      .query(true)
       .reply(200, data);
 
     put('/users/5c1766243c9d520004e2b542', {}).catch(error => {
@@ -320,6 +326,7 @@ describe('http client', () => {
     const data = {};
     nock(baseUrl)
       .patch('/users/5c1766243c9d520004e2b542')
+      .query(true)
       .reply(200, data);
 
     patch('/users/5c1766243c9d520004e2b542', { age: 11 })
@@ -340,6 +347,7 @@ describe('http client', () => {
     const data = {};
     nock(baseUrl)
       .patch('/users/5c1766243c9d520004e2b542')
+      .query(true)
       .reply(200, data);
 
     patch('/users/5c1766243c9d520004e2b542', {}).catch(error => {
@@ -355,6 +363,7 @@ describe('http client', () => {
     const data = {};
     nock(baseUrl)
       .delete('/users/5c1766243c9d520004e2b542')
+      .query(true)
       .reply(200, data);
 
     del('/users/5c1766243c9d520004e2b542')
@@ -445,6 +454,7 @@ describe('http client', () => {
     const data = { data: [] };
     nock(baseUrl)
       .get('/plans')
+      .query(true)
       .reply(200, data);
 
     getPlans()
@@ -464,6 +474,7 @@ describe('http client', () => {
     const data = {};
     nock(baseUrl)
       .get('/plans/5c1766243c9d520004e2b542')
+      .query(true)
       .reply(200, data);
 
     getPlan('5c1766243c9d520004e2b542')
@@ -483,6 +494,7 @@ describe('http client', () => {
     const data = {};
     nock(baseUrl)
       .post('/plans')
+      .query(true)
       .reply(201, data);
 
     postPlan({ description: 'Voluptas' })
@@ -502,6 +514,7 @@ describe('http client', () => {
     const data = {};
     nock(baseUrl)
       .put('/plans/5c1766243c9d520004e2b542')
+      .query(true)
       .reply(200, data);
 
     putPlan({ _id: '5c1766243c9d520004e2b542', description: 'Voluptas' })
@@ -521,6 +534,7 @@ describe('http client', () => {
     const data = {};
     nock(baseUrl)
       .patch('/plans/5c1766243c9d520004e2b542')
+      .query(true)
       .reply(200, data);
 
     patchPlan({ _id: '5c1766243c9d520004e2b542', description: 'Voluptas' })
@@ -540,6 +554,7 @@ describe('http client', () => {
     const data = {};
     nock(baseUrl)
       .delete('/plans/5c1766243c9d520004e2b542')
+      .query(true)
       .reply(200, data);
 
     deletePlan('5c1766243c9d520004e2b542')
@@ -559,9 +574,11 @@ describe('http client', () => {
     const data = [{}];
     nock(baseUrl)
       .get('/incidenttypes/schema')
+      .query(true)
       .reply(200, data);
     nock(baseUrl)
       .get('/plans/schema')
+      .query(true)
       .reply(200, data);
 
     all(getIncidentTypeSchema(), getPlanSchema())
@@ -585,6 +602,7 @@ describe('http client', () => {
     const data = { Plan: {}, Feature: {} };
     nock(baseUrl)
       .get('/schemas')
+      .query(true)
       .reply(200, data);
 
     getSchemas()

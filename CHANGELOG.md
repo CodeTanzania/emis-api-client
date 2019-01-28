@@ -1,3 +1,13 @@
+#### 0.5.1 (2019-01-28)
+
+##### Chores
+
+*  force latest dependencies ([cfbd88ad](https://github.com/CodeTanzania/emis-api-client/commit/cfbd88ade1a7767561a2b69d52fa97d4d165cb8a))
+
+##### New Features
+
+*  add default sort by updatedAt descending on api calls ([c5c6f04e](https://github.com/CodeTanzania/emis-api-client/commit/c5c6f04e43a613b22c7f582a99641ec136fc1714))
+
 #### 0.5.0 (2019-01-26)
 
 ##### New Features
