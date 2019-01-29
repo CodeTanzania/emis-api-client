@@ -42,6 +42,16 @@ export const {
 } = createHttpActionsFor('alert');
 
 export const {
+  getAlertSourceSchema,
+  getAlertSources,
+  getAlertSource,
+  postAlertSource,
+  putAlertSource,
+  patchAlertSource,
+  deleteAlertSource,
+} = createHttpActionsFor('alertSource');
+
+export const {
   getAssessmentSchema,
   getAssessments,
   getAssessment,
