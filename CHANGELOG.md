@@ -1,3 +1,9 @@
+#### 0.6.0 (2019-01-29)
+
+##### New Features
+
+*  add alert source http actions ([4b9ac10b](https://github.com/CodeTanzania/emis-api-client/commit/4b9ac10b0db0a5a2cec80dfc40317e01ef15f938))
+
 #### 0.5.1 (2019-01-28)
 
 ##### Chores

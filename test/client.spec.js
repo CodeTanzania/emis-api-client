@@ -18,6 +18,7 @@ const {
   getActivitySchema,
   getAdjustmentSchema,
   getAlertSchema,
+  getAlertSourceSchema,
   getAssessmentSchema,
   getFeatureSchema,
   getIncidentSchema,
@@ -430,6 +431,7 @@ describe('http client', () => {
     expect(getActivitySchema).to.exist;
     expect(getAdjustmentSchema).to.exist;
     expect(getAlertSchema).to.exist;
+    expect(getAlertSourceSchema).to.exist;
     expect(getAssessmentSchema).to.exist;
     expect(getFeatureSchema).to.exist;
     expect(getIncidentSchema).to.exist;
