@@ -1,5 +1,6 @@
 import { get, createHttpActionsFor } from './client';
 
+export * from './common';
 export * from './client';
 
 export const getSchemas = () =>

@@ -416,6 +416,83 @@ const createHttpActionsFor = resource => {
   return httpActions;
 };
 
+/**
+ * @name DEFAULT_FILTER
+ * @description default resource filtering options
+ * @type {Object}
+ * @since 0.7.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
+const DEFAULT_FILTER = { deletedAt: { $eq: null } };
+
+/**
+ * @name DEFAULT_PAGINATION
+ * @description default resource pagination options
+ * @type {Object}
+ * @since 0.7.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
+const DEFAULT_PAGINATION = { limit: 10, skip: 0, page: 1 };
+
+/**
+ * @name DEFAULT_SORT
+ * @description default resource sorting order options
+ * @type {Object}
+ * @since 0.7.0
+ * @version 0.1.0
+ * @private
+ */
+const DEFAULT_SORT = { updatedAt: -1 };
+
+/**
+ * @constant
+ * @name WELL_KNOWN
+ * @description set of well known api endpoints. they must be one-to-one to
+ * naked api endpoints exposed by the server and they must presented in
+ * camelcase.
+ * @type {String[]}
+ * @since 0.7.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
+const WELL_KNOWN = [
+  'activity',
+  'adjustment',
+  'alert',
+  'alertSource',
+  'assessment',
+  'feature',
+  'incident',
+  'incidentType',
+  'indicator',
+  'item',
+  'party',
+  'permission',
+  'plan',
+  'procedure',
+  'question',
+  'questionnaire',
+  'role',
+  'stock',
+];
+
+const RESOURCES = [{
+  resource: 'activity',
+  wellknown: 'activity',
+  preset: {
+    filter: DEFAULT_FILTER,
+    paginate: DEFAULT_PAGINATION,
+    populate: [],
+    select: {},
+    sort: DEFAULT_SORT,
+  },
+}, ];
+
 const getSchemas = () =>
   get('/schemas').then(response => {
     const schemas = response.data;
@@ -615,4 +692,4 @@ const {
   deleteWarehouse,
 } = createHttpActionsFor('warehouse');
 
-export { getSchemas, getActivitySchema, getActivities, getActivity, postActivity, putActivity, patchActivity, deleteActivity, getAdjustmentSchema, getAdjustments, getAdjustment, postAdjustment, putAdjustment, patchAdjustment, deleteAdjustment, getAlertSchema, getAlerts, getAlert, postAlert, putAlert, patchAlert, deleteAlert, getAlertSourceSchema, getAlertSources, getAlertSource, postAlertSource, putAlertSource, patchAlertSource, deleteAlertSource, getAssessmentSchema, getAssessments, getAssessment, postAssessment, putAssessment, patchAssessment, deleteAssessment, getFeatureSchema, getFeatures, getFeature, postFeature, putFeature, patchFeature, deleteFeature, getIncidentSchema, getIncidents, getIncident, postIncident, putIncident, patchIncident, deleteIncident, getIncidentTypeSchema, getIncidentTypes, getIncidentType, postIncidentType, putIncidentType, patchIncidentType, deleteIncidentType, getIndicatorSchema, getIndicators, getIndicator, postIndicator, putIndicator, patchIndicator, deleteIndicator, getItemSchema, getItems, getItem, postItem, putItem, patchItem, deleteItem, getPartySchema, getPartySchema as getStakeholderSchema, getParties, getParties as getStakeholders, getParty, getParty as getStakeholder, postParty, postParty as postStakeholder, putParty, putParty as putStakeholder, patchParty, patchParty as patchStakeholder, deleteParty, deleteParty as deleteStakeholder, getPermissionSchema, getPermissions, getPermission, postPermission, putPermission, patchPermission, deletePermission, getPlanSchema, getPlans, getPlan, postPlan, putPlan, patchPlan, deletePlan, getProcedureSchema, getProcedures, getProcedure, postProcedure, putProcedure, patchProcedure, deleteProcedure, getQuestionSchema, getQuestions, getQuestion, postQuestion, putQuestion, patchQuestion, deleteQuestion, getQuestionnaireSchema, getQuestionnaires, getQuestionnaire, postQuestionnaire, putQuestionnaire, patchQuestionnaire, deleteQuestionnaire, getRoleSchema, getRoles, getRole, postRole, putRole, patchRole, deleteRole, getStockSchema, getStocks, getStock, postStock, putStock, patchStock, deleteStock, getWarehouseSchema, getWarehouses, getWarehouse, postWarehouse, putWarehouse, patchWarehouse, deleteWarehouse, CONTENT_TYPE, HEADERS, prepareParams, createHttpClient, disposeHttpClient, all, spread, get, post, put, patch, del, createHttpActionsFor };
+export { getSchemas, getActivitySchema, getActivities, getActivity, postActivity, putActivity, patchActivity, deleteActivity, getAdjustmentSchema, getAdjustments, getAdjustment, postAdjustment, putAdjustment, patchAdjustment, deleteAdjustment, getAlertSchema, getAlerts, getAlert, postAlert, putAlert, patchAlert, deleteAlert, getAlertSourceSchema, getAlertSources, getAlertSource, postAlertSource, putAlertSource, patchAlertSource, deleteAlertSource, getAssessmentSchema, getAssessments, getAssessment, postAssessment, putAssessment, patchAssessment, deleteAssessment, getFeatureSchema, getFeatures, getFeature, postFeature, putFeature, patchFeature, deleteFeature, getIncidentSchema, getIncidents, getIncident, postIncident, putIncident, patchIncident, deleteIncident, getIncidentTypeSchema, getIncidentTypes, getIncidentType, postIncidentType, putIncidentType, patchIncidentType, deleteIncidentType, getIndicatorSchema, getIndicators, getIndicator, postIndicator, putIndicator, patchIndicator, deleteIndicator, getItemSchema, getItems, getItem, postItem, putItem, patchItem, deleteItem, getPartySchema, getPartySchema as getStakeholderSchema, getParties, getParties as getStakeholders, getParty, getParty as getStakeholder, postParty, postParty as postStakeholder, putParty, putParty as putStakeholder, patchParty, patchParty as patchStakeholder, deleteParty, deleteParty as deleteStakeholder, getPermissionSchema, getPermissions, getPermission, postPermission, putPermission, patchPermission, deletePermission, getPlanSchema, getPlans, getPlan, postPlan, putPlan, patchPlan, deletePlan, getProcedureSchema, getProcedures, getProcedure, postProcedure, putProcedure, patchProcedure, deleteProcedure, getQuestionSchema, getQuestions, getQuestion, postQuestion, putQuestion, patchQuestion, deleteQuestion, getQuestionnaireSchema, getQuestionnaires, getQuestionnaire, postQuestionnaire, putQuestionnaire, patchQuestionnaire, deleteQuestionnaire, getRoleSchema, getRoles, getRole, postRole, putRole, patchRole, deleteRole, getStockSchema, getStocks, getStock, postStock, putStock, patchStock, deleteStock, getWarehouseSchema, getWarehouses, getWarehouse, postWarehouse, putWarehouse, patchWarehouse, deleteWarehouse, DEFAULT_FILTER, DEFAULT_PAGINATION, DEFAULT_SORT, WELL_KNOWN, RESOURCES, CONTENT_TYPE, HEADERS, prepareParams, createHttpClient, disposeHttpClient, all, spread, get, post, put, patch, del, createHttpActionsFor };
