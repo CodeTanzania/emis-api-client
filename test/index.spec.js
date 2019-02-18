@@ -1,6 +1,13 @@
+const { forEach, keys } = require('lodash');
 const { expect } = require('chai');
-const { DEFAULT_FILTER, DEFAULT_PAGINATION, DEFAULT_SORT } = require('..');
-const { WELL_KNOWN } = require('..');
+const {
+  DEFAULT_FILTER,
+  DEFAULT_PAGINATION,
+  DEFAULT_SORT,
+  WELL_KNOWN,
+  RESOURCES,
+  SHORTCUTS,
+} = require('..');
 
 describe.only('emis api client', () => {
   it('should expose default api endpoint filter options', () => {
@@ -44,5 +51,22 @@ describe.only('emis api client', () => {
       'role',
       'stock',
     ]);
+  });
+
+  it('should expose wellknown resource builder options', () => {
+    expect(RESOURCES).to.exist;
+    expect(RESOURCES).to.be.an('object');
+    forEach(WELL_KNOWN, wellknown => {
+      expect(RESOURCES).to.have.property(wellknown);
+    });
+  });
+
+  it('should expose shortcuts resource builder options', () => {
+    expect(SHORTCUTS).to.exist;
+    expect(SHORTCUTS).to.be.an('object');
+    expect(keys(SHORTCUTS)).to.contain('focalPerson', 'agency');
+    forEach(keys(SHORTCUTS), shortcut => {
+      expect(RESOURCES).to.have.property(shortcut);
+    });
   });
 });

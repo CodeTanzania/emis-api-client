@@ -1,3 +1,5 @@
+import { clone, forEach, merge } from 'lodash';
+
 /**
  * @name DEFAULT_FILTER
  * @description default resource filtering options
@@ -63,16 +65,57 @@ export const WELL_KNOWN = [
   'stock',
 ];
 
-export const RESOURCES = [
-  {
-    resource: 'activity',
-    wellknown: 'activity',
-    preset: {
-      filter: DEFAULT_FILTER,
-      paginate: DEFAULT_PAGINATION,
-      populate: [],
-      select: {},
-      sort: DEFAULT_SORT,
-    },
+// default request params
+const DEFAULT_PARAMS = {
+  filter: DEFAULT_FILTER,
+  paginate: DEFAULT_PAGINATION,
+  sort: DEFAULT_SORT,
+};
+
+// parties shortcuts
+const PARTIES_SHORTCUTS = {
+  focalPerson: {
+    name: 'focalPerson',
+    wellknown: 'party',
+    params: merge({}, DEFAULT_PARAMS, { filter: { type: 'Focal Person' } }),
   },
-];
+  agency: {
+    name: 'agency',
+    wellknown: 'party',
+    params: merge({}, DEFAULT_PARAMS, { filter: { type: 'Agency' } }),
+  },
+};
+
+/**
+ * @constant
+ * @name SHORTCUTS
+ * @description set of applicable api shortcuts.
+ * @type {Object}
+ * @since 0.7.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
+export const SHORTCUTS = merge({}, PARTIES_SHORTCUTS);
+
+/**
+ * @constant
+ * @name RESOURCES
+ * @description set of applicable api endpoints including both well-kown and
+ * shortcuts. they must presented in camelcase and wellknown key should point
+ * back to {@link WELL_KNOWN}.
+ * @type {Object}
+ * @since 0.7.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
+export const RESOURCES = merge({}, SHORTCUTS);
+
+// build wellknown resources
+forEach([...WELL_KNOWN], wellknown => {
+  const name = clone(wellknown);
+  const params = merge({}, DEFAULT_PARAMS);
+  const resource = { name, wellknown, params };
+  RESOURCES[name] = resource;
+});

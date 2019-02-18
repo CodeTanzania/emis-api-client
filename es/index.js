@@ -1,7 +1,7 @@
 import axios from 'axios';
 import moment from 'moment';
 import { singularize, pluralize } from 'inflection';
-import { merge, forEach, isEmpty, camelCase, toLower, isArray, isPlainObject, uniq, compact, first, min, max } from 'lodash';
+import { merge, forEach, isEmpty, camelCase, toLower, isArray, isPlainObject, uniq, compact, first, min, max, clone } from 'lodash';
 
 // default http client
 let client;
@@ -481,17 +481,60 @@ const WELL_KNOWN = [
   'stock',
 ];
 
-const RESOURCES = [{
-  resource: 'activity',
-  wellknown: 'activity',
-  preset: {
-    filter: DEFAULT_FILTER,
-    paginate: DEFAULT_PAGINATION,
-    populate: [],
-    select: {},
-    sort: DEFAULT_SORT,
+// default request params
+const DEFAULT_PARAMS = {
+  filter: DEFAULT_FILTER,
+  paginate: DEFAULT_PAGINATION,
+  sort: DEFAULT_SORT,
+};
+
+// parties shortcuts
+const PARTIES_SHORTCUTS = {
+  focalPerson: {
+    name: 'focalPerson',
+    wellknown: 'party',
+    params: merge({}, DEFAULT_PARAMS, { filter: { type: 'Focal Person' } }),
   },
-}, ];
+  agency: {
+    name: 'agency',
+    wellknown: 'party',
+    params: merge({}, DEFAULT_PARAMS, { filter: { type: 'Agency' } }),
+  },
+};
+
+/**
+ * @constant
+ * @name SHORTCUTS
+ * @description set of applicable api shortcuts.
+ * @type {Object}
+ * @since 0.7.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
+const SHORTCUTS = merge({}, PARTIES_SHORTCUTS);
+
+/**
+ * @constant
+ * @name RESOURCES
+ * @description set of applicable api endpoints including both well-kown and
+ * shortcuts. they must presented in camelcase and wellknown key should point
+ * back to {@link WELL_KNOWN}.
+ * @type {Object}
+ * @since 0.7.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
+const RESOURCES = merge({}, SHORTCUTS);
+
+// build wellknown resources
+forEach([...WELL_KNOWN], wellknown => {
+  const name = clone(wellknown);
+  const params = merge({}, DEFAULT_PARAMS);
+  const resource = { name, wellknown, params };
+  RESOURCES[name] = resource;
+});
 
 const getSchemas = () =>
   get('/schemas').then(response => {
@@ -692,4 +735,4 @@ const {
   deleteWarehouse,
 } = createHttpActionsFor('warehouse');
 
-export { getSchemas, getActivitySchema, getActivities, getActivity, postActivity, putActivity, patchActivity, deleteActivity, getAdjustmentSchema, getAdjustments, getAdjustment, postAdjustment, putAdjustment, patchAdjustment, deleteAdjustment, getAlertSchema, getAlerts, getAlert, postAlert, putAlert, patchAlert, deleteAlert, getAlertSourceSchema, getAlertSources, getAlertSource, postAlertSource, putAlertSource, patchAlertSource, deleteAlertSource, getAssessmentSchema, getAssessments, getAssessment, postAssessment, putAssessment, patchAssessment, deleteAssessment, getFeatureSchema, getFeatures, getFeature, postFeature, putFeature, patchFeature, deleteFeature, getIncidentSchema, getIncidents, getIncident, postIncident, putIncident, patchIncident, deleteIncident, getIncidentTypeSchema, getIncidentTypes, getIncidentType, postIncidentType, putIncidentType, patchIncidentType, deleteIncidentType, getIndicatorSchema, getIndicators, getIndicator, postIndicator, putIndicator, patchIndicator, deleteIndicator, getItemSchema, getItems, getItem, postItem, putItem, patchItem, deleteItem, getPartySchema, getPartySchema as getStakeholderSchema, getParties, getParties as getStakeholders, getParty, getParty as getStakeholder, postParty, postParty as postStakeholder, putParty, putParty as putStakeholder, patchParty, patchParty as patchStakeholder, deleteParty, deleteParty as deleteStakeholder, getPermissionSchema, getPermissions, getPermission, postPermission, putPermission, patchPermission, deletePermission, getPlanSchema, getPlans, getPlan, postPlan, putPlan, patchPlan, deletePlan, getProcedureSchema, getProcedures, getProcedure, postProcedure, putProcedure, patchProcedure, deleteProcedure, getQuestionSchema, getQuestions, getQuestion, postQuestion, putQuestion, patchQuestion, deleteQuestion, getQuestionnaireSchema, getQuestionnaires, getQuestionnaire, postQuestionnaire, putQuestionnaire, patchQuestionnaire, deleteQuestionnaire, getRoleSchema, getRoles, getRole, postRole, putRole, patchRole, deleteRole, getStockSchema, getStocks, getStock, postStock, putStock, patchStock, deleteStock, getWarehouseSchema, getWarehouses, getWarehouse, postWarehouse, putWarehouse, patchWarehouse, deleteWarehouse, DEFAULT_FILTER, DEFAULT_PAGINATION, DEFAULT_SORT, WELL_KNOWN, RESOURCES, CONTENT_TYPE, HEADERS, prepareParams, createHttpClient, disposeHttpClient, all, spread, get, post, put, patch, del, createHttpActionsFor };
+export { getSchemas, getActivitySchema, getActivities, getActivity, postActivity, putActivity, patchActivity, deleteActivity, getAdjustmentSchema, getAdjustments, getAdjustment, postAdjustment, putAdjustment, patchAdjustment, deleteAdjustment, getAlertSchema, getAlerts, getAlert, postAlert, putAlert, patchAlert, deleteAlert, getAlertSourceSchema, getAlertSources, getAlertSource, postAlertSource, putAlertSource, patchAlertSource, deleteAlertSource, getAssessmentSchema, getAssessments, getAssessment, postAssessment, putAssessment, patchAssessment, deleteAssessment, getFeatureSchema, getFeatures, getFeature, postFeature, putFeature, patchFeature, deleteFeature, getIncidentSchema, getIncidents, getIncident, postIncident, putIncident, patchIncident, deleteIncident, getIncidentTypeSchema, getIncidentTypes, getIncidentType, postIncidentType, putIncidentType, patchIncidentType, deleteIncidentType, getIndicatorSchema, getIndicators, getIndicator, postIndicator, putIndicator, patchIndicator, deleteIndicator, getItemSchema, getItems, getItem, postItem, putItem, patchItem, deleteItem, getPartySchema, getPartySchema as getStakeholderSchema, getParties, getParties as getStakeholders, getParty, getParty as getStakeholder, postParty, postParty as postStakeholder, putParty, putParty as putStakeholder, patchParty, patchParty as patchStakeholder, deleteParty, deleteParty as deleteStakeholder, getPermissionSchema, getPermissions, getPermission, postPermission, putPermission, patchPermission, deletePermission, getPlanSchema, getPlans, getPlan, postPlan, putPlan, patchPlan, deletePlan, getProcedureSchema, getProcedures, getProcedure, postProcedure, putProcedure, patchProcedure, deleteProcedure, getQuestionSchema, getQuestions, getQuestion, postQuestion, putQuestion, patchQuestion, deleteQuestion, getQuestionnaireSchema, getQuestionnaires, getQuestionnaire, postQuestionnaire, putQuestionnaire, patchQuestionnaire, deleteQuestionnaire, getRoleSchema, getRoles, getRole, postRole, putRole, patchRole, deleteRole, getStockSchema, getStocks, getStock, postStock, putStock, patchStock, deleteStock, getWarehouseSchema, getWarehouses, getWarehouse, postWarehouse, putWarehouse, patchWarehouse, deleteWarehouse, DEFAULT_FILTER, DEFAULT_PAGINATION, DEFAULT_SORT, WELL_KNOWN, SHORTCUTS, RESOURCES, CONTENT_TYPE, HEADERS, prepareParams, createHttpClient, disposeHttpClient, all, spread, get, post, put, patch, del, createHttpActionsFor };
