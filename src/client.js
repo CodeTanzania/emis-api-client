@@ -389,6 +389,37 @@ export const del = url => {
 };
 
 /**
+ * @function normalizeResource
+ * @name normalizeResource
+ * @description normalize resource for action http building
+ * @param {Object} resource valid http resource definition
+ * @return {Object} normalized http resource definition
+ * @since 0.7.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
+export const normalizeResource = resource => {
+  // get copy
+  const definition = merge({}, resource);
+
+  // rormalize shortcut
+  const { shortcut } = definition;
+  let singular = singularize(shortcut);
+  let plural = pluralize(shortcut);
+  definition.shortcut = { singular, plural };
+
+  // rormalize wellknown
+  const { wellknown } = definition;
+  singular = singularize(wellknown);
+  plural = pluralize(wellknown);
+  definition.wellknown = { singular, plural };
+
+  // return resource definition
+  return definition;
+};
+
+/**
  * @function createHttpActionsFor
  * @name createHttpActionsFor
  * @description generate name http action shortcut to interact with resource

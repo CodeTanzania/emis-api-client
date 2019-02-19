@@ -75,12 +75,12 @@ const DEFAULT_PARAMS = {
 // parties shortcuts
 const PARTIES_SHORTCUTS = {
   focalPerson: {
-    name: 'focalPerson',
+    shortcut: 'focalPerson',
     wellknown: 'party',
     params: merge({}, DEFAULT_PARAMS, { filter: { type: 'Focal Person' } }),
   },
   agency: {
-    name: 'agency',
+    shortcut: 'agency',
     wellknown: 'party',
     params: merge({}, DEFAULT_PARAMS, { filter: { type: 'Agency' } }),
   },
@@ -115,7 +115,8 @@ export const RESOURCES = merge({}, SHORTCUTS);
 // build wellknown resources
 forEach([...WELL_KNOWN], wellknown => {
   const name = clone(wellknown);
+  const shortcut = clone(wellknown);
   const params = merge({}, DEFAULT_PARAMS);
-  const resource = { name, wellknown, params };
+  const resource = { shortcut, wellknown, params };
   RESOURCES[name] = resource;
 });

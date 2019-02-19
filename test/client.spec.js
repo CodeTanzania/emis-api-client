@@ -13,6 +13,7 @@ const {
   put,
   patch,
   del,
+  normalizeResource,
   createHttpActionsFor,
   getSchemas,
   getActivitySchema,
@@ -123,6 +124,15 @@ describe('http client', () => {
     params = prepareParams({ filter });
     expect(params.filter).to.exist;
     expect(params.filter.createdAt).to.be.eql({ $lte: expected.$lte });
+  });
+
+  it.only('should normalize resource', () => {
+    const resource = { shortcut: 'agency', wellknown: 'party' };
+    const normalized = {
+      shortcut: { singular: 'agency', plural: 'agencies' },
+      wellknown: { singular: 'party', plural: 'parties' },
+    };
+    expect(normalizeResource(resource)).to.be.eql(normalized);
   });
 
   it('should export create client factory', () => {
