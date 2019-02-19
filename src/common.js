@@ -1,4 +1,4 @@
-import { clone, forEach, merge } from 'lodash';
+import { clone, forEach, merge, upperFirst } from 'lodash';
 import { get, createHttpActionsFor } from './client';
 
 /**
@@ -171,9 +171,13 @@ export const httpActions = {
   getSchemas: () =>
     get('/schemas').then(response => {
       const schemas = response.data;
-      // TODO expose shortcuts schema
+      // expose shortcuts schema
       if (schemas) {
-        schemas.Warehouse = schemas.Feature;
+        forEach(SHORTCUTS, shortcut => {
+          const key = upperFirst(shortcut.shortcut);
+          const wellknown = upperFirst(shortcut.wellknown);
+          schemas[key] = schemas[wellknown];
+        });
       }
       return schemas;
     }),

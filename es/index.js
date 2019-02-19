@@ -1,7 +1,7 @@
 import axios from 'axios';
 import moment from 'moment';
 import { singularize, pluralize } from 'inflection';
-import { merge, forEach, isEmpty, isString, camelCase, isArray, isPlainObject, toLower, uniq, compact, first, min, max, clone } from 'lodash';
+import { merge, forEach, isEmpty, isString, camelCase, isArray, isPlainObject, toLower, uniq, compact, first, min, max, clone, upperFirst } from 'lodash';
 
 // default http client
 let client;
@@ -886,9 +886,13 @@ const httpActions = {
   getSchemas: () =>
     get('/schemas').then(response => {
       const schemas = response.data;
-      // TODO expose shortcuts schema
+      // expose shortcuts schema
       if (schemas) {
-        schemas.Warehouse = schemas.Feature;
+        forEach(SHORTCUTS, shortcut => {
+          const key = upperFirst(shortcut.shortcut);
+          const wellknown = upperFirst(shortcut.wellknown);
+          schemas[key] = schemas[wellknown];
+        });
       }
       return schemas;
     }),
