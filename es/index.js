@@ -789,7 +789,7 @@ const DEFAULT_PARAMS = {
 };
 
 // parties shortcuts
-const PARTIES_SHORTCUTS = {
+const PARTY_SHORTCUTS = {
   focalPerson: {
     shortcut: 'focalPerson',
     wellknown: 'party',
@@ -799,6 +799,42 @@ const PARTIES_SHORTCUTS = {
     shortcut: 'agency',
     wellknown: 'party',
     params: merge({}, DEFAULT_PARAMS, { filter: { type: 'Agency' } }),
+  },
+};
+
+// features shortcuts
+const FEATURE_SHORTCUTS = {
+  region: {
+    shortcut: 'region',
+    wellknown: 'feature',
+    params: merge({}, DEFAULT_PARAMS, {
+      filter: {
+        nature: 'Boundary',
+        family: 'Administrative',
+        type: 'Region',
+      },
+    }),
+  },
+  district: {
+    shortcut: 'district',
+    wellknown: 'feature',
+    params: merge({}, DEFAULT_PARAMS, {
+      filter: {
+        nature: 'Boundary',
+        family: 'Administrative',
+        type: 'District',
+      },
+    }),
+  },
+  warehouse: {
+    shortcut: 'warehouse',
+    wellknown: 'feature',
+    params: merge({}, DEFAULT_PARAMS, {
+      filter: {
+        nature: 'Building',
+        family: 'Warehouse',
+      },
+    }),
   },
 };
 
@@ -812,7 +848,7 @@ const PARTIES_SHORTCUTS = {
  * @static
  * @public
  */
-const SHORTCUTS = merge({}, PARTIES_SHORTCUTS);
+const SHORTCUTS = merge({}, PARTY_SHORTCUTS, FEATURE_SHORTCUTS);
 
 /**
  * @constant
@@ -846,7 +882,17 @@ forEach([...WELL_KNOWN], wellknown => {
  * @static
  * @public
  */
-const httpActions = {};
+const httpActions = {
+  getSchemas: () =>
+    get('/schemas').then(response => {
+      const schemas = response.data;
+      // TODO expose shortcuts schema
+      if (schemas) {
+        schemas.Warehouse = schemas.Feature;
+      }
+      return schemas;
+    }),
+};
 
 // build resource http actions
 forEach(RESOURCES, resource => {
@@ -854,203 +900,4 @@ forEach(RESOURCES, resource => {
   merge(httpActions, resourceHttpActions);
 });
 
-const getSchemas = () =>
-  get('/schemas').then(response => {
-    const schemas = response.data;
-    if (schemas) {
-      schemas.Warehouse = schemas.Feature;
-    }
-    return schemas;
-  });
-
-const {
-  getActivitySchema,
-  getActivities,
-  getActivity,
-  postActivity,
-  putActivity,
-  patchActivity,
-  deleteActivity,
-} = createHttpActionsFor('activity');
-
-const {
-  getAdjustmentSchema,
-  getAdjustments,
-  getAdjustment,
-  postAdjustment,
-  putAdjustment,
-  patchAdjustment,
-  deleteAdjustment,
-} = createHttpActionsFor('adjustment');
-
-const {
-  getAlertSchema,
-  getAlerts,
-  getAlert,
-  postAlert,
-  putAlert,
-  patchAlert,
-  deleteAlert,
-} = createHttpActionsFor('alert');
-
-const {
-  getAlertSourceSchema,
-  getAlertSources,
-  getAlertSource,
-  postAlertSource,
-  putAlertSource,
-  patchAlertSource,
-  deleteAlertSource,
-} = createHttpActionsFor('alertSource');
-
-const {
-  getAssessmentSchema,
-  getAssessments,
-  getAssessment,
-  postAssessment,
-  putAssessment,
-  patchAssessment,
-  deleteAssessment,
-} = createHttpActionsFor('assessment');
-
-const {
-  getFeatureSchema,
-  getFeatures,
-  getFeature,
-  postFeature,
-  putFeature,
-  patchFeature,
-  deleteFeature,
-} = createHttpActionsFor('feature');
-
-const {
-  getIncidentSchema,
-  getIncidents,
-  getIncident,
-  postIncident,
-  putIncident,
-  patchIncident,
-  deleteIncident,
-} = createHttpActionsFor('incident');
-
-const {
-  getIncidentTypeSchema,
-  getIncidentTypes,
-  getIncidentType,
-  postIncidentType,
-  putIncidentType,
-  patchIncidentType,
-  deleteIncidentType,
-} = createHttpActionsFor('incidentType');
-
-const {
-  getIndicatorSchema,
-  getIndicators,
-  getIndicator,
-  postIndicator,
-  putIndicator,
-  patchIndicator,
-  deleteIndicator,
-} = createHttpActionsFor('indicator');
-
-const {
-  getItemSchema,
-  getItems,
-  getItem,
-  postItem,
-  putItem,
-  patchItem,
-  deleteItem,
-} = createHttpActionsFor('item');
-
-const {
-  getPartySchema,
-  getParties,
-  getParty,
-  postParty,
-  putParty,
-  patchParty,
-  deleteParty,
-} = createHttpActionsFor('party');
-
-const {
-  getPermissionSchema,
-  getPermissions,
-  getPermission,
-  postPermission,
-  putPermission,
-  patchPermission,
-  deletePermission,
-} = createHttpActionsFor('permission');
-
-const {
-  getPlanSchema,
-  getPlans,
-  getPlan,
-  postPlan,
-  putPlan,
-  patchPlan,
-  deletePlan,
-} = createHttpActionsFor('plan');
-
-const {
-  getProcedureSchema,
-  getProcedures,
-  getProcedure,
-  postProcedure,
-  putProcedure,
-  patchProcedure,
-  deleteProcedure,
-} = createHttpActionsFor('procedure');
-
-const {
-  getQuestionSchema,
-  getQuestions,
-  getQuestion,
-  postQuestion,
-  putQuestion,
-  patchQuestion,
-  deleteQuestion,
-} = createHttpActionsFor('question');
-
-const {
-  getQuestionnaireSchema,
-  getQuestionnaires,
-  getQuestionnaire,
-  postQuestionnaire,
-  putQuestionnaire,
-  patchQuestionnaire,
-  deleteQuestionnaire,
-} = createHttpActionsFor('questionnaire');
-
-const {
-  getRoleSchema,
-  getRoles,
-  getRole,
-  postRole,
-  putRole,
-  patchRole,
-  deleteRole,
-} = createHttpActionsFor('role');
-
-const {
-  getStockSchema,
-  getStocks,
-  getStock,
-  postStock,
-  putStock,
-  patchStock,
-  deleteStock,
-} = createHttpActionsFor('stock');
-
-const {
-  getWarehouseSchema,
-  getWarehouses,
-  getWarehouse,
-  postWarehouse,
-  putWarehouse,
-  patchWarehouse,
-  deleteWarehouse,
-} = createHttpActionsFor('warehouse');
-
-export { getSchemas, getActivitySchema, getActivities, getActivity, postActivity, putActivity, patchActivity, deleteActivity, getAdjustmentSchema, getAdjustments, getAdjustment, postAdjustment, putAdjustment, patchAdjustment, deleteAdjustment, getAlertSchema, getAlerts, getAlert, postAlert, putAlert, patchAlert, deleteAlert, getAlertSourceSchema, getAlertSources, getAlertSource, postAlertSource, putAlertSource, patchAlertSource, deleteAlertSource, getAssessmentSchema, getAssessments, getAssessment, postAssessment, putAssessment, patchAssessment, deleteAssessment, getFeatureSchema, getFeatures, getFeature, postFeature, putFeature, patchFeature, deleteFeature, getIncidentSchema, getIncidents, getIncident, postIncident, putIncident, patchIncident, deleteIncident, getIncidentTypeSchema, getIncidentTypes, getIncidentType, postIncidentType, putIncidentType, patchIncidentType, deleteIncidentType, getIndicatorSchema, getIndicators, getIndicator, postIndicator, putIndicator, patchIndicator, deleteIndicator, getItemSchema, getItems, getItem, postItem, putItem, patchItem, deleteItem, getPartySchema, getPartySchema as getStakeholderSchema, getParties, getParties as getStakeholders, getParty, getParty as getStakeholder, postParty, postParty as postStakeholder, putParty, putParty as putStakeholder, patchParty, patchParty as patchStakeholder, deleteParty, deleteParty as deleteStakeholder, getPermissionSchema, getPermissions, getPermission, postPermission, putPermission, patchPermission, deletePermission, getPlanSchema, getPlans, getPlan, postPlan, putPlan, patchPlan, deletePlan, getProcedureSchema, getProcedures, getProcedure, postProcedure, putProcedure, patchProcedure, deleteProcedure, getQuestionSchema, getQuestions, getQuestion, postQuestion, putQuestion, patchQuestion, deleteQuestion, getQuestionnaireSchema, getQuestionnaires, getQuestionnaire, postQuestionnaire, putQuestionnaire, patchQuestionnaire, deleteQuestionnaire, getRoleSchema, getRoles, getRole, postRole, putRole, patchRole, deleteRole, getStockSchema, getStocks, getStock, postStock, putStock, patchStock, deleteStock, getWarehouseSchema, getWarehouses, getWarehouse, postWarehouse, putWarehouse, patchWarehouse, deleteWarehouse, DEFAULT_FILTER, DEFAULT_PAGINATION, DEFAULT_SORT, WELL_KNOWN, SHORTCUTS, RESOURCES, httpActions, CONTENT_TYPE, HEADERS, prepareParams, createHttpClient, disposeHttpClient, all, spread, get, post, put, patch, del, normalizeResource, createGetSchemaHttpAction, createGetListHttpAction, createGetSingleHttpAction, createPostHttpAction, createPutHttpAction, createPatchHttpAction, createDeleteHttpAction, createHttpActionsFor };
+export { CONTENT_TYPE, HEADERS, prepareParams, createHttpClient, disposeHttpClient, all, spread, get, post, put, patch, del, normalizeResource, createGetSchemaHttpAction, createGetListHttpAction, createGetSingleHttpAction, createPostHttpAction, createPutHttpAction, createPatchHttpAction, createDeleteHttpAction, createHttpActionsFor, DEFAULT_FILTER, DEFAULT_PAGINATION, DEFAULT_SORT, WELL_KNOWN, SHORTCUTS, RESOURCES, httpActions };

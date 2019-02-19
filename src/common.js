@@ -1,5 +1,5 @@
 import { clone, forEach, merge } from 'lodash';
-import { createHttpActionsFor } from './client';
+import { get, createHttpActionsFor } from './client';
 
 /**
  * @name DEFAULT_FILTER
@@ -74,7 +74,7 @@ const DEFAULT_PARAMS = {
 };
 
 // parties shortcuts
-const PARTIES_SHORTCUTS = {
+const PARTY_SHORTCUTS = {
   focalPerson: {
     shortcut: 'focalPerson',
     wellknown: 'party',
@@ -84,6 +84,42 @@ const PARTIES_SHORTCUTS = {
     shortcut: 'agency',
     wellknown: 'party',
     params: merge({}, DEFAULT_PARAMS, { filter: { type: 'Agency' } }),
+  },
+};
+
+// features shortcuts
+const FEATURE_SHORTCUTS = {
+  region: {
+    shortcut: 'region',
+    wellknown: 'feature',
+    params: merge({}, DEFAULT_PARAMS, {
+      filter: {
+        nature: 'Boundary',
+        family: 'Administrative',
+        type: 'Region',
+      },
+    }),
+  },
+  district: {
+    shortcut: 'district',
+    wellknown: 'feature',
+    params: merge({}, DEFAULT_PARAMS, {
+      filter: {
+        nature: 'Boundary',
+        family: 'Administrative',
+        type: 'District',
+      },
+    }),
+  },
+  warehouse: {
+    shortcut: 'warehouse',
+    wellknown: 'feature',
+    params: merge({}, DEFAULT_PARAMS, {
+      filter: {
+        nature: 'Building',
+        family: 'Warehouse',
+      },
+    }),
   },
 };
 
@@ -97,7 +133,7 @@ const PARTIES_SHORTCUTS = {
  * @static
  * @public
  */
-export const SHORTCUTS = merge({}, PARTIES_SHORTCUTS);
+export const SHORTCUTS = merge({}, PARTY_SHORTCUTS, FEATURE_SHORTCUTS);
 
 /**
  * @constant
@@ -131,7 +167,17 @@ forEach([...WELL_KNOWN], wellknown => {
  * @static
  * @public
  */
-export const httpActions = {};
+export const httpActions = {
+  getSchemas: () =>
+    get('/schemas').then(response => {
+      const schemas = response.data;
+      // TODO expose shortcuts schema
+      if (schemas) {
+        schemas.Warehouse = schemas.Feature;
+      }
+      return schemas;
+    }),
+};
 
 // build resource http actions
 forEach(RESOURCES, resource => {
