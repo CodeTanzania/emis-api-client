@@ -438,19 +438,24 @@ export const normalizeResource = resource => {
  * getUserSchema().then(schema => { ... }).catch(error => { ... });
  */
 export const createGetSchemaHttpAction = resource => {
-  // ensure resource definition
-  const { shortcut, wellknown } = normalizeResource(resource);
+  // ensure resource
+  const {
+    shortcut: { singular },
+    wellknown: { plural },
+  } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('get', shortcut.singular, 'Schema');
+  const methodName = fn('get', singular, 'Schema');
 
   // build action
-  const endpoint = `/${toLower(wellknown.plural)}/schema`;
   const action = {
-    [methodName]: () => get(endpoint).then(response => response.data),
+    [methodName]: () => {
+      const endpoint = `/${toLower(plural)}/schema`;
+      return get(endpoint).then(response => response.data);
+    },
   };
 
-  // export get schema action
+  // return get schema action
   return action;
 };
 
@@ -470,23 +475,23 @@ export const createGetSchemaHttpAction = resource => {
  * getUsers().then(users => { ... }).catch(error => { ... });
  */
 export const createGetListHttpAction = resource => {
-  // ensure resource definition
+  // ensure resource
   const { shortcut, wellknown } = normalizeResource(resource);
 
   // generate method name
   const methodName = fn('get', shortcut.plural);
 
   // build action
-  const endpoint = `/${toLower(wellknown.plural)}`;
   const action = {
     [methodName]: options => {
       // prepare params
       const params = merge({}, resource.params, options);
+      const endpoint = `/${toLower(wellknown.plural)}`;
       return get(endpoint, params).then(response => response.data);
     },
   };
 
-  // export get resource list action
+  // return get resource list action
   return action;
 };
 
@@ -503,26 +508,29 @@ export const createGetListHttpAction = resource => {
  *
  * const resource = { wellknown: 'user' };
  * const getUser = createGetSingleHttpAction(resource);
- * getUser(_id: ...).then(user => { ... }).catch(error => { ... });
+ * getUser('5c176624').then(user => { ... }).catch(error => { ... });
  */
 export const createGetSingleHttpAction = resource => {
   // ensure resource
-  const { shortcut, wellknown } = normalizeResource(resource);
+  const {
+    shortcut: { singular },
+    wellknown: { plural },
+  } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('get', shortcut.singular);
+  const methodName = fn('get', singular);
 
   // build action
   const action = {
     [methodName]: id => {
       // prepare params
       const params = merge({}, resource.params);
-      const endpoint = `/${toLower(wellknown.plural)}/${id}`;
+      const endpoint = `/${toLower(plural)}/${id}`;
       return get(endpoint, params).then(response => response.data);
     },
   };
 
-  // export get single resource action
+  // return get single resource action
   return action;
 };
 
@@ -543,23 +551,26 @@ export const createGetSingleHttpAction = resource => {
  */
 export const createPostHttpAction = resource => {
   // ensure resource
-  const { shortcut, wellknown } = normalizeResource(resource);
+  const {
+    shortcut: { singular },
+    wellknown: { plural },
+  } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('post', shortcut.singular);
+  const methodName = fn('post', singular);
 
   // build action
-  const endpoint = `/${toLower(wellknown.plural)}`;
   const action = {
     [methodName]: payload => {
       // prepare data
       const defaults = (resource.params || {}).filter;
       const data = merge({}, defaults, payload);
+      const endpoint = `/${toLower(plural)}`;
       return post(endpoint, data).then(response => response.data);
     },
   };
 
-  // export post single resource action
+  // return post single resource action
   return action;
 };
 
@@ -576,14 +587,17 @@ export const createPostHttpAction = resource => {
  *
  * const resource = { wellknown: 'user' };
  * const putUser = createPutHttpAction(resource);
- * putUser({ _id: ...}).then(user => { ... }).catch(error => { ... });
+ * putUser({ _id: ..., name: ...}).then(user => { ... }).catch(error => { ... });
  */
 export const createPutHttpAction = resource => {
   // ensure resource
-  const { shortcut, wellknown } = normalizeResource(resource);
+  const {
+    shortcut: { singular },
+    wellknown: { plural },
+  } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('put', shortcut.singular);
+  const methodName = fn('put', singular);
 
   // build action
   const action = {
@@ -591,12 +605,12 @@ export const createPutHttpAction = resource => {
       // prepare data
       const defaults = (resource.params || {}).filter;
       const data = merge({}, defaults, payload);
-      const endpoint = `/${toLower(wellknown.plural)}/${idOf(data)}`;
+      const endpoint = `/${toLower(plural)}/${idOf(data)}`;
       return put(endpoint, data).then(response => response.data);
     },
   };
 
-  // export put single resource action
+  // return put single resource action
   return action;
 };
 
@@ -613,14 +627,17 @@ export const createPutHttpAction = resource => {
  *
  * const resource = { wellknown: 'user' };
  * const patchUser = createPatchHttpAction(resource);
- * patchUser({ _id: ...}).then(user => { ... }).catch(error => { ... });
+ * patchUser({ _id: ..., name: ...}).then(user => { ... }).catch(error => { ... });
  */
 export const createPatchHttpAction = resource => {
   // ensure resource
-  const { shortcut, wellknown } = normalizeResource(resource);
+  const {
+    shortcut: { singular },
+    wellknown: { plural },
+  } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('patch', shortcut.singular);
+  const methodName = fn('patch', singular);
 
   // build action
   const action = {
@@ -628,12 +645,12 @@ export const createPatchHttpAction = resource => {
       // prepare data
       const defaults = (resource.params || {}).filter;
       const data = merge({}, defaults, payload);
-      const endpoint = `/${toLower(wellknown.plural)}/${idOf(data)}`;
+      const endpoint = `/${toLower(plural)}/${idOf(data)}`;
       return patch(endpoint, data).then(response => response.data);
     },
   };
 
-  // export patch single resource action
+  // return patch single resource action
   return action;
 };
 
@@ -650,33 +667,36 @@ export const createPatchHttpAction = resource => {
  *
  * const resource = { wellknown: 'user' };
  * const deleteUser = createDeleteHttpAction(resource);
- * deleteUser(_id: ...).then(user => { ... }).catch(error => { ... });
+ * deleteUser('5c176624').then(user => { ... }).catch(error => { ... });
  */
 export const createDeleteHttpAction = resource => {
   // ensure resource
-  const { shortcut, wellknown } = normalizeResource(resource);
+  const {
+    shortcut: { singular },
+    wellknown: { plural },
+  } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('delete', shortcut.singular);
+  const methodName = fn('delete', singular);
 
   // build action
   const action = {
     [methodName]: id => {
       // prepare params
-      const endpoint = `/${toLower(wellknown.plural)}/${id}`;
+      const endpoint = `/${toLower(plural)}/${id}`;
       return del(endpoint).then(response => response.data);
     },
   };
 
-  // export delete single resource action
+  // return delete single resource action
   return action;
 };
 
 /**
  * @function createHttpActionsFor
  * @name createHttpActionsFor
- * @description generate name http action shortcut to interact with resource
- * @param {String} resource valid http resource.
+ * @description generate http actions to interact with resource
+ * @param {String} resource valid http resource
  * @return {Object} http actions to interact with a resource
  * @since 0.1.0
  * @version 0.1.0
@@ -684,8 +704,7 @@ export const createDeleteHttpAction = resource => {
  * import { createHttpActionsFor } from 'emis-api-client';
  *
  * const { deleteUser } = createHttpActionsFor('user');
- * const deleteUser = del('/users/5c1766243c9d520004e2b542');
- * deleteUser.then(user => { ... }).catch(error => { ... });
+ * deleteUser('5c176624').then(user => { ... }).catch(error => { ... });
  */
 export const createHttpActionsFor = resource => {
   // compose resource http actions
