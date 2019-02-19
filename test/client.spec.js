@@ -14,6 +14,8 @@ const {
   patch,
   del,
   normalizeResource,
+  createGetSchemaHttpAction,
+  createGetListHttpAction,
   createHttpActionsFor,
   getSchemas,
   getActivitySchema,
@@ -133,6 +135,24 @@ describe('http client', () => {
       wellknown: { singular: 'party', plural: 'parties' },
     };
     expect(normalizeResource(resource)).to.be.eql(normalized);
+  });
+
+  it.only('should create get resource schema http action', () => {
+    const resource = { wellknown: 'user' };
+    const { getUserSchema } = createGetSchemaHttpAction(resource);
+    expect(getUserSchema).to.exist;
+    expect(getUserSchema).to.be.a('function');
+    expect(getUserSchema.name).to.be.equal('getUserSchema');
+    expect(getUserSchema.length).to.be.equal(0);
+  });
+
+  it.only('should create get resource list http action', () => {
+    const resource = { wellknown: 'user' };
+    const { getUsers } = createGetListHttpAction(resource);
+    expect(getUsers).to.exist;
+    expect(getUsers).to.be.a('function');
+    expect(getUsers.name).to.be.equal('getUsers');
+    expect(getUsers.length).to.be.equal(1);
   });
 
   it('should export create client factory', () => {

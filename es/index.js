@@ -390,20 +390,88 @@ const normalizeResource = resource => {
   // get copy
   const definition = merge({}, resource);
 
-  // rormalize shortcut
-  const { shortcut } = definition;
-  let singular = singularize(shortcut);
-  let plural = pluralize(shortcut);
-  definition.shortcut = { singular, plural };
-
   // rormalize wellknown
   const { wellknown } = definition;
-  singular = singularize(wellknown);
-  plural = pluralize(wellknown);
+  let singular = singularize(wellknown);
+  let plural = pluralize(wellknown);
   definition.wellknown = { singular, plural };
+
+  // rormalize shortcut
+  const { shortcut } = definition;
+  singular = singularize(shortcut || wellknown);
+  plural = pluralize(shortcut || wellknown);
+  definition.shortcut = { singular, plural };
 
   // return resource definition
   return definition;
+};
+
+/**
+ * @function createGetSchemaHttpAction
+ * @name createGetSchemaHttpAction
+ * @description generate http action to obtain resource schema definition
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http actions to get resource schema
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createGetSchemaHttpAction } from 'emis-api-client';
+ *
+ * const resource ={ wellknown: 'user' };
+ * const getUserSchema = createGetSchemaHttpAction(resource);
+ * getUserSchema().then(schema => { ... }).catch(error => { ... });
+ */
+const createGetSchemaHttpAction = resource => {
+  // ensure resource
+  const { shortcut, wellknown } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('get', shortcut.singular, 'Schema');
+
+  // build action
+  const endpoint = `/${toLower(wellknown.plural)}/schema`;
+  const action = {
+    [methodName]: () => get(endpoint).then(response => response.data),
+  };
+
+  // export get schema action
+  return action;
+};
+
+/**
+ * @function createGetListHttpAction
+ * @name createGetListHttpAction
+ * @description generate http action to obtain resource list
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http actions to get resource list
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createGetListHttpAction } from 'emis-api-client';
+ *
+ * const resource ={ wellknown: 'user' };
+ * const getUsers = createGetListHttpAction(resource);
+ * getUsers().then(users => { ... }).catch(error => { ... });
+ */
+const createGetListHttpAction = resource => {
+  // ensure resource
+  const { shortcut, wellknown } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('get', shortcut.plural);
+
+  // build action
+  const endpoint = `/${toLower(wellknown.plural)}`;
+  const action = {
+    [methodName]: options => {
+      // params params
+      const params = merge({}, resource.params, options);
+      return get(endpoint, params).then(response => response.data);
+    },
+  };
+
+  // export get schema action
+  return action;
 };
 
 /**
@@ -429,6 +497,7 @@ const createHttpActionsFor = resource => {
       get(`/${toLower(plural)}/schema`).then(response => response.data),
     [fn('get', plural)]: params =>
       get(`/${toLower(plural)}`, params).then(response => response.data),
+
     [fn('get', singular)]: id =>
       get(`/${toLower(plural)}/${id}`).then(response => response.data),
     [fn('post', singular)]: data =>
@@ -767,4 +836,4 @@ const {
   deleteWarehouse,
 } = createHttpActionsFor('warehouse');
 
-export { getSchemas, getActivitySchema, getActivities, getActivity, postActivity, putActivity, patchActivity, deleteActivity, getAdjustmentSchema, getAdjustments, getAdjustment, postAdjustment, putAdjustment, patchAdjustment, deleteAdjustment, getAlertSchema, getAlerts, getAlert, postAlert, putAlert, patchAlert, deleteAlert, getAlertSourceSchema, getAlertSources, getAlertSource, postAlertSource, putAlertSource, patchAlertSource, deleteAlertSource, getAssessmentSchema, getAssessments, getAssessment, postAssessment, putAssessment, patchAssessment, deleteAssessment, getFeatureSchema, getFeatures, getFeature, postFeature, putFeature, patchFeature, deleteFeature, getIncidentSchema, getIncidents, getIncident, postIncident, putIncident, patchIncident, deleteIncident, getIncidentTypeSchema, getIncidentTypes, getIncidentType, postIncidentType, putIncidentType, patchIncidentType, deleteIncidentType, getIndicatorSchema, getIndicators, getIndicator, postIndicator, putIndicator, patchIndicator, deleteIndicator, getItemSchema, getItems, getItem, postItem, putItem, patchItem, deleteItem, getPartySchema, getPartySchema as getStakeholderSchema, getParties, getParties as getStakeholders, getParty, getParty as getStakeholder, postParty, postParty as postStakeholder, putParty, putParty as putStakeholder, patchParty, patchParty as patchStakeholder, deleteParty, deleteParty as deleteStakeholder, getPermissionSchema, getPermissions, getPermission, postPermission, putPermission, patchPermission, deletePermission, getPlanSchema, getPlans, getPlan, postPlan, putPlan, patchPlan, deletePlan, getProcedureSchema, getProcedures, getProcedure, postProcedure, putProcedure, patchProcedure, deleteProcedure, getQuestionSchema, getQuestions, getQuestion, postQuestion, putQuestion, patchQuestion, deleteQuestion, getQuestionnaireSchema, getQuestionnaires, getQuestionnaire, postQuestionnaire, putQuestionnaire, patchQuestionnaire, deleteQuestionnaire, getRoleSchema, getRoles, getRole, postRole, putRole, patchRole, deleteRole, getStockSchema, getStocks, getStock, postStock, putStock, patchStock, deleteStock, getWarehouseSchema, getWarehouses, getWarehouse, postWarehouse, putWarehouse, patchWarehouse, deleteWarehouse, DEFAULT_FILTER, DEFAULT_PAGINATION, DEFAULT_SORT, WELL_KNOWN, SHORTCUTS, RESOURCES, CONTENT_TYPE, HEADERS, prepareParams, createHttpClient, disposeHttpClient, all, spread, get, post, put, patch, del, normalizeResource, createHttpActionsFor };
+export { getSchemas, getActivitySchema, getActivities, getActivity, postActivity, putActivity, patchActivity, deleteActivity, getAdjustmentSchema, getAdjustments, getAdjustment, postAdjustment, putAdjustment, patchAdjustment, deleteAdjustment, getAlertSchema, getAlerts, getAlert, postAlert, putAlert, patchAlert, deleteAlert, getAlertSourceSchema, getAlertSources, getAlertSource, postAlertSource, putAlertSource, patchAlertSource, deleteAlertSource, getAssessmentSchema, getAssessments, getAssessment, postAssessment, putAssessment, patchAssessment, deleteAssessment, getFeatureSchema, getFeatures, getFeature, postFeature, putFeature, patchFeature, deleteFeature, getIncidentSchema, getIncidents, getIncident, postIncident, putIncident, patchIncident, deleteIncident, getIncidentTypeSchema, getIncidentTypes, getIncidentType, postIncidentType, putIncidentType, patchIncidentType, deleteIncidentType, getIndicatorSchema, getIndicators, getIndicator, postIndicator, putIndicator, patchIndicator, deleteIndicator, getItemSchema, getItems, getItem, postItem, putItem, patchItem, deleteItem, getPartySchema, getPartySchema as getStakeholderSchema, getParties, getParties as getStakeholders, getParty, getParty as getStakeholder, postParty, postParty as postStakeholder, putParty, putParty as putStakeholder, patchParty, patchParty as patchStakeholder, deleteParty, deleteParty as deleteStakeholder, getPermissionSchema, getPermissions, getPermission, postPermission, putPermission, patchPermission, deletePermission, getPlanSchema, getPlans, getPlan, postPlan, putPlan, patchPlan, deletePlan, getProcedureSchema, getProcedures, getProcedure, postProcedure, putProcedure, patchProcedure, deleteProcedure, getQuestionSchema, getQuestions, getQuestion, postQuestion, putQuestion, patchQuestion, deleteQuestion, getQuestionnaireSchema, getQuestionnaires, getQuestionnaire, postQuestionnaire, putQuestionnaire, patchQuestionnaire, deleteQuestionnaire, getRoleSchema, getRoles, getRole, postRole, putRole, patchRole, deleteRole, getStockSchema, getStocks, getStock, postStock, putStock, patchStock, deleteStock, getWarehouseSchema, getWarehouses, getWarehouse, postWarehouse, putWarehouse, patchWarehouse, deleteWarehouse, DEFAULT_FILTER, DEFAULT_PAGINATION, DEFAULT_SORT, WELL_KNOWN, SHORTCUTS, RESOURCES, CONTENT_TYPE, HEADERS, prepareParams, createHttpClient, disposeHttpClient, all, spread, get, post, put, patch, del, normalizeResource, createGetSchemaHttpAction, createGetListHttpAction, createHttpActionsFor };

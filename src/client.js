@@ -403,20 +403,88 @@ export const normalizeResource = resource => {
   // get copy
   const definition = merge({}, resource);
 
-  // rormalize shortcut
-  const { shortcut } = definition;
-  let singular = singularize(shortcut);
-  let plural = pluralize(shortcut);
-  definition.shortcut = { singular, plural };
-
   // rormalize wellknown
   const { wellknown } = definition;
-  singular = singularize(wellknown);
-  plural = pluralize(wellknown);
+  let singular = singularize(wellknown);
+  let plural = pluralize(wellknown);
   definition.wellknown = { singular, plural };
+
+  // rormalize shortcut
+  const { shortcut } = definition;
+  singular = singularize(shortcut || wellknown);
+  plural = pluralize(shortcut || wellknown);
+  definition.shortcut = { singular, plural };
 
   // return resource definition
   return definition;
+};
+
+/**
+ * @function createGetSchemaHttpAction
+ * @name createGetSchemaHttpAction
+ * @description generate http action to obtain resource schema definition
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http actions to get resource schema
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createGetSchemaHttpAction } from 'emis-api-client';
+ *
+ * const resource ={ wellknown: 'user' };
+ * const getUserSchema = createGetSchemaHttpAction(resource);
+ * getUserSchema().then(schema => { ... }).catch(error => { ... });
+ */
+export const createGetSchemaHttpAction = resource => {
+  // ensure resource
+  const { shortcut, wellknown } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('get', shortcut.singular, 'Schema');
+
+  // build action
+  const endpoint = `/${low(wellknown.plural)}/schema`;
+  const action = {
+    [methodName]: () => get(endpoint).then(response => response.data),
+  };
+
+  // export get schema action
+  return action;
+};
+
+/**
+ * @function createGetListHttpAction
+ * @name createGetListHttpAction
+ * @description generate http action to obtain resource list
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http actions to get resource list
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createGetListHttpAction } from 'emis-api-client';
+ *
+ * const resource ={ wellknown: 'user' };
+ * const getUsers = createGetListHttpAction(resource);
+ * getUsers().then(users => { ... }).catch(error => { ... });
+ */
+export const createGetListHttpAction = resource => {
+  // ensure resource
+  const { shortcut, wellknown } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('get', shortcut.plural);
+
+  // build action
+  const endpoint = `/${low(wellknown.plural)}`;
+  const action = {
+    [methodName]: options => {
+      // params params
+      const params = merge({}, resource.params, options);
+      return get(endpoint, params).then(response => response.data);
+    },
+  };
+
+  // export get schema action
+  return action;
 };
 
 /**
@@ -442,6 +510,7 @@ export const createHttpActionsFor = resource => {
       get(`/${low(plural)}/schema`).then(response => response.data),
     [fn('get', plural)]: params =>
       get(`/${low(plural)}`, params).then(response => response.data),
+
     [fn('get', singular)]: id =>
       get(`/${low(plural)}/${id}`).then(response => response.data),
     [fn('post', singular)]: data =>
