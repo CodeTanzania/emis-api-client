@@ -1,7 +1,7 @@
 import axios from 'axios';
 import moment from 'moment';
 import { singularize, pluralize } from 'inflection';
-import { merge, forEach, isEmpty, camelCase, toLower, isArray, isPlainObject, uniq, compact, first, min, max, clone } from 'lodash';
+import { merge, forEach, isEmpty, isString, camelCase, toLower, isArray, isPlainObject, uniq, compact, first, min, max, clone } from 'lodash';
 
 // default http client
 let client;
@@ -387,8 +387,10 @@ const del = url => {
  * @public
  */
 const normalizeResource = resource => {
-  // get copy
-  const definition = merge({}, resource);
+  // normalize & get copy
+  const definition = isString(resource)
+    ? { wellknown: resource }
+    : merge({}, resource);
 
   // rormalize wellknown
   const { wellknown } = definition;
@@ -647,9 +649,8 @@ const createDeleteHttpAction = resource => {
   const action = {
     [methodName]: id => {
       // prepare params
-      const params = merge({}, resource.params);
       const endpoint = `/${toLower(wellknown.plural)}/${id}`;
-      return delete (params).then(response => response.data);
+      return del(endpoint).then(response => response.data);
     },
   };
 
@@ -673,28 +674,38 @@ const createDeleteHttpAction = resource => {
  * deleteUser.then(user => { ... }).catch(error => { ... });
  */
 const createHttpActionsFor = resource => {
-  const singular = singularize(resource);
-  const plural = pluralize(resource);
-  const httpActions = {
-    [fn('get', singular, 'Schema')]: () =>
-      get(`/${toLower(plural)}/schema`).then(response => response.data),
-    [fn('get', plural)]: params =>
-      get(`/${toLower(plural)}`, params).then(response => response.data),
-    [fn('get', singular)]: id =>
-      get(`/${toLower(plural)}/${id}`).then(response => response.data),
-    [fn('post', singular)]: data =>
-      post(`/${toLower(plural)}`, data).then(response => response.data),
-    [fn('put', singular)]: data =>
-      put(`/${toLower(plural)}/${idOf(data)}`, data).then(
-        response => response.data
-      ),
-    [fn('patch', singular)]: data =>
-      patch(`/${toLower(plural)}/${idOf(data)}`, data).then(
-        response => response.data
-      ),
-    [fn('delete', singular)]: id =>
-      del(`/${toLower(plural)}/${id}`).then(response => response.data),
-  };
+  // create get schema action
+  const getSchema = createGetSchemaHttpAction(resource);
+
+  // create get list action
+  const getResources = createGetListHttpAction(resource);
+
+  // create get single action
+  const getResource = createGetSingleHttpAction(resource);
+
+  // create post action
+  const postResource = createPostHttpAction(resource);
+
+  // create put action
+  const putResource = createPutHttpAction(resource);
+
+  // create patch action
+  const patchResource = createPatchHttpAction(resource);
+
+  // create delete action
+  const deleteResource = createDeleteHttpAction(resource);
+
+  // return resource http actions
+  const httpActions = merge(
+    {},
+    getSchema,
+    getResources,
+    getResource,
+    postResource,
+    putResource,
+    patchResource,
+    deleteResource
+  );
   return httpActions;
 };
 

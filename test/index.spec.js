@@ -9,7 +9,7 @@ const {
   SHORTCUTS,
 } = require('..');
 
-describe.only('emis api client', () => {
+describe('emis api client', () => {
   it('should expose default api endpoint filter options', () => {
     expect(DEFAULT_FILTER).to.exist;
     expect(DEFAULT_FILTER).to.be.an('object');

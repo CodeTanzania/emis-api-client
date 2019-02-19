@@ -133,7 +133,7 @@ describe('http client', () => {
     expect(params.filter.createdAt).to.be.eql({ $lte: expected.$lte });
   });
 
-  it.only('should normalize resource', () => {
+  it('should normalize resource', () => {
     const resource = { shortcut: 'agency', wellknown: 'party' };
     const normalized = {
       shortcut: { singular: 'agency', plural: 'agencies' },
@@ -142,7 +142,16 @@ describe('http client', () => {
     expect(normalizeResource(resource)).to.be.eql(normalized);
   });
 
-  it.only('should create get resource schema http action', () => {
+  it('should normalize resource', () => {
+    const resource = 'party';
+    const normalized = {
+      shortcut: { singular: 'party', plural: 'parties' },
+      wellknown: { singular: 'party', plural: 'parties' },
+    };
+    expect(normalizeResource(resource)).to.be.eql(normalized);
+  });
+
+  it('should create get resource schema http action', () => {
     const resource = { wellknown: 'user' };
     const { getUserSchema } = createGetSchemaHttpAction(resource);
     expect(getUserSchema).to.exist;
@@ -151,7 +160,7 @@ describe('http client', () => {
     expect(getUserSchema.length).to.be.equal(0);
   });
 
-  it.only('should create get resource list http action', () => {
+  it('should create get resource list http action', () => {
     const resource = { wellknown: 'user' };
     const { getUsers } = createGetListHttpAction(resource);
     expect(getUsers).to.exist;
@@ -160,7 +169,7 @@ describe('http client', () => {
     expect(getUsers.length).to.be.equal(1);
   });
 
-  it.only('should create get single resource http action', () => {
+  it('should create get single resource http action', () => {
     const resource = { wellknown: 'user' };
     const { getUser } = createGetSingleHttpAction(resource);
     expect(getUser).to.exist;
@@ -169,7 +178,7 @@ describe('http client', () => {
     expect(getUser.length).to.be.equal(1);
   });
 
-  it.only('should create post resource http action', () => {
+  it('should create post resource http action', () => {
     const resource = { wellknown: 'user' };
     const { postUser } = createPostHttpAction(resource);
     expect(postUser).to.exist;
@@ -178,7 +187,7 @@ describe('http client', () => {
     expect(postUser.length).to.be.equal(1);
   });
 
-  it.only('should create put resource http action', () => {
+  it('should create put resource http action', () => {
     const resource = { wellknown: 'user' };
     const { putUser } = createPutHttpAction(resource);
     expect(putUser).to.exist;
@@ -187,7 +196,7 @@ describe('http client', () => {
     expect(putUser.length).to.be.equal(1);
   });
 
-  it.only('should create patch resource http action', () => {
+  it('should create patch resource http action', () => {
     const resource = { wellknown: 'user' };
     const { patchUser } = createPatchHttpAction(resource);
     expect(patchUser).to.exist;
@@ -196,7 +205,7 @@ describe('http client', () => {
     expect(patchUser.length).to.be.equal(1);
   });
 
-  it.only('should create delete resource http action', () => {
+  it('should create delete resource http action', () => {
     const resource = { wellknown: 'user' };
     const { deleteUser } = createDeleteHttpAction(resource);
     expect(deleteUser).to.exist;
