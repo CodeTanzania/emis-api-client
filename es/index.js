@@ -487,7 +487,7 @@ const createGetListHttpAction = resource => {
  *
  * const resource = { wellknown: 'user' };
  * const getUser = createGetSingleHttpAction(resource);
- * getUser({ _id: ... }).then(user => { ... }).catch(error => { ... });
+ * getUser(_id: ...).then(user => { ... }).catch(error => { ... });
  */
 const createGetSingleHttpAction = resource => {
   // ensure resource
@@ -506,7 +506,154 @@ const createGetSingleHttpAction = resource => {
     },
   };
 
-  // export get schema action
+  // export get single resource action
+  return action;
+};
+
+/**
+ * @function createPostHttpAction
+ * @name createPostHttpAction
+ * @description generate http action to obtain single resource
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http action to get single resource
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createPostHttpAction } from 'emis-api-client';
+ *
+ * const resource = { wellknown: 'user' };
+ * const postUser = createPostHttpAction(resource);
+ * postUser({ name: ... }).then(user => { ... }).catch(error => { ... });
+ */
+const createPostHttpAction = resource => {
+  // ensure resource
+  const { shortcut, wellknown } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('post', shortcut.singular);
+
+  // build action
+  const endpoint = `/${toLower(wellknown.plural)}`;
+  const action = {
+    [methodName]: payload => {
+      // prepare data
+      const defaults = (resource.params || {}).filter;
+      const data = merge({}, defaults, payload);
+      return post(endpoint, data).then(response => response.data);
+    },
+  };
+
+  // export post single resource action
+  return action;
+};
+
+/**
+ * @function createPutHttpAction
+ * @name createPutHttpAction
+ * @description generate http action to obtain single resource
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http action to get single resource
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createPutHttpAction } from 'emis-api-client';
+ *
+ * const resource = { wellknown: 'user' };
+ * const putUser = createPutHttpAction(resource);
+ * putUser({ _id: ...}).then(user => { ... }).catch(error => { ... });
+ */
+const createPutHttpAction = resource => {
+  // ensure resource
+  const { shortcut, wellknown } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('put', shortcut.singular);
+
+  // build action
+  const action = {
+    [methodName]: payload => {
+      // prepare data
+      const defaults = (resource.params || {}).filter;
+      const data = merge({}, defaults, payload);
+      const endpoint = `/${toLower(wellknown.plural)}/${idOf(data)}`;
+      return put(endpoint, data).then(response => response.data);
+    },
+  };
+
+  // export put single resource action
+  return action;
+};
+
+/**
+ * @function createPatchHttpAction
+ * @name createPatchHttpAction
+ * @description generate http action to obtain single resource
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http action to get single resource
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createPatchHttpAction } from 'emis-api-client';
+ *
+ * const resource = { wellknown: 'user' };
+ * const patchUser = createPatchHttpAction(resource);
+ * patchUser({ _id: ...}).then(user => { ... }).catch(error => { ... });
+ */
+const createPatchHttpAction = resource => {
+  // ensure resource
+  const { shortcut, wellknown } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('patch', shortcut.singular);
+
+  // build action
+  const action = {
+    [methodName]: payload => {
+      // prepare data
+      const defaults = (resource.params || {}).filter;
+      const data = merge({}, defaults, payload);
+      const endpoint = `/${toLower(wellknown.plural)}/${idOf(data)}`;
+      return patch(endpoint, data).then(response => response.data);
+    },
+  };
+
+  // export patch single resource action
+  return action;
+};
+
+/**
+ * @function createDeleteHttpAction
+ * @name createDeleteHttpAction
+ * @description generate http action to obtain single resource
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http action to get single resource
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createDeleteHttpAction } from 'emis-api-client';
+ *
+ * const resource = { wellknown: 'user' };
+ * const deleteUser = createDeleteHttpAction(resource);
+ * deleteUser(_id: ...).then(user => { ... }).catch(error => { ... });
+ */
+const createDeleteHttpAction = resource => {
+  // ensure resource
+  const { shortcut, wellknown } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('delete', shortcut.singular);
+
+  // build action
+  const action = {
+    [methodName]: id => {
+      // prepare params
+      const params = merge({}, resource.params);
+      const endpoint = `/${toLower(wellknown.plural)}/${id}`;
+      return delete (params).then(response => response.data);
+    },
+  };
+
+  // export delete single resource action
   return action;
 };
 
@@ -533,7 +680,6 @@ const createHttpActionsFor = resource => {
       get(`/${toLower(plural)}/schema`).then(response => response.data),
     [fn('get', plural)]: params =>
       get(`/${toLower(plural)}`, params).then(response => response.data),
-
     [fn('get', singular)]: id =>
       get(`/${toLower(plural)}/${id}`).then(response => response.data),
     [fn('post', singular)]: data =>
@@ -872,4 +1018,4 @@ const {
   deleteWarehouse,
 } = createHttpActionsFor('warehouse');
 
-export { getSchemas, getActivitySchema, getActivities, getActivity, postActivity, putActivity, patchActivity, deleteActivity, getAdjustmentSchema, getAdjustments, getAdjustment, postAdjustment, putAdjustment, patchAdjustment, deleteAdjustment, getAlertSchema, getAlerts, getAlert, postAlert, putAlert, patchAlert, deleteAlert, getAlertSourceSchema, getAlertSources, getAlertSource, postAlertSource, putAlertSource, patchAlertSource, deleteAlertSource, getAssessmentSchema, getAssessments, getAssessment, postAssessment, putAssessment, patchAssessment, deleteAssessment, getFeatureSchema, getFeatures, getFeature, postFeature, putFeature, patchFeature, deleteFeature, getIncidentSchema, getIncidents, getIncident, postIncident, putIncident, patchIncident, deleteIncident, getIncidentTypeSchema, getIncidentTypes, getIncidentType, postIncidentType, putIncidentType, patchIncidentType, deleteIncidentType, getIndicatorSchema, getIndicators, getIndicator, postIndicator, putIndicator, patchIndicator, deleteIndicator, getItemSchema, getItems, getItem, postItem, putItem, patchItem, deleteItem, getPartySchema, getPartySchema as getStakeholderSchema, getParties, getParties as getStakeholders, getParty, getParty as getStakeholder, postParty, postParty as postStakeholder, putParty, putParty as putStakeholder, patchParty, patchParty as patchStakeholder, deleteParty, deleteParty as deleteStakeholder, getPermissionSchema, getPermissions, getPermission, postPermission, putPermission, patchPermission, deletePermission, getPlanSchema, getPlans, getPlan, postPlan, putPlan, patchPlan, deletePlan, getProcedureSchema, getProcedures, getProcedure, postProcedure, putProcedure, patchProcedure, deleteProcedure, getQuestionSchema, getQuestions, getQuestion, postQuestion, putQuestion, patchQuestion, deleteQuestion, getQuestionnaireSchema, getQuestionnaires, getQuestionnaire, postQuestionnaire, putQuestionnaire, patchQuestionnaire, deleteQuestionnaire, getRoleSchema, getRoles, getRole, postRole, putRole, patchRole, deleteRole, getStockSchema, getStocks, getStock, postStock, putStock, patchStock, deleteStock, getWarehouseSchema, getWarehouses, getWarehouse, postWarehouse, putWarehouse, patchWarehouse, deleteWarehouse, DEFAULT_FILTER, DEFAULT_PAGINATION, DEFAULT_SORT, WELL_KNOWN, SHORTCUTS, RESOURCES, CONTENT_TYPE, HEADERS, prepareParams, createHttpClient, disposeHttpClient, all, spread, get, post, put, patch, del, normalizeResource, createGetSchemaHttpAction, createGetListHttpAction, createGetSingleHttpAction, createHttpActionsFor };
+export { getSchemas, getActivitySchema, getActivities, getActivity, postActivity, putActivity, patchActivity, deleteActivity, getAdjustmentSchema, getAdjustments, getAdjustment, postAdjustment, putAdjustment, patchAdjustment, deleteAdjustment, getAlertSchema, getAlerts, getAlert, postAlert, putAlert, patchAlert, deleteAlert, getAlertSourceSchema, getAlertSources, getAlertSource, postAlertSource, putAlertSource, patchAlertSource, deleteAlertSource, getAssessmentSchema, getAssessments, getAssessment, postAssessment, putAssessment, patchAssessment, deleteAssessment, getFeatureSchema, getFeatures, getFeature, postFeature, putFeature, patchFeature, deleteFeature, getIncidentSchema, getIncidents, getIncident, postIncident, putIncident, patchIncident, deleteIncident, getIncidentTypeSchema, getIncidentTypes, getIncidentType, postIncidentType, putIncidentType, patchIncidentType, deleteIncidentType, getIndicatorSchema, getIndicators, getIndicator, postIndicator, putIndicator, patchIndicator, deleteIndicator, getItemSchema, getItems, getItem, postItem, putItem, patchItem, deleteItem, getPartySchema, getPartySchema as getStakeholderSchema, getParties, getParties as getStakeholders, getParty, getParty as getStakeholder, postParty, postParty as postStakeholder, putParty, putParty as putStakeholder, patchParty, patchParty as patchStakeholder, deleteParty, deleteParty as deleteStakeholder, getPermissionSchema, getPermissions, getPermission, postPermission, putPermission, patchPermission, deletePermission, getPlanSchema, getPlans, getPlan, postPlan, putPlan, patchPlan, deletePlan, getProcedureSchema, getProcedures, getProcedure, postProcedure, putProcedure, patchProcedure, deleteProcedure, getQuestionSchema, getQuestions, getQuestion, postQuestion, putQuestion, patchQuestion, deleteQuestion, getQuestionnaireSchema, getQuestionnaires, getQuestionnaire, postQuestionnaire, putQuestionnaire, patchQuestionnaire, deleteQuestionnaire, getRoleSchema, getRoles, getRole, postRole, putRole, patchRole, deleteRole, getStockSchema, getStocks, getStock, postStock, putStock, patchStock, deleteStock, getWarehouseSchema, getWarehouses, getWarehouse, postWarehouse, putWarehouse, patchWarehouse, deleteWarehouse, DEFAULT_FILTER, DEFAULT_PAGINATION, DEFAULT_SORT, WELL_KNOWN, SHORTCUTS, RESOURCES, CONTENT_TYPE, HEADERS, prepareParams, createHttpClient, disposeHttpClient, all, spread, get, post, put, patch, del, normalizeResource, createGetSchemaHttpAction, createGetListHttpAction, createGetSingleHttpAction, createPostHttpAction, createPutHttpAction, createPatchHttpAction, createDeleteHttpAction, createHttpActionsFor };

@@ -17,6 +17,10 @@ const {
   createGetSchemaHttpAction,
   createGetListHttpAction,
   createGetSingleHttpAction,
+  createPostHttpAction,
+  createPutHttpAction,
+  createPatchHttpAction,
+  createDeleteHttpAction,
   createHttpActionsFor,
   getSchemas,
   getActivitySchema,
@@ -163,6 +167,42 @@ describe('http client', () => {
     expect(getUser).to.be.a('function');
     expect(getUser.name).to.be.equal('getUser');
     expect(getUser.length).to.be.equal(1);
+  });
+
+  it.only('should create post resource http action', () => {
+    const resource = { wellknown: 'user' };
+    const { postUser } = createPostHttpAction(resource);
+    expect(postUser).to.exist;
+    expect(postUser).to.be.a('function');
+    expect(postUser.name).to.be.equal('postUser');
+    expect(postUser.length).to.be.equal(1);
+  });
+
+  it.only('should create put resource http action', () => {
+    const resource = { wellknown: 'user' };
+    const { putUser } = createPutHttpAction(resource);
+    expect(putUser).to.exist;
+    expect(putUser).to.be.a('function');
+    expect(putUser.name).to.be.equal('putUser');
+    expect(putUser.length).to.be.equal(1);
+  });
+
+  it.only('should create patch resource http action', () => {
+    const resource = { wellknown: 'user' };
+    const { patchUser } = createPatchHttpAction(resource);
+    expect(patchUser).to.exist;
+    expect(patchUser).to.be.a('function');
+    expect(patchUser.name).to.be.equal('patchUser');
+    expect(patchUser.length).to.be.equal(1);
+  });
+
+  it.only('should create delete resource http action', () => {
+    const resource = { wellknown: 'user' };
+    const { deleteUser } = createDeleteHttpAction(resource);
+    expect(deleteUser).to.exist;
+    expect(deleteUser).to.be.a('function');
+    expect(deleteUser.name).to.be.equal('deleteUser');
+    expect(deleteUser.length).to.be.equal(1);
   });
 
   it('should export create client factory', () => {
