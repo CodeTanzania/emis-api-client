@@ -1,7 +1,7 @@
 import axios from 'axios';
 import moment from 'moment';
 import { singularize, pluralize } from 'inflection';
-import { forEach, isEmpty, isString, camelCase, merge, compact, map, omitBy, isArray, isPlainObject, toLower, uniq, first, min, max, clone, upperFirst } from 'lodash';
+import { forEach, isEmpty, isString, camelCase, merge, compact, map, omitBy, isArray, isPlainObject, toLower, omit, uniq, first, min, max, clone, upperFirst } from 'lodash';
 
 // default http client
 let client;
@@ -401,9 +401,9 @@ const del = url => {
  */
 const normalizeResource = resource => {
   // normalize & get copy
-  const definition = isString(resource) ?
-    { wellknown: resource } :
-    mergeObjects(resource);
+  const definition = isString(resource)
+    ? { wellknown: resource }
+    : mergeObjects(resource);
 
   // rormalize wellknown
   const { wellknown } = definition;
@@ -562,8 +562,8 @@ const createPostHttpAction = resource => {
   const action = {
     [methodName]: payload => {
       // prepare data
-      const defaults = (resource.params || {}).filter;
-      const data = mergeObjects(defaults, payload);
+      const defaults = omit((resource.params || {}).filter, 'deletedAt');
+      const data = mergeObjects(payload, defaults);
       const endpoint = `/${toLower(plural)}`;
       return post(endpoint, data).then(response => response.data);
     },
@@ -602,8 +602,8 @@ const createPutHttpAction = resource => {
   const action = {
     [methodName]: payload => {
       // prepare data
-      const defaults = (resource.params || {}).filter;
-      const data = mergeObjects(defaults, payload);
+      const defaults = omit((resource.params || {}).filter, 'deletedAt');
+      const data = mergeObjects(payload, defaults);
       const endpoint = `/${toLower(plural)}/${idOf(data)}`;
       return put(endpoint, data).then(response => response.data);
     },
@@ -642,8 +642,8 @@ const createPatchHttpAction = resource => {
   const action = {
     [methodName]: payload => {
       // prepare data
-      const defaults = (resource.params || {}).filter;
-      const data = mergeObjects(defaults, payload);
+      const defaults = omit((resource.params || {}).filter, 'deletedAt');
+      const data = mergeObjects(payload, defaults);
       const endpoint = `/${toLower(plural)}/${idOf(data)}`;
       return patch(endpoint, data).then(response => response.data);
     },
@@ -716,7 +716,8 @@ const createHttpActionsFor = resource => {
   const deleteResource = createDeleteHttpAction(resource);
 
   // return resource http actions
-  const httpActions = merge({},
+  const httpActions = merge(
+    {},
     getSchema,
     getResources,
     getResource,

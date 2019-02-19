@@ -17,6 +17,7 @@ import {
   min,
   toLower,
   omitBy,
+  omit,
 } from 'lodash';
 
 // default http client
@@ -578,8 +579,8 @@ export const createPostHttpAction = resource => {
   const action = {
     [methodName]: payload => {
       // prepare data
-      const defaults = (resource.params || {}).filter;
-      const data = mergeObjects(defaults, payload);
+      const defaults = omit((resource.params || {}).filter, 'deletedAt');
+      const data = mergeObjects(payload, defaults);
       const endpoint = `/${toLower(plural)}`;
       return post(endpoint, data).then(response => response.data);
     },
@@ -618,8 +619,8 @@ export const createPutHttpAction = resource => {
   const action = {
     [methodName]: payload => {
       // prepare data
-      const defaults = (resource.params || {}).filter;
-      const data = mergeObjects(defaults, payload);
+      const defaults = omit((resource.params || {}).filter, 'deletedAt');
+      const data = mergeObjects(payload, defaults);
       const endpoint = `/${toLower(plural)}/${idOf(data)}`;
       return put(endpoint, data).then(response => response.data);
     },
@@ -658,8 +659,8 @@ export const createPatchHttpAction = resource => {
   const action = {
     [methodName]: payload => {
       // prepare data
-      const defaults = (resource.params || {}).filter;
-      const data = mergeObjects(defaults, payload);
+      const defaults = omit((resource.params || {}).filter, 'deletedAt');
+      const data = mergeObjects(payload, defaults);
       const endpoint = `/${toLower(plural)}/${idOf(data)}`;
       return patch(endpoint, data).then(response => response.data);
     },
