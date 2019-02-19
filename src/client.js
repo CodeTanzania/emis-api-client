@@ -14,7 +14,7 @@ import {
   camelCase,
   max,
   min,
-  toLower as low,
+  toLower,
 } from 'lodash';
 
 // default http client
@@ -445,7 +445,7 @@ export const createGetSchemaHttpAction = resource => {
   const methodName = fn('get', shortcut.singular, 'Schema');
 
   // build action
-  const endpoint = `/${low(wellknown.plural)}/schema`;
+  const endpoint = `/${toLower(wellknown.plural)}/schema`;
   const action = {
     [methodName]: () => get(endpoint).then(response => response.data),
   };
@@ -477,7 +477,7 @@ export const createGetListHttpAction = resource => {
   const methodName = fn('get', shortcut.plural);
 
   // build action
-  const endpoint = `/${low(wellknown.plural)}`;
+  const endpoint = `/${toLower(wellknown.plural)}`;
   const action = {
     [methodName]: options => {
       // prepare params
@@ -517,7 +517,7 @@ export const createGetSingleHttpAction = resource => {
     [methodName]: id => {
       // prepare params
       const params = merge({}, resource.params);
-      const endpoint = `/${low(wellknown.plural)}/${id}`;
+      const endpoint = `/${toLower(wellknown.plural)}/${id}`;
       return get(endpoint, params).then(response => response.data);
     },
   };
@@ -549,7 +549,7 @@ export const createPostHttpAction = resource => {
   const methodName = fn('post', shortcut.singular);
 
   // build action
-  const endpoint = `/${low(wellknown.plural)}`;
+  const endpoint = `/${toLower(wellknown.plural)}`;
   const action = {
     [methodName]: payload => {
       // prepare data
@@ -591,7 +591,7 @@ export const createPutHttpAction = resource => {
       // prepare data
       const defaults = (resource.params || {}).filter;
       const data = merge({}, defaults, payload);
-      const endpoint = `/${low(wellknown.plural)}/${idOf(data)}`;
+      const endpoint = `/${toLower(wellknown.plural)}/${idOf(data)}`;
       return put(endpoint, data).then(response => response.data);
     },
   };
@@ -628,7 +628,7 @@ export const createPatchHttpAction = resource => {
       // prepare data
       const defaults = (resource.params || {}).filter;
       const data = merge({}, defaults, payload);
-      const endpoint = `/${low(wellknown.plural)}/${idOf(data)}`;
+      const endpoint = `/${toLower(wellknown.plural)}/${idOf(data)}`;
       return patch(endpoint, data).then(response => response.data);
     },
   };
@@ -663,7 +663,7 @@ export const createDeleteHttpAction = resource => {
   const action = {
     [methodName]: id => {
       // prepare params
-      const endpoint = `/${low(wellknown.plural)}/${id}`;
+      const endpoint = `/${toLower(wellknown.plural)}/${id}`;
       return del(endpoint).then(response => response.data);
     },
   };
@@ -688,25 +688,13 @@ export const createDeleteHttpAction = resource => {
  * deleteUser.then(user => { ... }).catch(error => { ... });
  */
 export const createHttpActionsFor = resource => {
-  // create get schema action
+  // compose resource http actions
   const getSchema = createGetSchemaHttpAction(resource);
-
-  // create get list action
   const getResources = createGetListHttpAction(resource);
-
-  // create get single action
   const getResource = createGetSingleHttpAction(resource);
-
-  // create post action
   const postResource = createPostHttpAction(resource);
-
-  // create put action
   const putResource = createPutHttpAction(resource);
-
-  // create patch action
   const patchResource = createPatchHttpAction(resource);
-
-  // create delete action
   const deleteResource = createDeleteHttpAction(resource);
 
   // return resource http actions

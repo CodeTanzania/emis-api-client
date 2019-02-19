@@ -388,9 +388,8 @@ const del = url => {
  */
 const normalizeResource = resource => {
   // normalize & get copy
-  const definition = isString(resource)
-    ? { wellknown: resource }
-    : merge({}, resource);
+  const definition = isString(resource) ? { wellknown: resource } :
+    merge({}, resource);
 
   // rormalize wellknown
   const { wellknown } = definition;
@@ -674,38 +673,26 @@ const createDeleteHttpAction = resource => {
  * deleteUser.then(user => { ... }).catch(error => { ... });
  */
 const createHttpActionsFor = resource => {
-  // create get schema action
+  // compose resource http actions
   const getSchema = createGetSchemaHttpAction(resource);
-
-  // create get list action
   const getResources = createGetListHttpAction(resource);
-
-  // create get single action
   const getResource = createGetSingleHttpAction(resource);
-
-  // create post action
   const postResource = createPostHttpAction(resource);
-
-  // create put action
   const putResource = createPutHttpAction(resource);
-
-  // create patch action
   const patchResource = createPatchHttpAction(resource);
-
-  // create delete action
   const deleteResource = createDeleteHttpAction(resource);
 
   // return resource http actions
-  const httpActions = merge(
-    {},
-    getSchema,
-    getResources,
-    getResource,
-    postResource,
-    putResource,
-    patchResource,
-    deleteResource
-  );
+  const httpActions =
+    merge({},
+      getSchema,
+      getResources,
+      getResource,
+      postResource,
+      putResource,
+      patchResource,
+      deleteResource
+    );
   return httpActions;
 };
 
