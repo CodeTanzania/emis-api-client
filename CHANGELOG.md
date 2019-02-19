@@ -1,3 +1,9 @@
+#### 0.8.2 (2019-02-19)
+
+##### Bug Fixes
+
+* **client:**  apply sensible defaults on post, patch & put ([aee9e8a0](https://github.com/CodeTanzania/emis-api-client/commit/aee9e8a09afbd279279c49316fa3231e9e3dee68))
+
 #### 0.8.1 (2019-02-19)
 
 ##### Bug Fixes
