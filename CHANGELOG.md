@@ -1,3 +1,30 @@
+#### 0.7.0 (2019-02-19)
+
+##### New Features
+
+* **common:**  export builded resource http actions ([3722ec24](https://github.com/CodeTanzania/emis-api-client/commit/3722ec24871ecd59b06df7ae34ada10875ab9c66))
+* **client:**
+  *  add put, patch & delete resurce action creator ([f8f316cc](https://github.com/CodeTanzania/emis-api-client/commit/f8f316cc0cd72914a88446cf2a44d6e60f2cb9b8))
+  *  add create get single resource http action ([9cf67fbe](https://github.com/CodeTanzania/emis-api-client/commit/9cf67fbe8eac5799f2d16b0a2a929ecf38ca6b4e))
+  *  add getSchema & getList action creator ([a51a59b5](https://github.com/CodeTanzania/emis-api-client/commit/a51a59b5fcd1685d0ae7884951cd0ac8afd575f1))
+  *  add resource definition normalizer ([350dd33d](https://github.com/CodeTanzania/emis-api-client/commit/350dd33dffca22f640f75c674e998c45f4579a31))
+*  add cmmon & shortcut resource definition ([6aad2845](https://github.com/CodeTanzania/emis-api-client/commit/6aad284516106653b862593346ad8ea55a701c54))
+*  implement default options & well known enpoint names ([eb21061d](https://github.com/CodeTanzania/emis-api-client/commit/eb21061de76ea3c94f70dbb316a06e6a643aa4cc))
+
+##### Refactors
+
+* **client:**
+  *  improve action creator jsdocs & source code order ([3cddfcba](https://github.com/CodeTanzania/emis-api-client/commit/3cddfcba3d4ed58c3223fac35b1864a02900b9b6))
+  *  compose resource http actions using creators ([accd6fe6](https://github.com/CodeTanzania/emis-api-client/commit/accd6fe699a98b10deeb6e46fc3a0ce769777e29))
+
+##### Code Style Changes
+
+*  compact create http actions source ([c1d0e84c](https://github.com/CodeTanzania/emis-api-client/commit/c1d0e84c0dcf21de3c9ee6d89cebb981dbfbe54b))
+
+##### Tests
+
+* **client:**  correct http actions destructuring ([7d564c60](https://github.com/CodeTanzania/emis-api-client/commit/7d564c60869f6e0ffc29ff8ea4bc8e8ae5401079))
+
 #### 0.6.0 (2019-01-29)
 
 ##### New Features

@@ -13,34 +13,43 @@ const {
   put,
   patch,
   del,
+  normalizeResource,
+  createGetSchemaHttpAction,
+  createGetListHttpAction,
+  createGetSingleHttpAction,
+  createPostHttpAction,
+  createPutHttpAction,
+  createPatchHttpAction,
+  createDeleteHttpAction,
   createHttpActionsFor,
-  getSchemas,
-  getActivitySchema,
-  getAdjustmentSchema,
-  getAlertSchema,
-  getAlertSourceSchema,
-  getAssessmentSchema,
-  getFeatureSchema,
-  getIncidentSchema,
-  getIncidentTypeSchema,
-  getIndicatorSchema,
-  getItemSchema,
-  getPartySchema,
-  getPermissionSchema,
-  getPlanSchema,
-  getProcedureSchema,
-  getQuestionSchema,
-  getQuestionnaireSchema,
-  getRoleSchema,
-  getStakeholderSchema,
-  getStockSchema,
-  getWarehouseSchema,
-  getPlans,
-  getPlan,
-  postPlan,
-  putPlan,
-  patchPlan,
-  deletePlan,
+  httpActions: {
+    getSchemas,
+    getActivitySchema,
+    getAdjustmentSchema,
+    getAlertSchema,
+    getAlertSourceSchema,
+    getAssessmentSchema,
+    getFeatureSchema,
+    getIncidentSchema,
+    getIncidentTypeSchema,
+    getIndicatorSchema,
+    getItemSchema,
+    getPartySchema,
+    getPermissionSchema,
+    getPlanSchema,
+    getProcedureSchema,
+    getQuestionSchema,
+    getQuestionnaireSchema,
+    getRoleSchema,
+    getStockSchema,
+    getWarehouseSchema,
+    getPlans,
+    getPlan,
+    postPlan,
+    putPlan,
+    patchPlan,
+    deletePlan,
+  },
 } = require('..');
 
 describe('http client', () => {
@@ -123,6 +132,87 @@ describe('http client', () => {
     params = prepareParams({ filter });
     expect(params.filter).to.exist;
     expect(params.filter.createdAt).to.be.eql({ $lte: expected.$lte });
+  });
+
+  it('should normalize resource', () => {
+    const resource = { shortcut: 'agency', wellknown: 'party' };
+    const normalized = {
+      shortcut: { singular: 'agency', plural: 'agencies' },
+      wellknown: { singular: 'party', plural: 'parties' },
+    };
+    expect(normalizeResource(resource)).to.be.eql(normalized);
+  });
+
+  it('should normalize resource', () => {
+    const resource = 'party';
+    const normalized = {
+      shortcut: { singular: 'party', plural: 'parties' },
+      wellknown: { singular: 'party', plural: 'parties' },
+    };
+    expect(normalizeResource(resource)).to.be.eql(normalized);
+  });
+
+  it('should create get resource schema http action', () => {
+    const resource = { wellknown: 'user' };
+    const { getUserSchema } = createGetSchemaHttpAction(resource);
+    expect(getUserSchema).to.exist;
+    expect(getUserSchema).to.be.a('function');
+    expect(getUserSchema.name).to.be.equal('getUserSchema');
+    expect(getUserSchema.length).to.be.equal(0);
+  });
+
+  it('should create get resource list http action', () => {
+    const resource = { wellknown: 'user' };
+    const { getUsers } = createGetListHttpAction(resource);
+    expect(getUsers).to.exist;
+    expect(getUsers).to.be.a('function');
+    expect(getUsers.name).to.be.equal('getUsers');
+    expect(getUsers.length).to.be.equal(1);
+  });
+
+  it('should create get single resource http action', () => {
+    const resource = { wellknown: 'user' };
+    const { getUser } = createGetSingleHttpAction(resource);
+    expect(getUser).to.exist;
+    expect(getUser).to.be.a('function');
+    expect(getUser.name).to.be.equal('getUser');
+    expect(getUser.length).to.be.equal(1);
+  });
+
+  it('should create post resource http action', () => {
+    const resource = { wellknown: 'user' };
+    const { postUser } = createPostHttpAction(resource);
+    expect(postUser).to.exist;
+    expect(postUser).to.be.a('function');
+    expect(postUser.name).to.be.equal('postUser');
+    expect(postUser.length).to.be.equal(1);
+  });
+
+  it('should create put resource http action', () => {
+    const resource = { wellknown: 'user' };
+    const { putUser } = createPutHttpAction(resource);
+    expect(putUser).to.exist;
+    expect(putUser).to.be.a('function');
+    expect(putUser.name).to.be.equal('putUser');
+    expect(putUser.length).to.be.equal(1);
+  });
+
+  it('should create patch resource http action', () => {
+    const resource = { wellknown: 'user' };
+    const { patchUser } = createPatchHttpAction(resource);
+    expect(patchUser).to.exist;
+    expect(patchUser).to.be.a('function');
+    expect(patchUser.name).to.be.equal('patchUser');
+    expect(patchUser.length).to.be.equal(1);
+  });
+
+  it('should create delete resource http action', () => {
+    const resource = { wellknown: 'user' };
+    const { deleteUser } = createDeleteHttpAction(resource);
+    expect(deleteUser).to.exist;
+    expect(deleteUser).to.be.a('function');
+    expect(deleteUser.name).to.be.equal('deleteUser');
+    expect(deleteUser.length).to.be.equal(1);
   });
 
   it('should export create client factory', () => {
@@ -447,7 +537,6 @@ describe('http client', () => {
     expect(getRoleSchema).to.exist;
     expect(getStockSchema).to.exist;
     expect(getWarehouseSchema).to.exist;
-    expect(getStakeholderSchema).to.exist;
   });
 
   it('should handle http get on /resource use generated actions', done => {

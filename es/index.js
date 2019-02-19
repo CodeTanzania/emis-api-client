@@ -1,7 +1,7 @@
 import axios from 'axios';
 import moment from 'moment';
 import { singularize, pluralize } from 'inflection';
-import { merge, forEach, isEmpty, camelCase, toLower, isArray, isPlainObject, uniq, compact, first, min, max } from 'lodash';
+import { merge, forEach, isEmpty, isString, camelCase, isArray, isPlainObject, toLower, uniq, compact, first, min, max, clone } from 'lodash';
 
 // default http client
 let client;
@@ -376,10 +376,313 @@ const del = url => {
 };
 
 /**
+ * @function normalizeResource
+ * @name normalizeResource
+ * @description normalize resource for action http building
+ * @param {Object} resource valid http resource definition
+ * @return {Object} normalized http resource definition
+ * @since 0.7.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
+const normalizeResource = resource => {
+  // normalize & get copy
+  const definition = isString(resource)
+    ? { wellknown: resource }
+    : merge({}, resource);
+
+  // rormalize wellknown
+  const { wellknown } = definition;
+  let singular = singularize(wellknown);
+  let plural = pluralize(wellknown);
+  definition.wellknown = { singular, plural };
+
+  // rormalize shortcut
+  const { shortcut } = definition;
+  singular = singularize(shortcut || wellknown);
+  plural = pluralize(shortcut || wellknown);
+  definition.shortcut = { singular, plural };
+
+  // return resource definition
+  return definition;
+};
+
+/**
+ * @function createGetSchemaHttpAction
+ * @name createGetSchemaHttpAction
+ * @description generate http action to obtain resource schema definition
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http action to get resource schema
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createGetSchemaHttpAction } from 'emis-api-client';
+ *
+ * const resource = { wellknown: 'user' };
+ * const getUserSchema = createGetSchemaHttpAction(resource);
+ * getUserSchema().then(schema => { ... }).catch(error => { ... });
+ */
+const createGetSchemaHttpAction = resource => {
+  // ensure resource
+  const {
+    shortcut: { singular },
+    wellknown: { plural },
+  } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('get', singular, 'Schema');
+
+  // build action
+  const action = {
+    [methodName]: () => {
+      const endpoint = `/${toLower(plural)}/schema`;
+      return get(endpoint).then(response => response.data);
+    },
+  };
+
+  // return get schema action
+  return action;
+};
+
+/**
+ * @function createGetListHttpAction
+ * @name createGetListHttpAction
+ * @description generate http action to obtain resource list
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http action to get resource list
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createGetListHttpAction } from 'emis-api-client';
+ *
+ * const resource = { wellknown: 'user' };
+ * const getUsers = createGetListHttpAction(resource);
+ * getUsers().then(users => { ... }).catch(error => { ... });
+ */
+const createGetListHttpAction = resource => {
+  // ensure resource
+  const { shortcut, wellknown } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('get', shortcut.plural);
+
+  // build action
+  const action = {
+    [methodName]: options => {
+      // prepare params
+      const params = merge({}, resource.params, options);
+      const endpoint = `/${toLower(wellknown.plural)}`;
+      return get(endpoint, params).then(response => response.data);
+    },
+  };
+
+  // return get resource list action
+  return action;
+};
+
+/**
+ * @function createGetSingleHttpAction
+ * @name createGetSingleHttpAction
+ * @description generate http action to obtain single resource
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http action to get single resource
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createGetSingleHttpAction } from 'emis-api-client';
+ *
+ * const resource = { wellknown: 'user' };
+ * const getUser = createGetSingleHttpAction(resource);
+ * getUser('5c176624').then(user => { ... }).catch(error => { ... });
+ */
+const createGetSingleHttpAction = resource => {
+  // ensure resource
+  const {
+    shortcut: { singular },
+    wellknown: { plural },
+  } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('get', singular);
+
+  // build action
+  const action = {
+    [methodName]: id => {
+      // prepare params
+      const params = merge({}, resource.params);
+      const endpoint = `/${toLower(plural)}/${id}`;
+      return get(endpoint, params).then(response => response.data);
+    },
+  };
+
+  // return get single resource action
+  return action;
+};
+
+/**
+ * @function createPostHttpAction
+ * @name createPostHttpAction
+ * @description generate http action to obtain single resource
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http action to get single resource
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createPostHttpAction } from 'emis-api-client';
+ *
+ * const resource = { wellknown: 'user' };
+ * const postUser = createPostHttpAction(resource);
+ * postUser({ name: ... }).then(user => { ... }).catch(error => { ... });
+ */
+const createPostHttpAction = resource => {
+  // ensure resource
+  const {
+    shortcut: { singular },
+    wellknown: { plural },
+  } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('post', singular);
+
+  // build action
+  const action = {
+    [methodName]: payload => {
+      // prepare data
+      const defaults = (resource.params || {}).filter;
+      const data = merge({}, defaults, payload);
+      const endpoint = `/${toLower(plural)}`;
+      return post(endpoint, data).then(response => response.data);
+    },
+  };
+
+  // return post single resource action
+  return action;
+};
+
+/**
+ * @function createPutHttpAction
+ * @name createPutHttpAction
+ * @description generate http action to obtain single resource
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http action to get single resource
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createPutHttpAction } from 'emis-api-client';
+ *
+ * const resource = { wellknown: 'user' };
+ * const putUser = createPutHttpAction(resource);
+ * putUser({ _id: ..., name: ...}).then(user => { ... }).catch(error => { ... });
+ */
+const createPutHttpAction = resource => {
+  // ensure resource
+  const {
+    shortcut: { singular },
+    wellknown: { plural },
+  } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('put', singular);
+
+  // build action
+  const action = {
+    [methodName]: payload => {
+      // prepare data
+      const defaults = (resource.params || {}).filter;
+      const data = merge({}, defaults, payload);
+      const endpoint = `/${toLower(plural)}/${idOf(data)}`;
+      return put(endpoint, data).then(response => response.data);
+    },
+  };
+
+  // return put single resource action
+  return action;
+};
+
+/**
+ * @function createPatchHttpAction
+ * @name createPatchHttpAction
+ * @description generate http action to obtain single resource
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http action to get single resource
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createPatchHttpAction } from 'emis-api-client';
+ *
+ * const resource = { wellknown: 'user' };
+ * const patchUser = createPatchHttpAction(resource);
+ * patchUser({ _id: ..., name: ...}).then(user => { ... }).catch(error => { ... });
+ */
+const createPatchHttpAction = resource => {
+  // ensure resource
+  const {
+    shortcut: { singular },
+    wellknown: { plural },
+  } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('patch', singular);
+
+  // build action
+  const action = {
+    [methodName]: payload => {
+      // prepare data
+      const defaults = (resource.params || {}).filter;
+      const data = merge({}, defaults, payload);
+      const endpoint = `/${toLower(plural)}/${idOf(data)}`;
+      return patch(endpoint, data).then(response => response.data);
+    },
+  };
+
+  // return patch single resource action
+  return action;
+};
+
+/**
+ * @function createDeleteHttpAction
+ * @name createDeleteHttpAction
+ * @description generate http action to obtain single resource
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http action to get single resource
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createDeleteHttpAction } from 'emis-api-client';
+ *
+ * const resource = { wellknown: 'user' };
+ * const deleteUser = createDeleteHttpAction(resource);
+ * deleteUser('5c176624').then(user => { ... }).catch(error => { ... });
+ */
+const createDeleteHttpAction = resource => {
+  // ensure resource
+  const {
+    shortcut: { singular },
+    wellknown: { plural },
+  } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('delete', singular);
+
+  // build action
+  const action = {
+    [methodName]: id => {
+      // prepare params
+      const endpoint = `/${toLower(plural)}/${id}`;
+      return del(endpoint).then(response => response.data);
+    },
+  };
+
+  // return delete single resource action
+  return action;
+};
+
+/**
  * @function createHttpActionsFor
  * @name createHttpActionsFor
- * @description generate name http action shortcut to interact with resource
- * @param {String} resource valid http resource.
+ * @description generate http actions to interact with resource
+ * @param {String} resource valid http resource
  * @return {Object} http actions to interact with a resource
  * @since 0.1.0
  * @version 0.1.0
@@ -387,232 +690,214 @@ const del = url => {
  * import { createHttpActionsFor } from 'emis-api-client';
  *
  * const { deleteUser } = createHttpActionsFor('user');
- * const deleteUser = del('/users/5c1766243c9d520004e2b542');
- * deleteUser.then(user => { ... }).catch(error => { ... });
+ * deleteUser('5c176624').then(user => { ... }).catch(error => { ... });
  */
 const createHttpActionsFor = resource => {
-  const singular = singularize(resource);
-  const plural = pluralize(resource);
-  const httpActions = {
-    [fn('get', singular, 'Schema')]: () =>
-      get(`/${toLower(plural)}/schema`).then(response => response.data),
-    [fn('get', plural)]: params =>
-      get(`/${toLower(plural)}`, params).then(response => response.data),
-    [fn('get', singular)]: id =>
-      get(`/${toLower(plural)}/${id}`).then(response => response.data),
-    [fn('post', singular)]: data =>
-      post(`/${toLower(plural)}`, data).then(response => response.data),
-    [fn('put', singular)]: data =>
-      put(`/${toLower(plural)}/${idOf(data)}`, data).then(
-        response => response.data
-      ),
-    [fn('patch', singular)]: data =>
-      patch(`/${toLower(plural)}/${idOf(data)}`, data).then(
-        response => response.data
-      ),
-    [fn('delete', singular)]: id =>
-      del(`/${toLower(plural)}/${id}`).then(response => response.data),
-  };
+  // compose resource http actions
+  const getSchema = createGetSchemaHttpAction(resource);
+  const getResources = createGetListHttpAction(resource);
+  const getResource = createGetSingleHttpAction(resource);
+  const postResource = createPostHttpAction(resource);
+  const putResource = createPutHttpAction(resource);
+  const patchResource = createPatchHttpAction(resource);
+  const deleteResource = createDeleteHttpAction(resource);
+
+  // return resource http actions
+  const httpActions = merge(
+    {},
+    getSchema,
+    getResources,
+    getResource,
+    postResource,
+    putResource,
+    patchResource,
+    deleteResource
+  );
   return httpActions;
 };
 
-const getSchemas = () =>
-  get('/schemas').then(response => {
-    const schemas = response.data;
-    if (schemas) {
-      schemas.Warehouse = schemas.Feature;
-    }
-    return schemas;
-  });
+/**
+ * @name DEFAULT_FILTER
+ * @description default resource filtering options
+ * @type {Object}
+ * @since 0.7.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
+const DEFAULT_FILTER = { deletedAt: { $eq: null } };
 
-const {
-  getActivitySchema,
-  getActivities,
-  getActivity,
-  postActivity,
-  putActivity,
-  patchActivity,
-  deleteActivity,
-} = createHttpActionsFor('activity');
+/**
+ * @name DEFAULT_PAGINATION
+ * @description default resource pagination options
+ * @type {Object}
+ * @since 0.7.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
+const DEFAULT_PAGINATION = { limit: 10, skip: 0, page: 1 };
 
-const {
-  getAdjustmentSchema,
-  getAdjustments,
-  getAdjustment,
-  postAdjustment,
-  putAdjustment,
-  patchAdjustment,
-  deleteAdjustment,
-} = createHttpActionsFor('adjustment');
+/**
+ * @name DEFAULT_SORT
+ * @description default resource sorting order options
+ * @type {Object}
+ * @since 0.7.0
+ * @version 0.1.0
+ * @private
+ */
+const DEFAULT_SORT = { updatedAt: -1 };
 
-const {
-  getAlertSchema,
-  getAlerts,
-  getAlert,
-  postAlert,
-  putAlert,
-  patchAlert,
-  deleteAlert,
-} = createHttpActionsFor('alert');
+/**
+ * @constant
+ * @name WELL_KNOWN
+ * @description set of well known api endpoints. they must be one-to-one to
+ * naked api endpoints exposed by the server and they must presented in
+ * camelcase.
+ * @type {String[]}
+ * @since 0.7.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
+const WELL_KNOWN = [
+  'activity',
+  'adjustment',
+  'alert',
+  'alertSource',
+  'assessment',
+  'feature',
+  'incident',
+  'incidentType',
+  'indicator',
+  'item',
+  'party',
+  'permission',
+  'plan',
+  'procedure',
+  'question',
+  'questionnaire',
+  'role',
+  'stock',
+];
 
-const {
-  getAlertSourceSchema,
-  getAlertSources,
-  getAlertSource,
-  postAlertSource,
-  putAlertSource,
-  patchAlertSource,
-  deleteAlertSource,
-} = createHttpActionsFor('alertSource');
+// default request params
+const DEFAULT_PARAMS = {
+  filter: DEFAULT_FILTER,
+  paginate: DEFAULT_PAGINATION,
+  sort: DEFAULT_SORT,
+};
 
-const {
-  getAssessmentSchema,
-  getAssessments,
-  getAssessment,
-  postAssessment,
-  putAssessment,
-  patchAssessment,
-  deleteAssessment,
-} = createHttpActionsFor('assessment');
+// parties shortcuts
+const PARTY_SHORTCUTS = {
+  focalPerson: {
+    shortcut: 'focalPerson',
+    wellknown: 'party',
+    params: merge({}, DEFAULT_PARAMS, { filter: { type: 'Focal Person' } }),
+  },
+  agency: {
+    shortcut: 'agency',
+    wellknown: 'party',
+    params: merge({}, DEFAULT_PARAMS, { filter: { type: 'Agency' } }),
+  },
+};
 
-const {
-  getFeatureSchema,
-  getFeatures,
-  getFeature,
-  postFeature,
-  putFeature,
-  patchFeature,
-  deleteFeature,
-} = createHttpActionsFor('feature');
+// features shortcuts
+const FEATURE_SHORTCUTS = {
+  region: {
+    shortcut: 'region',
+    wellknown: 'feature',
+    params: merge({}, DEFAULT_PARAMS, {
+      filter: {
+        nature: 'Boundary',
+        family: 'Administrative',
+        type: 'Region',
+      },
+    }),
+  },
+  district: {
+    shortcut: 'district',
+    wellknown: 'feature',
+    params: merge({}, DEFAULT_PARAMS, {
+      filter: {
+        nature: 'Boundary',
+        family: 'Administrative',
+        type: 'District',
+      },
+    }),
+  },
+  warehouse: {
+    shortcut: 'warehouse',
+    wellknown: 'feature',
+    params: merge({}, DEFAULT_PARAMS, {
+      filter: {
+        nature: 'Building',
+        family: 'Warehouse',
+      },
+    }),
+  },
+};
 
-const {
-  getIncidentSchema,
-  getIncidents,
-  getIncident,
-  postIncident,
-  putIncident,
-  patchIncident,
-  deleteIncident,
-} = createHttpActionsFor('incident');
+/**
+ * @constant
+ * @name SHORTCUTS
+ * @description set of applicable api shortcuts.
+ * @type {Object}
+ * @since 0.7.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
+const SHORTCUTS = merge({}, PARTY_SHORTCUTS, FEATURE_SHORTCUTS);
 
-const {
-  getIncidentTypeSchema,
-  getIncidentTypes,
-  getIncidentType,
-  postIncidentType,
-  putIncidentType,
-  patchIncidentType,
-  deleteIncidentType,
-} = createHttpActionsFor('incidentType');
+/**
+ * @constant
+ * @name RESOURCES
+ * @description set of applicable api endpoints including both well-kown and
+ * shortcuts. they must presented in camelcase and wellknown key should point
+ * back to {@link WELL_KNOWN}.
+ * @type {Object}
+ * @since 0.7.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
+const RESOURCES = merge({}, SHORTCUTS);
 
-const {
-  getIndicatorSchema,
-  getIndicators,
-  getIndicator,
-  postIndicator,
-  putIndicator,
-  patchIndicator,
-  deleteIndicator,
-} = createHttpActionsFor('indicator');
+// build wellknown resources
+forEach([...WELL_KNOWN], wellknown => {
+  const name = clone(wellknown);
+  const shortcut = clone(wellknown);
+  const params = merge({}, DEFAULT_PARAMS);
+  const resource = { shortcut, wellknown, params };
+  RESOURCES[name] = resource;
+});
 
-const {
-  getItemSchema,
-  getItems,
-  getItem,
-  postItem,
-  putItem,
-  patchItem,
-  deleteItem,
-} = createHttpActionsFor('item');
+/**
+ * @name httpActions
+ * @description resource http actions
+ * @type {Object}
+ * @since 0.7.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
+const httpActions = {
+  getSchemas: () =>
+    get('/schemas').then(response => {
+      const schemas = response.data;
+      // TODO expose shortcuts schema
+      if (schemas) {
+        schemas.Warehouse = schemas.Feature;
+      }
+      return schemas;
+    }),
+};
 
-const {
-  getPartySchema,
-  getParties,
-  getParty,
-  postParty,
-  putParty,
-  patchParty,
-  deleteParty,
-} = createHttpActionsFor('party');
+// build resource http actions
+forEach(RESOURCES, resource => {
+  const resourceHttpActions = createHttpActionsFor(resource);
+  merge(httpActions, resourceHttpActions);
+});
 
-const {
-  getPermissionSchema,
-  getPermissions,
-  getPermission,
-  postPermission,
-  putPermission,
-  patchPermission,
-  deletePermission,
-} = createHttpActionsFor('permission');
-
-const {
-  getPlanSchema,
-  getPlans,
-  getPlan,
-  postPlan,
-  putPlan,
-  patchPlan,
-  deletePlan,
-} = createHttpActionsFor('plan');
-
-const {
-  getProcedureSchema,
-  getProcedures,
-  getProcedure,
-  postProcedure,
-  putProcedure,
-  patchProcedure,
-  deleteProcedure,
-} = createHttpActionsFor('procedure');
-
-const {
-  getQuestionSchema,
-  getQuestions,
-  getQuestion,
-  postQuestion,
-  putQuestion,
-  patchQuestion,
-  deleteQuestion,
-} = createHttpActionsFor('question');
-
-const {
-  getQuestionnaireSchema,
-  getQuestionnaires,
-  getQuestionnaire,
-  postQuestionnaire,
-  putQuestionnaire,
-  patchQuestionnaire,
-  deleteQuestionnaire,
-} = createHttpActionsFor('questionnaire');
-
-const {
-  getRoleSchema,
-  getRoles,
-  getRole,
-  postRole,
-  putRole,
-  patchRole,
-  deleteRole,
-} = createHttpActionsFor('role');
-
-const {
-  getStockSchema,
-  getStocks,
-  getStock,
-  postStock,
-  putStock,
-  patchStock,
-  deleteStock,
-} = createHttpActionsFor('stock');
-
-const {
-  getWarehouseSchema,
-  getWarehouses,
-  getWarehouse,
-  postWarehouse,
-  putWarehouse,
-  patchWarehouse,
-  deleteWarehouse,
-} = createHttpActionsFor('warehouse');
-
-export { getSchemas, getActivitySchema, getActivities, getActivity, postActivity, putActivity, patchActivity, deleteActivity, getAdjustmentSchema, getAdjustments, getAdjustment, postAdjustment, putAdjustment, patchAdjustment, deleteAdjustment, getAlertSchema, getAlerts, getAlert, postAlert, putAlert, patchAlert, deleteAlert, getAlertSourceSchema, getAlertSources, getAlertSource, postAlertSource, putAlertSource, patchAlertSource, deleteAlertSource, getAssessmentSchema, getAssessments, getAssessment, postAssessment, putAssessment, patchAssessment, deleteAssessment, getFeatureSchema, getFeatures, getFeature, postFeature, putFeature, patchFeature, deleteFeature, getIncidentSchema, getIncidents, getIncident, postIncident, putIncident, patchIncident, deleteIncident, getIncidentTypeSchema, getIncidentTypes, getIncidentType, postIncidentType, putIncidentType, patchIncidentType, deleteIncidentType, getIndicatorSchema, getIndicators, getIndicator, postIndicator, putIndicator, patchIndicator, deleteIndicator, getItemSchema, getItems, getItem, postItem, putItem, patchItem, deleteItem, getPartySchema, getPartySchema as getStakeholderSchema, getParties, getParties as getStakeholders, getParty, getParty as getStakeholder, postParty, postParty as postStakeholder, putParty, putParty as putStakeholder, patchParty, patchParty as patchStakeholder, deleteParty, deleteParty as deleteStakeholder, getPermissionSchema, getPermissions, getPermission, postPermission, putPermission, patchPermission, deletePermission, getPlanSchema, getPlans, getPlan, postPlan, putPlan, patchPlan, deletePlan, getProcedureSchema, getProcedures, getProcedure, postProcedure, putProcedure, patchProcedure, deleteProcedure, getQuestionSchema, getQuestions, getQuestion, postQuestion, putQuestion, patchQuestion, deleteQuestion, getQuestionnaireSchema, getQuestionnaires, getQuestionnaire, postQuestionnaire, putQuestionnaire, patchQuestionnaire, deleteQuestionnaire, getRoleSchema, getRoles, getRole, postRole, putRole, patchRole, deleteRole, getStockSchema, getStocks, getStock, postStock, putStock, patchStock, deleteStock, getWarehouseSchema, getWarehouses, getWarehouse, postWarehouse, putWarehouse, patchWarehouse, deleteWarehouse, CONTENT_TYPE, HEADERS, prepareParams, createHttpClient, disposeHttpClient, all, spread, get, post, put, patch, del, createHttpActionsFor };
+export { CONTENT_TYPE, HEADERS, prepareParams, createHttpClient, disposeHttpClient, all, spread, get, post, put, patch, del, normalizeResource, createGetSchemaHttpAction, createGetListHttpAction, createGetSingleHttpAction, createPostHttpAction, createPutHttpAction, createPatchHttpAction, createDeleteHttpAction, createHttpActionsFor, DEFAULT_FILTER, DEFAULT_PAGINATION, DEFAULT_SORT, WELL_KNOWN, SHORTCUTS, RESOURCES, httpActions };

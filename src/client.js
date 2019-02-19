@@ -10,10 +10,11 @@ import {
   forEach,
   first,
   isEmpty,
+  isString,
   camelCase,
   max,
   min,
-  toLower as low,
+  toLower,
 } from 'lodash';
 
 // default http client
@@ -389,10 +390,313 @@ export const del = url => {
 };
 
 /**
+ * @function normalizeResource
+ * @name normalizeResource
+ * @description normalize resource for action http building
+ * @param {Object} resource valid http resource definition
+ * @return {Object} normalized http resource definition
+ * @since 0.7.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
+export const normalizeResource = resource => {
+  // normalize & get copy
+  const definition = isString(resource)
+    ? { wellknown: resource }
+    : merge({}, resource);
+
+  // rormalize wellknown
+  const { wellknown } = definition;
+  let singular = singularize(wellknown);
+  let plural = pluralize(wellknown);
+  definition.wellknown = { singular, plural };
+
+  // rormalize shortcut
+  const { shortcut } = definition;
+  singular = singularize(shortcut || wellknown);
+  plural = pluralize(shortcut || wellknown);
+  definition.shortcut = { singular, plural };
+
+  // return resource definition
+  return definition;
+};
+
+/**
+ * @function createGetSchemaHttpAction
+ * @name createGetSchemaHttpAction
+ * @description generate http action to obtain resource schema definition
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http action to get resource schema
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createGetSchemaHttpAction } from 'emis-api-client';
+ *
+ * const resource = { wellknown: 'user' };
+ * const getUserSchema = createGetSchemaHttpAction(resource);
+ * getUserSchema().then(schema => { ... }).catch(error => { ... });
+ */
+export const createGetSchemaHttpAction = resource => {
+  // ensure resource
+  const {
+    shortcut: { singular },
+    wellknown: { plural },
+  } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('get', singular, 'Schema');
+
+  // build action
+  const action = {
+    [methodName]: () => {
+      const endpoint = `/${toLower(plural)}/schema`;
+      return get(endpoint).then(response => response.data);
+    },
+  };
+
+  // return get schema action
+  return action;
+};
+
+/**
+ * @function createGetListHttpAction
+ * @name createGetListHttpAction
+ * @description generate http action to obtain resource list
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http action to get resource list
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createGetListHttpAction } from 'emis-api-client';
+ *
+ * const resource = { wellknown: 'user' };
+ * const getUsers = createGetListHttpAction(resource);
+ * getUsers().then(users => { ... }).catch(error => { ... });
+ */
+export const createGetListHttpAction = resource => {
+  // ensure resource
+  const { shortcut, wellknown } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('get', shortcut.plural);
+
+  // build action
+  const action = {
+    [methodName]: options => {
+      // prepare params
+      const params = merge({}, resource.params, options);
+      const endpoint = `/${toLower(wellknown.plural)}`;
+      return get(endpoint, params).then(response => response.data);
+    },
+  };
+
+  // return get resource list action
+  return action;
+};
+
+/**
+ * @function createGetSingleHttpAction
+ * @name createGetSingleHttpAction
+ * @description generate http action to obtain single resource
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http action to get single resource
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createGetSingleHttpAction } from 'emis-api-client';
+ *
+ * const resource = { wellknown: 'user' };
+ * const getUser = createGetSingleHttpAction(resource);
+ * getUser('5c176624').then(user => { ... }).catch(error => { ... });
+ */
+export const createGetSingleHttpAction = resource => {
+  // ensure resource
+  const {
+    shortcut: { singular },
+    wellknown: { plural },
+  } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('get', singular);
+
+  // build action
+  const action = {
+    [methodName]: id => {
+      // prepare params
+      const params = merge({}, resource.params);
+      const endpoint = `/${toLower(plural)}/${id}`;
+      return get(endpoint, params).then(response => response.data);
+    },
+  };
+
+  // return get single resource action
+  return action;
+};
+
+/**
+ * @function createPostHttpAction
+ * @name createPostHttpAction
+ * @description generate http action to obtain single resource
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http action to get single resource
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createPostHttpAction } from 'emis-api-client';
+ *
+ * const resource = { wellknown: 'user' };
+ * const postUser = createPostHttpAction(resource);
+ * postUser({ name: ... }).then(user => { ... }).catch(error => { ... });
+ */
+export const createPostHttpAction = resource => {
+  // ensure resource
+  const {
+    shortcut: { singular },
+    wellknown: { plural },
+  } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('post', singular);
+
+  // build action
+  const action = {
+    [methodName]: payload => {
+      // prepare data
+      const defaults = (resource.params || {}).filter;
+      const data = merge({}, defaults, payload);
+      const endpoint = `/${toLower(plural)}`;
+      return post(endpoint, data).then(response => response.data);
+    },
+  };
+
+  // return post single resource action
+  return action;
+};
+
+/**
+ * @function createPutHttpAction
+ * @name createPutHttpAction
+ * @description generate http action to obtain single resource
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http action to get single resource
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createPutHttpAction } from 'emis-api-client';
+ *
+ * const resource = { wellknown: 'user' };
+ * const putUser = createPutHttpAction(resource);
+ * putUser({ _id: ..., name: ...}).then(user => { ... }).catch(error => { ... });
+ */
+export const createPutHttpAction = resource => {
+  // ensure resource
+  const {
+    shortcut: { singular },
+    wellknown: { plural },
+  } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('put', singular);
+
+  // build action
+  const action = {
+    [methodName]: payload => {
+      // prepare data
+      const defaults = (resource.params || {}).filter;
+      const data = merge({}, defaults, payload);
+      const endpoint = `/${toLower(plural)}/${idOf(data)}`;
+      return put(endpoint, data).then(response => response.data);
+    },
+  };
+
+  // return put single resource action
+  return action;
+};
+
+/**
+ * @function createPatchHttpAction
+ * @name createPatchHttpAction
+ * @description generate http action to obtain single resource
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http action to get single resource
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createPatchHttpAction } from 'emis-api-client';
+ *
+ * const resource = { wellknown: 'user' };
+ * const patchUser = createPatchHttpAction(resource);
+ * patchUser({ _id: ..., name: ...}).then(user => { ... }).catch(error => { ... });
+ */
+export const createPatchHttpAction = resource => {
+  // ensure resource
+  const {
+    shortcut: { singular },
+    wellknown: { plural },
+  } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('patch', singular);
+
+  // build action
+  const action = {
+    [methodName]: payload => {
+      // prepare data
+      const defaults = (resource.params || {}).filter;
+      const data = merge({}, defaults, payload);
+      const endpoint = `/${toLower(plural)}/${idOf(data)}`;
+      return patch(endpoint, data).then(response => response.data);
+    },
+  };
+
+  // return patch single resource action
+  return action;
+};
+
+/**
+ * @function createDeleteHttpAction
+ * @name createDeleteHttpAction
+ * @description generate http action to obtain single resource
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http action to get single resource
+ * @since 0.7.0
+ * @version 0.1.0
+ * @example
+ * import { createDeleteHttpAction } from 'emis-api-client';
+ *
+ * const resource = { wellknown: 'user' };
+ * const deleteUser = createDeleteHttpAction(resource);
+ * deleteUser('5c176624').then(user => { ... }).catch(error => { ... });
+ */
+export const createDeleteHttpAction = resource => {
+  // ensure resource
+  const {
+    shortcut: { singular },
+    wellknown: { plural },
+  } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('delete', singular);
+
+  // build action
+  const action = {
+    [methodName]: id => {
+      // prepare params
+      const endpoint = `/${toLower(plural)}/${id}`;
+      return del(endpoint).then(response => response.data);
+    },
+  };
+
+  // return delete single resource action
+  return action;
+};
+
+/**
  * @function createHttpActionsFor
  * @name createHttpActionsFor
- * @description generate name http action shortcut to interact with resource
- * @param {String} resource valid http resource.
+ * @description generate http actions to interact with resource
+ * @param {String} resource valid http resource
  * @return {Object} http actions to interact with a resource
  * @since 0.1.0
  * @version 0.1.0
@@ -400,31 +704,28 @@ export const del = url => {
  * import { createHttpActionsFor } from 'emis-api-client';
  *
  * const { deleteUser } = createHttpActionsFor('user');
- * const deleteUser = del('/users/5c1766243c9d520004e2b542');
- * deleteUser.then(user => { ... }).catch(error => { ... });
+ * deleteUser('5c176624').then(user => { ... }).catch(error => { ... });
  */
 export const createHttpActionsFor = resource => {
-  const singular = singularize(resource);
-  const plural = pluralize(resource);
-  const httpActions = {
-    [fn('get', singular, 'Schema')]: () =>
-      get(`/${low(plural)}/schema`).then(response => response.data),
-    [fn('get', plural)]: params =>
-      get(`/${low(plural)}`, params).then(response => response.data),
-    [fn('get', singular)]: id =>
-      get(`/${low(plural)}/${id}`).then(response => response.data),
-    [fn('post', singular)]: data =>
-      post(`/${low(plural)}`, data).then(response => response.data),
-    [fn('put', singular)]: data =>
-      put(`/${low(plural)}/${idOf(data)}`, data).then(
-        response => response.data
-      ),
-    [fn('patch', singular)]: data =>
-      patch(`/${low(plural)}/${idOf(data)}`, data).then(
-        response => response.data
-      ),
-    [fn('delete', singular)]: id =>
-      del(`/${low(plural)}/${id}`).then(response => response.data),
-  };
+  // compose resource http actions
+  const getSchema = createGetSchemaHttpAction(resource);
+  const getResources = createGetListHttpAction(resource);
+  const getResource = createGetSingleHttpAction(resource);
+  const postResource = createPostHttpAction(resource);
+  const putResource = createPutHttpAction(resource);
+  const patchResource = createPatchHttpAction(resource);
+  const deleteResource = createDeleteHttpAction(resource);
+
+  // return resource http actions
+  const httpActions = merge(
+    {},
+    getSchema,
+    getResources,
+    getResource,
+    postResource,
+    putResource,
+    patchResource,
+    deleteResource
+  );
   return httpActions;
 };
