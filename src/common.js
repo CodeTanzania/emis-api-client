@@ -1,4 +1,5 @@
 import { clone, forEach, merge } from 'lodash';
+import { createHttpActionsFor } from './client';
 
 /**
  * @name DEFAULT_FILTER
@@ -119,4 +120,21 @@ forEach([...WELL_KNOWN], wellknown => {
   const params = merge({}, DEFAULT_PARAMS);
   const resource = { shortcut, wellknown, params };
   RESOURCES[name] = resource;
+});
+
+/**
+ * @name httpActions
+ * @description resource http actions
+ * @type {Object}
+ * @since 0.7.0
+ * @version 0.1.0
+ * @static
+ * @public
+ */
+export const httpActions = {};
+
+// build resource http actions
+forEach(RESOURCES, resource => {
+  const resourceHttpActions = createHttpActionsFor(resource);
+  merge(httpActions, resourceHttpActions);
 });
