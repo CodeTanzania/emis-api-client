@@ -1,3 +1,9 @@
+#### 0.8.0 (2019-02-19)
+
+##### New Features
+
+*  expose shortcut schemas ([f423b326](https://github.com/CodeTanzania/emis-api-client/commit/f423b32631e84b1369ff38b788de8506c9837e86))
+
 #### 0.7.0 (2019-02-19)
 
 ##### New Features
