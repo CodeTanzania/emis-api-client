@@ -1,3 +1,9 @@
+#### 0.8.1 (2019-02-19)
+
+##### Bug Fixes
+
+* **client:**  force merge null filter to preserve default ([bf793d62](https://github.com/CodeTanzania/emis-api-client/commit/bf793d6296e23d52f315b40a7727769fc7ff853d))
+
 #### 0.8.0 (2019-02-19)
 
 ##### New Features

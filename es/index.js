@@ -1,13 +1,26 @@
 import axios from 'axios';
 import moment from 'moment';
 import { singularize, pluralize } from 'inflection';
-import { merge, forEach, isEmpty, isString, camelCase, isArray, isPlainObject, toLower, uniq, compact, first, min, max, clone, upperFirst } from 'lodash';
+import { forEach, isEmpty, isString, camelCase, merge, compact, map, omitBy, isArray, isPlainObject, toLower, uniq, first, min, max, clone, upperFirst } from 'lodash';
 
 // default http client
 let client;
 
 // create duplicate free array of values
 const distinct = (...values) => uniq(compact([...values]));
+
+// merge list of objects to single object
+const mergeObjects = (...objects) => {
+  // ensure source objects
+  let sources = compact([...objects]);
+  sources = map(sources, source => {
+    return omitBy(source, val => !val);
+  });
+
+  // return merged
+  const merged = merge({}, ...sources);
+  return merged;
+};
 
 // create dynamic camelized function name
 const fn = (...name) => camelCase([...name].join(' '));
@@ -46,7 +59,7 @@ const mapIn = (...values) => {
 const mapBetween = between => {
   const isBetween = between && (between.from || between.to);
   if (isBetween) {
-    const { to: upper, from: lower } = merge({}, between);
+    const { to: upper, from: lower } = mergeObjects(between);
     // <= to
     if (upper && !lower) {
       return {
@@ -97,7 +110,7 @@ const mapBetween = between => {
 const mapRange = range => {
   const isRange = (range && range.min) || range.max;
   if (isRange) {
-    const { max: upper, min: lower } = merge({}, range);
+    const { max: upper, min: lower } = mergeObjects(range);
     // <= max
     if (upper && !lower) {
       return { $lte: upper };
@@ -167,7 +180,7 @@ const prepareParams = params => {
   // default params
   const defaults = { sort: { updatedAt: -1 } };
   // clone params
-  const options = merge({}, defaults, params);
+  const options = mergeObjects(defaults, params);
 
   // transform filters
   if (options.filter) {
@@ -388,9 +401,9 @@ const del = url => {
  */
 const normalizeResource = resource => {
   // normalize & get copy
-  const definition = isString(resource)
-    ? { wellknown: resource }
-    : merge({}, resource);
+  const definition = isString(resource) ?
+    { wellknown: resource } :
+    mergeObjects(resource);
 
   // rormalize wellknown
   const { wellknown } = definition;
@@ -471,7 +484,7 @@ const createGetListHttpAction = resource => {
   const action = {
     [methodName]: options => {
       // prepare params
-      const params = merge({}, resource.params, options);
+      const params = mergeObjects(resource.params, options);
       const endpoint = `/${toLower(wellknown.plural)}`;
       return get(endpoint, params).then(response => response.data);
     },
@@ -510,7 +523,7 @@ const createGetSingleHttpAction = resource => {
   const action = {
     [methodName]: id => {
       // prepare params
-      const params = merge({}, resource.params);
+      const params = mergeObjects(resource.params);
       const endpoint = `/${toLower(plural)}/${id}`;
       return get(endpoint, params).then(response => response.data);
     },
@@ -550,7 +563,7 @@ const createPostHttpAction = resource => {
     [methodName]: payload => {
       // prepare data
       const defaults = (resource.params || {}).filter;
-      const data = merge({}, defaults, payload);
+      const data = mergeObjects(defaults, payload);
       const endpoint = `/${toLower(plural)}`;
       return post(endpoint, data).then(response => response.data);
     },
@@ -590,7 +603,7 @@ const createPutHttpAction = resource => {
     [methodName]: payload => {
       // prepare data
       const defaults = (resource.params || {}).filter;
-      const data = merge({}, defaults, payload);
+      const data = mergeObjects(defaults, payload);
       const endpoint = `/${toLower(plural)}/${idOf(data)}`;
       return put(endpoint, data).then(response => response.data);
     },
@@ -630,7 +643,7 @@ const createPatchHttpAction = resource => {
     [methodName]: payload => {
       // prepare data
       const defaults = (resource.params || {}).filter;
-      const data = merge({}, defaults, payload);
+      const data = mergeObjects(defaults, payload);
       const endpoint = `/${toLower(plural)}/${idOf(data)}`;
       return patch(endpoint, data).then(response => response.data);
     },
@@ -703,8 +716,7 @@ const createHttpActionsFor = resource => {
   const deleteResource = createDeleteHttpAction(resource);
 
   // return resource http actions
-  const httpActions = merge(
-    {},
+  const httpActions = merge({},
     getSchema,
     getResources,
     getResource,
