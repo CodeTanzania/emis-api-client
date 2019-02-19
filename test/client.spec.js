@@ -16,6 +16,7 @@ const {
   normalizeResource,
   createGetSchemaHttpAction,
   createGetListHttpAction,
+  createGetSingleHttpAction,
   createHttpActionsFor,
   getSchemas,
   getActivitySchema,
@@ -153,6 +154,15 @@ describe('http client', () => {
     expect(getUsers).to.be.a('function');
     expect(getUsers.name).to.be.equal('getUsers');
     expect(getUsers.length).to.be.equal(1);
+  });
+
+  it.only('should create get single resource http action', () => {
+    const resource = { wellknown: 'user' };
+    const { getUser } = createGetSingleHttpAction(resource);
+    expect(getUser).to.exist;
+    expect(getUser).to.be.a('function');
+    expect(getUser.name).to.be.equal('getUser');
+    expect(getUser.length).to.be.equal(1);
   });
 
   it('should export create client factory', () => {
