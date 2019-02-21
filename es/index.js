@@ -1,10 +1,14 @@
-import axios from 'axios';
 import moment from 'moment';
+import axios from 'axios';
+import buildURL from 'axios/lib/helpers/buildURL';
 import { singularize, pluralize } from 'inflection';
 import { forEach, isEmpty, isString, camelCase, merge, compact, map, omitBy, isArray, isPlainObject, toLower, omit, uniq, first, min, max, clone, upperFirst } from 'lodash';
 
 // default http client
 let client;
+
+// client base url
+let BASE_URL;
 
 // create duplicate free array of values
 const distinct = (...values) => uniq(compact([...values]));
@@ -224,7 +228,7 @@ const createHttpClient = API_BASE_URL => {
     // Dont destructure: Fix:ReferenceError: process is not defined in react
     const env = process.env; // eslint-disable-line
     const { EMIS_API_URL, REACT_APP_EMIS_API_URL } = env;
-    const BASE_URL = API_BASE_URL || EMIS_API_URL || REACT_APP_EMIS_API_URL;
+    BASE_URL = API_BASE_URL || EMIS_API_URL || REACT_APP_EMIS_API_URL;
     const options = { baseURL: BASE_URL, headers: HEADERS };
     client = axios.create(options);
     client.id = Date.now();
@@ -455,6 +459,43 @@ const createGetSchemaHttpAction = resource => {
   };
 
   // return get schema action
+  return action;
+};
+
+/**
+ * @function createExportUrlHttpAction
+ * @name createExportUrlHttpAction
+ * @description generate http action to generate resource export link
+ * @param {Object} resource valid http resource definition
+ * @return {Object} http action to get resource list
+ * @since 0.8.0
+ * @version 0.1.0
+ * @example
+ * import { createExportUrlHttpAction } from 'emis-api-client';
+ *
+ * const resource = { wellknown: 'user' };
+ * const getUsersExportUrl = createExportUrlHttpAction(resource);
+ * getUsersExportUrl(); //=> /users/export
+ */
+const createExportUrlHttpAction = resource => {
+  // ensure resource
+  const { shortcut, wellknown } = normalizeResource(resource);
+
+  // generate method name
+  const methodName = fn('get', shortcut.plural, 'export', 'url');
+
+  // build action
+  const action = {
+    [methodName]: options => {
+      // prepare params
+      const params = prepareParams(mergeObjects(resource.params, options));
+      const endpoint = `${BASE_URL}/${toLower(wellknown.plural)}/export`;
+      const url = buildURL(endpoint, params);
+      return url;
+    },
+  };
+
+  // return get resource export url action
   return action;
 };
 
@@ -708,6 +749,7 @@ const createDeleteHttpAction = resource => {
 const createHttpActionsFor = resource => {
   // compose resource http actions
   const getSchema = createGetSchemaHttpAction(resource);
+  const getExportUrl = createExportUrlHttpAction(resource);
   const getResources = createGetListHttpAction(resource);
   const getResource = createGetSingleHttpAction(resource);
   const postResource = createPostHttpAction(resource);
@@ -719,6 +761,7 @@ const createHttpActionsFor = resource => {
   const httpActions = merge(
     {},
     getSchema,
+    getExportUrl,
     getResources,
     getResource,
     postResource,
@@ -917,4 +960,4 @@ forEach(RESOURCES, resource => {
   merge(httpActions, resourceHttpActions);
 });
 
-export { CONTENT_TYPE, HEADERS, prepareParams, createHttpClient, disposeHttpClient, all, spread, get, post, put, patch, del, normalizeResource, createGetSchemaHttpAction, createGetListHttpAction, createGetSingleHttpAction, createPostHttpAction, createPutHttpAction, createPatchHttpAction, createDeleteHttpAction, createHttpActionsFor, DEFAULT_FILTER, DEFAULT_PAGINATION, DEFAULT_SORT, WELL_KNOWN, SHORTCUTS, RESOURCES, httpActions };
+export { CONTENT_TYPE, HEADERS, prepareParams, createHttpClient, disposeHttpClient, all, spread, get, post, put, patch, del, normalizeResource, createGetSchemaHttpAction, createExportUrlHttpAction, createGetListHttpAction, createGetSingleHttpAction, createPostHttpAction, createPutHttpAction, createPatchHttpAction, createDeleteHttpAction, createHttpActionsFor, DEFAULT_FILTER, DEFAULT_PAGINATION, DEFAULT_SORT, WELL_KNOWN, SHORTCUTS, RESOURCES, httpActions };
