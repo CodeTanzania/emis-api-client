@@ -111,6 +111,17 @@ const FEATURE_SHORTCUTS = {
       },
     }),
   },
+  ward: {
+    shortcut: 'ward',
+    wellknown: 'feature',
+    params: merge({}, DEFAULT_PARAMS, {
+      filter: {
+        nature: 'Boundary',
+        family: 'Administrative',
+        type: 'Ward',
+      },
+    }),
+  },
   warehouse: {
     shortcut: 'warehouse',
     wellknown: 'feature',
