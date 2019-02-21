@@ -485,7 +485,7 @@ export const createGetSchemaHttpAction = resource => {
  * @description generate http action to generate resource export link
  * @param {Object} resource valid http resource definition
  * @return {Object} http action to get resource list
- * @since 0.8.0
+ * @since 0.9.0
  * @version 0.1.0
  * @example
  * import { createExportUrlHttpAction } from 'emis-api-client';
