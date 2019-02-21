@@ -1,3 +1,17 @@
+#### 0.9.0 (2019-02-21)
+
+##### New Features
+
+*  add resource export action builder ([1fd9e2ea](https://github.com/CodeTanzania/emis-api-client/commit/1fd9e2eac8f2dabc5ac80f5b8aace7746fc5e2c3))
+
+##### Bug Fixes
+
+*  add ward on geo feature shortcuts ([fef05c1e](https://github.com/CodeTanzania/emis-api-client/commit/fef05c1e7eb659081a60d4b53e988c278dbaf733))
+
+##### Code Style Changes
+
+*  update create export url http action ([f720568e](https://github.com/CodeTanzania/emis-api-client/commit/f720568ec65dec3a49dd5db94396c90db43f40e8))
+
 #### 0.8.2 (2019-02-19)
 
 ##### Bug Fixes
