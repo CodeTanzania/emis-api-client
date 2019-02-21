@@ -44,6 +44,7 @@ const {
     getStockSchema,
     getWarehouseSchema,
     getPlans,
+    getPlansExportUrl,
     getPlan,
     postPlan,
     putPlan,
@@ -557,6 +558,13 @@ describe('http client', () => {
       .catch(error => {
         done(error);
       });
+  });
+
+  it('should generate resource export url', () => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+    const url = getPlansExportUrl();
+    expect(url).to.be.contain(`${baseUrl}/plans/export`);
   });
 
   it('should handle http get on /resource/:id use generated actions', done => {
