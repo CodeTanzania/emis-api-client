@@ -468,7 +468,7 @@ const createGetSchemaHttpAction = resource => {
  * @description generate http action to generate resource export link
  * @param {Object} resource valid http resource definition
  * @return {Object} http action to get resource list
- * @since 0.8.0
+ * @since 0.9.0
  * @version 0.1.0
  * @example
  * import { createExportUrlHttpAction } from 'emis-api-client';
@@ -829,6 +829,7 @@ const WELL_KNOWN = [
   'item',
   'party',
   'permission',
+  'predefine',
   'plan',
   'procedure',
   'question',
@@ -849,12 +850,16 @@ const PARTY_SHORTCUTS = {
   focalPerson: {
     shortcut: 'focalPerson',
     wellknown: 'party',
-    params: merge({}, DEFAULT_PARAMS, { filter: { type: 'Focal Person' } }),
+    params: merge({}, DEFAULT_PARAMS, {
+      filter: { type: 'Focal Person' },
+    }),
   },
   agency: {
     shortcut: 'agency',
     wellknown: 'party',
-    params: merge({}, DEFAULT_PARAMS, { filter: { type: 'Agency' } }),
+    params: merge({}, DEFAULT_PARAMS, {
+      filter: { type: 'Agency' },
+    }),
   },
 };
 
@@ -905,6 +910,24 @@ const FEATURE_SHORTCUTS = {
   },
 };
 
+// predefine shortcuts
+const PREDEFINE_SHORTCUTS = {
+  itemUnit: {
+    shortcut: 'itemUnit',
+    wellknown: 'predefine',
+    params: merge({}, DEFAULT_PARAMS, {
+      filter: { namespace: 'ItemUnit' },
+    }),
+  },
+  itemCategory: {
+    shortcut: 'itemCategory',
+    wellknown: 'predefine',
+    params: merge({}, DEFAULT_PARAMS, {
+      filter: { namespace: 'ItemCategory' },
+    }),
+  },
+};
+
 /**
  * @constant
  * @name SHORTCUTS
@@ -915,7 +938,12 @@ const FEATURE_SHORTCUTS = {
  * @static
  * @public
  */
-const SHORTCUTS = merge({}, PARTY_SHORTCUTS, FEATURE_SHORTCUTS);
+const SHORTCUTS = merge(
+  {},
+  FEATURE_SHORTCUTS,
+  PARTY_SHORTCUTS,
+  PREDEFINE_SHORTCUTS
+);
 
 /**
  * @constant

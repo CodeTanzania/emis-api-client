@@ -36,6 +36,7 @@ const {
     getItemSchema,
     getPartySchema,
     getPermissionSchema,
+    getPredefineSchema,
     getPlanSchema,
     getProcedureSchema,
     getQuestionSchema,
@@ -531,6 +532,7 @@ describe('http client', () => {
     expect(getItemSchema).to.exist;
     expect(getPartySchema).to.exist;
     expect(getPermissionSchema).to.exist;
+    expect(getPredefineSchema).to.exist;
     expect(getPlanSchema).to.exist;
     expect(getProcedureSchema).to.exist;
     expect(getQuestionSchema).to.exist;
