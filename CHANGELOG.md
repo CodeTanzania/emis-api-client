@@ -1,3 +1,9 @@
+#### 0.10.0 (2019-03-14)
+
+##### New Features
+
+*  add item unit and category endpoint ([3ddd825f](https://github.com/CodeTanzania/emis-api-client/commit/3ddd825fa6b8c087981092b9348b8b47d1818be0))
+
 #### 0.9.0 (2019-02-21)
 
 ##### New Features
