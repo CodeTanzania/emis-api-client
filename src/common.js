@@ -58,6 +58,7 @@ export const WELL_KNOWN = [
   'item',
   'party',
   'permission',
+  'predefine',
   'plan',
   'procedure',
   'question',
@@ -78,12 +79,16 @@ const PARTY_SHORTCUTS = {
   focalPerson: {
     shortcut: 'focalPerson',
     wellknown: 'party',
-    params: merge({}, DEFAULT_PARAMS, { filter: { type: 'Focal Person' } }),
+    params: merge({}, DEFAULT_PARAMS, {
+      filter: { type: 'Focal Person' },
+    }),
   },
   agency: {
     shortcut: 'agency',
     wellknown: 'party',
-    params: merge({}, DEFAULT_PARAMS, { filter: { type: 'Agency' } }),
+    params: merge({}, DEFAULT_PARAMS, {
+      filter: { type: 'Agency' },
+    }),
   },
 };
 
@@ -134,6 +139,24 @@ const FEATURE_SHORTCUTS = {
   },
 };
 
+// predefine shortcuts
+const PREDEFINE_SHORTCUTS = {
+  itemUnit: {
+    shortcut: 'itemUnit',
+    wellknown: 'predefine',
+    params: merge({}, DEFAULT_PARAMS, {
+      filter: { namespace: 'ItemUnit' },
+    }),
+  },
+  itemCategory: {
+    shortcut: 'itemCategory',
+    wellknown: 'predefine',
+    params: merge({}, DEFAULT_PARAMS, {
+      filter: { namespace: 'ItemCategory' },
+    }),
+  },
+};
+
 /**
  * @constant
  * @name SHORTCUTS
@@ -144,7 +167,12 @@ const FEATURE_SHORTCUTS = {
  * @static
  * @public
  */
-export const SHORTCUTS = merge({}, PARTY_SHORTCUTS, FEATURE_SHORTCUTS);
+export const SHORTCUTS = merge(
+  {},
+  FEATURE_SHORTCUTS,
+  PARTY_SHORTCUTS,
+  PREDEFINE_SHORTCUTS
+);
 
 /**
  * @constant

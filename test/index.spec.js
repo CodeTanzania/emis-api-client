@@ -44,6 +44,7 @@ describe('emis api client', () => {
       'item',
       'party',
       'permission',
+      'predefine',
       'plan',
       'procedure',
       'question',
@@ -65,6 +66,7 @@ describe('emis api client', () => {
     expect(SHORTCUTS).to.exist;
     expect(SHORTCUTS).to.be.an('object');
     expect(keys(SHORTCUTS)).to.contain('focalPerson', 'agency');
+    expect(keys(SHORTCUTS)).to.contain('itemUnit', 'itemCategory');
     forEach(keys(SHORTCUTS), shortcut => {
       expect(RESOURCES).to.have.property(shortcut);
     });
