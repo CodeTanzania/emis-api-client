@@ -916,14 +916,14 @@ const PREDEFINE_SHORTCUTS = {
     shortcut: 'itemUnit',
     wellknown: 'predefine',
     params: merge({}, DEFAULT_PARAMS, {
-      filter: { namespace: 'ItemUnit' },
+      filter: { namespace: 'ItemUnit', key:'unit' },
     }),
   },
   itemCategory: {
     shortcut: 'itemCategory',
     wellknown: 'predefine',
     params: merge({}, DEFAULT_PARAMS, {
-      filter: { namespace: 'ItemCategory' },
+      filter: { namespace: 'ItemCategory', key:'category' },
     }),
   },
 };
