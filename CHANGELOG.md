@@ -1,3 +1,13 @@
+#### 0.11.0 (2019-03-18)
+
+##### Chores
+
+*  force latest dependencies ([c3429b71](https://github.com/CodeTanzania/emis-api-client/commit/c3429b717ad22effd6bc07268673c772478662ce))
+
+##### Bug Fixes
+
+*  add default keys for item unit & category predefines ([08162e57](https://github.com/CodeTanzania/emis-api-client/commit/08162e5786b35f5a335123210d7d1bbfb615f32e))
+
 #### 0.10.0 (2019-03-14)
 
 ##### New Features
