@@ -6,8 +6,8 @@
   "module": "es/index.js",
   "scripts": {
     "clean": "rimraf lib dist es umd",
-    "prebuild": "npm run lint",
-    "build": "npm run clean && rollup -c",
+    "prebuild": "npm test && npm run clean",
+    "build": "rollup -c",
     "lint": "eslint --fix --ext .js src/ test/ rollup.config.js",
     "pretest": "npm run lint",
     "test": "NODE_ENV=test mocha --require @babel/register test/**/*.spec.js",

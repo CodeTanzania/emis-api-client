@@ -23,7 +23,7 @@ import {
   createDeleteHttpAction,
   createHttpActionsFor,
   httpActions,
-} from '..';
+} from '../src/index';
 
 const {
   getSchemas,
@@ -60,6 +60,7 @@ describe('http client', () => {
   beforeEach(() => {
     delete process.env.EMIS_API_URL;
     delete process.env.REACT_APP_EMIS_API_URL;
+    nock.cleanAll();
     disposeHttpClient();
   });
 
@@ -473,6 +474,45 @@ describe('http client', () => {
       });
   });
 
+  it('should handle failed request error', done => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+
+    get('/users').catch(error => {
+      expect(error).to.exist;
+      expect(error.code).to.be.equal('ENOTFOUND');
+      done();
+    });
+  });
+
+  it('should handle http response error', done => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+    const data = {
+      status: 400,
+      code: 400,
+      name: 'Error',
+      message: 'Bad Request',
+      description: 'Bad Request',
+      errors: {},
+    };
+    nock(baseUrl)
+      .get('/users')
+      .query(true)
+      .reply(400, data);
+
+    get('/users').catch(error => {
+      expect(error).to.exist;
+      expect(error.status).to.be.equal(data.status);
+      expect(error.code).to.be.equal(data.code);
+      expect(error.name).to.be.equal(data.name);
+      expect(error.message).be.equal(data.message);
+      expect(error.description).to.be.equal(data.description);
+      expect(error.errors).to.be.eql(data.errors);
+      done();
+    });
+  });
+
   it('should create named http actions for a resource', () => {
     const {
       getUserSchema,
@@ -722,9 +762,10 @@ describe('http client', () => {
       });
   });
 
-  beforeEach(() => {
+  after(() => {
     delete process.env.EMIS_API_URL;
     delete process.env.REACT_APP_EMIS_API_URL;
+    nock.cleanAll();
     disposeHttpClient();
   });
 });

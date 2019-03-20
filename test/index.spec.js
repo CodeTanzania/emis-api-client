@@ -7,7 +7,7 @@ import {
   WELL_KNOWN,
   RESOURCES,
   SHORTCUTS,
-} from '..';
+} from '../src/index';
 
 describe('emis api client', () => {
   it('should expose default api endpoint filter options', () => {
