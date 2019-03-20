@@ -8,7 +8,6 @@
     "clean": "rimraf lib dist es umd",
     "prebuild": "npm run lint",
     "build": "npm run clean && rollup -c",
-    "lint:src": "eslint --fix --ext .js src/ rollup.config.js",
     "lint": "eslint --fix --ext .js src/ test/ rollup.config.js",
     "pretest": "npm run lint",
     "test": "NODE_ENV=test mocha --require @babel/register test/**/*.spec.js",
@@ -88,8 +87,8 @@
     ]
   },
   "lint-staged": {
-    "src/**/*.js": [
-      "npm run lint:src",
+    "*.js": [
+      "npm run lint",
       "git add -A"
     ]
   },
