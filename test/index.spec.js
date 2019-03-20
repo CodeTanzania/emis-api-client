@@ -1,13 +1,13 @@
-const { forEach, keys } = require('lodash');
-const { expect } = require('chai');
-const {
+import { forEach, keys } from 'lodash';
+import { expect } from 'chai';
+import {
   DEFAULT_FILTER,
   DEFAULT_PAGINATION,
   DEFAULT_SORT,
   WELL_KNOWN,
   RESOURCES,
   SHORTCUTS,
-} = require('..');
+} from '..';
 
 describe('emis api client', () => {
   it('should expose default api endpoint filter options', () => {

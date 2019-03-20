@@ -6,10 +6,12 @@
   "module": "es/index.js",
   "scripts": {
     "clean": "rimraf lib dist es umd",
+    "prebuild": "npm run lint",
     "build": "npm run clean && rollup -c",
     "lint:src": "eslint --fix --ext .js src/ rollup.config.js",
-    "lint": "npm run build && eslint --fix --ext .js src/ test/ rollup.config.js",
-    "test": "npm run lint -s && mocha test/**/*.spec.js",
+    "lint": "eslint --fix --ext .js src/ test/ rollup.config.js",
+    "pretest": "npm run lint",
+    "test": "NODE_ENV=test mocha --require @babel/register test/**/*.spec.js",
     "cmt": "git add -A && git-cz",
     "changelog": "changelog"
   },
@@ -38,6 +40,11 @@
   },
   "homepage": "https://github.com/CodeTanzania/emis-api-client#readme",
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.1",
+    "@babel/register": "^7.4.0",
     "@commitlint/cli": "^7.5.2",
     "@commitlint/config-conventional": "^7.5.0",
     "@commitlint/travis-cli": "^7.5.2",

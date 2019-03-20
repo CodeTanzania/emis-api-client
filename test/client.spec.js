@@ -1,7 +1,7 @@
-const moment = require('moment');
-const nock = require('nock');
-const { expect } = require('chai');
-const {
+import moment from 'moment';
+import nock from 'nock';
+import { expect } from 'chai';
+import {
   CONTENT_TYPE,
   prepareParams,
   createHttpClient,
@@ -22,37 +22,39 @@ const {
   createPatchHttpAction,
   createDeleteHttpAction,
   createHttpActionsFor,
-  httpActions: {
-    getSchemas,
-    getActivitySchema,
-    getAdjustmentSchema,
-    getAlertSchema,
-    getAlertSourceSchema,
-    getAssessmentSchema,
-    getFeatureSchema,
-    getIncidentSchema,
-    getIncidentTypeSchema,
-    getIndicatorSchema,
-    getItemSchema,
-    getPartySchema,
-    getPermissionSchema,
-    getPredefineSchema,
-    getPlanSchema,
-    getProcedureSchema,
-    getQuestionSchema,
-    getQuestionnaireSchema,
-    getRoleSchema,
-    getStockSchema,
-    getWarehouseSchema,
-    getPlans,
-    getPlansExportUrl,
-    getPlan,
-    postPlan,
-    putPlan,
-    patchPlan,
-    deletePlan,
-  },
-} = require('..');
+  httpActions,
+} from '..';
+
+const {
+  getSchemas,
+  getActivitySchema,
+  getAdjustmentSchema,
+  getAlertSchema,
+  getAlertSourceSchema,
+  getAssessmentSchema,
+  getFeatureSchema,
+  getIncidentSchema,
+  getIncidentTypeSchema,
+  getIndicatorSchema,
+  getItemSchema,
+  getPartySchema,
+  getPermissionSchema,
+  getPredefineSchema,
+  getPlanSchema,
+  getProcedureSchema,
+  getQuestionSchema,
+  getQuestionnaireSchema,
+  getRoleSchema,
+  getStockSchema,
+  getWarehouseSchema,
+  getPlans,
+  getPlansExportUrl,
+  getPlan,
+  postPlan,
+  putPlan,
+  patchPlan,
+  deletePlan,
+} = httpActions;
 
 describe('http client', () => {
   beforeEach(() => {
