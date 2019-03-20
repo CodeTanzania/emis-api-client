@@ -1,3 +1,22 @@
+#### 0.12.0 (2019-03-20)
+
+##### Chores
+
+*  reorganize package scripts ([c6f6f3b1](https://github.com/CodeTanzania/emis-api-client/commit/c6f6f3b14811d3dab95c07043b3030699fa3ebd8))
+*  force latest dependencies ([1549981e](https://github.com/CodeTanzania/emis-api-client/commit/1549981e70e371763e03a598abd53082bce59bf5))
+
+##### New Features
+
+*  map error to native js error ([a5a6c7e8](https://github.com/CodeTanzania/emis-api-client/commit/a5a6c7e8d9a94ad3da89d37bc6b554bd60449c02))
+
+##### Code Style Changes
+
+*  force use const on commonjs builds ([77824d6a](https://github.com/CodeTanzania/emis-api-client/commit/77824d6a480a7d7942af6b3f5d2818bd0724b485))
+
+##### Tests
+
+*  migrate to use @babel/register with mocha ([2fc789d6](https://github.com/CodeTanzania/emis-api-client/commit/2fc789d69d1046395e92f61196b47e52cfcf007a))
+
 #### 0.11.0 (2019-03-18)
 
 ##### Chores

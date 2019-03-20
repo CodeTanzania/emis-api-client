@@ -1,15 +1,16 @@
 {
   "name": "@codetanzania/emis-api-client",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "http client for EMIS API.",
   "main": "lib/index.js",
   "module": "es/index.js",
   "scripts": {
     "clean": "rimraf lib dist es umd",
-    "build": "npm run clean && rollup -c",
-    "lint:src": "eslint --fix --ext .js src/ rollup.config.js",
-    "lint": "npm run build && eslint --fix --ext .js src/ test/ rollup.config.js",
-    "test": "npm run lint -s && mocha test/**/*.spec.js",
+    "prebuild": "npm test && npm run clean",
+    "build": "rollup -c",
+    "lint": "eslint --fix --ext .js src/ test/ rollup.config.js",
+    "pretest": "npm run lint",
+    "test": "NODE_ENV=test mocha --require @babel/register test/**/*.spec.js",
     "cmt": "git add -A && git-cz",
     "changelog": "changelog"
   },
@@ -38,6 +39,11 @@
   },
   "homepage": "https://github.com/CodeTanzania/emis-api-client#readme",
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.1",
+    "@babel/register": "^7.4.0",
     "@commitlint/cli": "^7.5.2",
     "@commitlint/config-conventional": "^7.5.0",
     "@commitlint/travis-cli": "^7.5.2",
@@ -45,7 +51,7 @@
     "chai": "^4.2.0",
     "commitizen": "^3.0.7",
     "cz-conventional-changelog": "^2.1.0",
-    "eslint": "^5.15.2",
+    "eslint": "^5.15.3",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-import": "^2.16.0",
@@ -61,7 +67,7 @@
     "nock": "^10.0.6",
     "prettier": "^1.16.4",
     "rimraf": "^2.6.3",
-    "rollup": "^1.6.0"
+    "rollup": "^1.7.0"
   },
   "peerDependencies": {
     "axios": ">=0.18.0",
@@ -81,8 +87,8 @@
     ]
   },
   "lint-staged": {
-    "src/**/*.js": [
-      "npm run lint:src",
+    "*.js": [
+      "npm run lint",
       "git add -A"
     ]
   },

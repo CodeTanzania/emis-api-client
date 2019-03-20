@@ -2,7 +2,26 @@ import moment from 'moment';
 import axios from 'axios';
 import buildURL from 'axios/lib/helpers/buildURL';
 import { singularize, pluralize } from 'inflection';
-import { forEach, isEmpty, isString, camelCase, merge, compact, map, omitBy, isArray, isPlainObject, toLower, omit, uniq, first, min, max, clone, upperFirst } from 'lodash';
+import {
+  forEach,
+  isEmpty,
+  isString,
+  camelCase,
+  merge,
+  compact,
+  map,
+  omitBy,
+  isArray,
+  isPlainObject,
+  toLower,
+  omit,
+  uniq,
+  first,
+  min,
+  max,
+  clone,
+  upperFirst,
+} from 'lodash';
 
 // default http client
 let client;
@@ -31,6 +50,48 @@ const fn = (...name) => camelCase([...name].join(' '));
 
 // get resource id from payload
 const idOf = data => (data ? data._id || data.id : undefined); // eslint-disable-line
+
+/**
+ * @function mapError
+ * @name mapError
+ * @description convert axios error to js native error
+ * @param {Error|Object} exception axios http error response
+ * @see {@link https://github.com/axios/axios#handling-errors}
+ * @returns {Error} native error object
+ * @since 0.12.0
+ * @version 0.1.0
+ * @private
+ */
+const mapError = exception => {
+  // obtain error details
+  let { code, status, message, description, stack, errors, data } = exception;
+  const { request, response } = exception;
+
+  // handle server response error
+  if (response) {
+    code = response.code || code;
+    status = response.status || status;
+    data = response.data || data || {};
+    message = data.message || response.statusText || message;
+    errors = response.errors || errors || {};
+    stack = response.stack || data.stack || stack;
+  }
+
+  // handle no server response
+  if (request) {
+    description = description || 'Server Not Responding';
+  }
+
+  // initialize error
+  let error = new Error(message);
+  error.stack = stack;
+
+  // update error object
+  error = merge(error, { code, status, message, description, errors, ...data });
+
+  // return normalized native error
+  return Promise.reject(error);
+};
 
 /**
  * @function mapIn
@@ -301,7 +362,7 @@ const spread = axios.spread; // eslint-disable-line
 const get = (url, params) => {
   const httpClient = createHttpClient();
   const options = prepareParams(params);
-  return httpClient.get(url, { params: options });
+  return httpClient.get(url, { params: options }).catch(mapError);
 };
 
 /**
@@ -324,7 +385,7 @@ const post = (url, data) => {
     return Promise.reject(new Error('Missing Payload'));
   }
   const httpClient = createHttpClient();
-  return httpClient.post(url, data);
+  return httpClient.post(url, data).catch(mapError);
 };
 
 /**
@@ -347,7 +408,7 @@ const put = (url, data) => {
     return Promise.reject(new Error('Missing Payload'));
   }
   const httpClient = createHttpClient();
-  return httpClient.put(url, data);
+  return httpClient.put(url, data).catch(mapError);
 };
 
 /**
@@ -370,7 +431,7 @@ const patch = (url, data) => {
     return Promise.reject(new Error('Missing Payload'));
   }
   const httpClient = createHttpClient();
-  return httpClient.patch(url, data);
+  return httpClient.patch(url, data).catch(mapError);
 };
 
 /**
@@ -389,7 +450,7 @@ const patch = (url, data) => {
  */
 const del = url => {
   const httpClient = createHttpClient();
-  return httpClient.delete(url);
+  return httpClient.delete(url).catch(mapError);
 };
 
 /**
@@ -916,14 +977,14 @@ const PREDEFINE_SHORTCUTS = {
     shortcut: 'itemUnit',
     wellknown: 'predefine',
     params: merge({}, DEFAULT_PARAMS, {
-      filter: { namespace: 'ItemUnit', key:'unit' },
+      filter: { namespace: 'ItemUnit', key: 'unit' },
     }),
   },
   itemCategory: {
     shortcut: 'itemCategory',
     wellknown: 'predefine',
     params: merge({}, DEFAULT_PARAMS, {
-      filter: { namespace: 'ItemCategory', key:'category' },
+      filter: { namespace: 'ItemCategory', key: 'category' },
     }),
   },
 };
@@ -999,4 +1060,34 @@ forEach(RESOURCES, resource => {
   merge(httpActions, resourceHttpActions);
 });
 
-export { CONTENT_TYPE, HEADERS, prepareParams, createHttpClient, disposeHttpClient, all, spread, get, post, put, patch, del, normalizeResource, createGetSchemaHttpAction, createExportUrlHttpAction, createGetListHttpAction, createGetSingleHttpAction, createPostHttpAction, createPutHttpAction, createPatchHttpAction, createDeleteHttpAction, createHttpActionsFor, DEFAULT_FILTER, DEFAULT_PAGINATION, DEFAULT_SORT, WELL_KNOWN, SHORTCUTS, RESOURCES, httpActions };
+export {
+  CONTENT_TYPE,
+  DEFAULT_FILTER,
+  DEFAULT_PAGINATION,
+  DEFAULT_SORT,
+  HEADERS,
+  RESOURCES,
+  SHORTCUTS,
+  WELL_KNOWN,
+  all,
+  createDeleteHttpAction,
+  createExportUrlHttpAction,
+  createGetListHttpAction,
+  createGetSchemaHttpAction,
+  createGetSingleHttpAction,
+  createHttpActionsFor,
+  createHttpClient,
+  createPatchHttpAction,
+  createPostHttpAction,
+  createPutHttpAction,
+  del,
+  disposeHttpClient,
+  get,
+  httpActions,
+  normalizeResource,
+  patch,
+  post,
+  prepareParams,
+  put,
+  spread,
+};
