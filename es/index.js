@@ -916,14 +916,14 @@ const PREDEFINE_SHORTCUTS = {
     shortcut: 'itemUnit',
     wellknown: 'predefine',
     params: merge({}, DEFAULT_PARAMS, {
-      filter: { namespace: 'ItemUnit', key:'unit' },
+      filter: { namespace: 'ItemUnit', key: 'unit' },
     }),
   },
   itemCategory: {
     shortcut: 'itemCategory',
     wellknown: 'predefine',
     params: merge({}, DEFAULT_PARAMS, {
-      filter: { namespace: 'ItemCategory', key:'category' },
+      filter: { namespace: 'ItemCategory', key: 'category' },
     }),
   },
 };
@@ -999,4 +999,4 @@ forEach(RESOURCES, resource => {
   merge(httpActions, resourceHttpActions);
 });
 
-export { CONTENT_TYPE, HEADERS, prepareParams, createHttpClient, disposeHttpClient, all, spread, get, post, put, patch, del, normalizeResource, createGetSchemaHttpAction, createExportUrlHttpAction, createGetListHttpAction, createGetSingleHttpAction, createPostHttpAction, createPutHttpAction, createPatchHttpAction, createDeleteHttpAction, createHttpActionsFor, DEFAULT_FILTER, DEFAULT_PAGINATION, DEFAULT_SORT, WELL_KNOWN, SHORTCUTS, RESOURCES, httpActions };
+export { CONTENT_TYPE, DEFAULT_FILTER, DEFAULT_PAGINATION, DEFAULT_SORT, HEADERS, RESOURCES, SHORTCUTS, WELL_KNOWN, all, createDeleteHttpAction, createExportUrlHttpAction, createGetListHttpAction, createGetSchemaHttpAction, createGetSingleHttpAction, createHttpActionsFor, createHttpClient, createPatchHttpAction, createPostHttpAction, createPutHttpAction, del, disposeHttpClient, get, httpActions, normalizeResource, patch, post, prepareParams, put, spread };

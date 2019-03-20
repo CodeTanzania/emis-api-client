@@ -11,7 +11,13 @@ export default [
       'moment',
     ],
     output: [
-      { file: pkg.main, format: 'cjs' },
+      {
+        file: pkg.main,
+        format: 'cjs',
+        interop: false,
+        esModule: false,
+        preferConst: true,
+      },
       { file: pkg.module, format: 'es' },
     ],
   },
