@@ -1,3 +1,13 @@
+#### 0.13.0 (2019-03-21)
+
+##### Refactors
+
+*  wrap request to convert response to error and data ([18f4e295](https://github.com/CodeTanzania/emis-api-client/commit/18f4e295188f05b6b036ec0f022130630aa616b6))
+
+##### Code Style Changes
+
+*  improve jsdoc ([b38ee141](https://github.com/CodeTanzania/emis-api-client/commit/b38ee1414f6aeda112bb304bffaaebc578278c60))
+
 #### 0.12.0 (2019-03-20)
 
 ##### Chores
