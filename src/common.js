@@ -209,7 +209,7 @@ forEach([...WELL_KNOWN], wellknown => {
 export const httpActions = {
   getSchemas: () =>
     get('/schemas').then(response => {
-      const schemas = response.data;
+      const schemas = { ...response };
       // expose shortcuts schema
       if (schemas) {
         forEach(SHORTCUTS, shortcut => {

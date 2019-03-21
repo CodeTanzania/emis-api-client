@@ -52,17 +52,17 @@ const fn = (...name) => camelCase([...name].join(' '));
 const idOf = data => (data ? data._id || data.id : undefined); // eslint-disable-line
 
 /**
- * @function mapError
- * @name mapError
+ * @function mapResponseToError
+ * @name mapResponseToError
  * @description convert axios error to js native error
- * @param {Error|Object} exception axios http error response
+ * @param {Object} exception axios http error response
+ * @returns {Promise} promise rejection
  * @see {@link https://github.com/axios/axios#handling-errors}
- * @returns {Error} native error object
  * @since 0.12.0
  * @version 0.1.0
  * @private
  */
-const mapError = exception => {
+const mapResponseToError = exception => {
   // obtain error details
   let { code, status, message, description, stack, errors, data } = exception;
   const { request, response } = exception;
@@ -91,6 +91,32 @@ const mapError = exception => {
 
   // return normalized native error
   return Promise.reject(error);
+};
+
+/**
+ * @function mapResponseToData
+ * @name mapResponseToData
+ * @description convert axios http response to data
+ * @param {Object} response axios http response
+ * @returns {Object} response data
+ * @since 0.13.0
+ * @version 0.1.0
+ * @private
+ */
+const mapResponseToData = response => response.data;
+
+/**
+ * @function wrapRequest
+ * @name wrapRequest
+ * @description wrap http request and convert response to error or data
+ * @param {Promise} request valid axios http request object
+ * @returns {Promise} request with normalized response error and data
+ * @since 0.13.0
+ * @version 0.1.0
+ * @private
+ */
+const wrapRequest = request => {
+  return request.then(mapResponseToData).catch(mapResponseToError);
 };
 
 /**
@@ -362,7 +388,7 @@ const spread = axios.spread; // eslint-disable-line
 const get = (url, params) => {
   const httpClient = createHttpClient();
   const options = prepareParams(params);
-  return httpClient.get(url, { params: options }).catch(mapError);
+  return wrapRequest(httpClient.get(url, { params: options }));
 };
 
 /**
@@ -385,7 +411,7 @@ const post = (url, data) => {
     return Promise.reject(new Error('Missing Payload'));
   }
   const httpClient = createHttpClient();
-  return httpClient.post(url, data).catch(mapError);
+  return wrapRequest(httpClient.post(url, data));
 };
 
 /**
@@ -408,7 +434,7 @@ const put = (url, data) => {
     return Promise.reject(new Error('Missing Payload'));
   }
   const httpClient = createHttpClient();
-  return httpClient.put(url, data).catch(mapError);
+  return wrapRequest(httpClient.put(url, data));
 };
 
 /**
@@ -431,7 +457,7 @@ const patch = (url, data) => {
     return Promise.reject(new Error('Missing Payload'));
   }
   const httpClient = createHttpClient();
-  return httpClient.patch(url, data).catch(mapError);
+  return wrapRequest(httpClient.patch(url, data));
 };
 
 /**
@@ -450,7 +476,7 @@ const patch = (url, data) => {
  */
 const del = url => {
   const httpClient = createHttpClient();
-  return httpClient.delete(url).catch(mapError);
+  return wrapRequest(httpClient.delete(url));
 };
 
 /**
@@ -515,7 +541,7 @@ const createGetSchemaHttpAction = resource => {
   const action = {
     [methodName]: () => {
       const endpoint = `/${toLower(plural)}/schema`;
-      return get(endpoint).then(response => response.data);
+      return get(endpoint);
     },
   };
 
@@ -588,7 +614,7 @@ const createGetListHttpAction = resource => {
       // prepare params
       const params = mergeObjects(resource.params, options);
       const endpoint = `/${toLower(wellknown.plural)}`;
-      return get(endpoint, params).then(response => response.data);
+      return get(endpoint, params);
     },
   };
 
@@ -627,7 +653,7 @@ const createGetSingleHttpAction = resource => {
       // prepare params
       const params = mergeObjects(resource.params);
       const endpoint = `/${toLower(plural)}/${id}`;
-      return get(endpoint, params).then(response => response.data);
+      return get(endpoint, params);
     },
   };
 
@@ -667,7 +693,7 @@ const createPostHttpAction = resource => {
       const defaults = omit((resource.params || {}).filter, 'deletedAt');
       const data = mergeObjects(payload, defaults);
       const endpoint = `/${toLower(plural)}`;
-      return post(endpoint, data).then(response => response.data);
+      return post(endpoint, data);
     },
   };
 
@@ -707,7 +733,7 @@ const createPutHttpAction = resource => {
       const defaults = omit((resource.params || {}).filter, 'deletedAt');
       const data = mergeObjects(payload, defaults);
       const endpoint = `/${toLower(plural)}/${idOf(data)}`;
-      return put(endpoint, data).then(response => response.data);
+      return put(endpoint, data);
     },
   };
 
@@ -747,7 +773,7 @@ const createPatchHttpAction = resource => {
       const defaults = omit((resource.params || {}).filter, 'deletedAt');
       const data = mergeObjects(payload, defaults);
       const endpoint = `/${toLower(plural)}/${idOf(data)}`;
-      return patch(endpoint, data).then(response => response.data);
+      return patch(endpoint, data);
     },
   };
 
@@ -785,7 +811,7 @@ const createDeleteHttpAction = resource => {
     [methodName]: id => {
       // prepare params
       const endpoint = `/${toLower(plural)}/${id}`;
-      return del(endpoint).then(response => response.data);
+      return del(endpoint);
     },
   };
 
@@ -1041,7 +1067,7 @@ forEach([...WELL_KNOWN], wellknown => {
 const httpActions = {
   getSchemas: () =>
     get('/schemas').then(response => {
-      const schemas = response.data;
+      const schemas = { ...response };
       // expose shortcuts schema
       if (schemas) {
         forEach(SHORTCUTS, shortcut => {
