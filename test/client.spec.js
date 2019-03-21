@@ -313,7 +313,7 @@ describe('http client', () => {
       .then(response => {
         expect(response).to.exist;
         expect(response.data).to.exist;
-        expect(response.data).to.be.eql(data);
+        expect(response).to.be.eql(data);
         done(null, data);
       })
       .catch(error => {
@@ -333,8 +333,8 @@ describe('http client', () => {
     get('/users/5c1766243c9d520004e2b542')
       .then(response => {
         expect(response).to.exist;
-        expect(response.data).to.exist;
-        expect(response.data).to.be.eql(data);
+        expect(response).to.exist;
+        expect(response).to.be.eql(data);
         done(null, data);
       })
       .catch(error => {
@@ -354,8 +354,8 @@ describe('http client', () => {
     post('/users', { age: 11 })
       .then(response => {
         expect(response).to.exist;
-        expect(response.data).to.exist;
-        expect(response.data).to.be.eql(data);
+        expect(response).to.exist;
+        expect(response).to.be.eql(data);
         done(null, data);
       })
       .catch(error => {
@@ -391,8 +391,8 @@ describe('http client', () => {
     put('/users/5c1766243c9d520004e2b542', { age: 11 })
       .then(response => {
         expect(response).to.exist;
-        expect(response.data).to.exist;
-        expect(response.data).to.be.eql(data);
+        expect(response).to.exist;
+        expect(response).to.be.eql(data);
         done(null, data);
       })
       .catch(error => {
@@ -428,8 +428,8 @@ describe('http client', () => {
     patch('/users/5c1766243c9d520004e2b542', { age: 11 })
       .then(response => {
         expect(response).to.exist;
-        expect(response.data).to.exist;
-        expect(response.data).to.be.eql(data);
+        expect(response).to.exist;
+        expect(response).to.be.eql(data);
         done(null, data);
       })
       .catch(error => {
@@ -465,8 +465,8 @@ describe('http client', () => {
     del('/users/5c1766243c9d520004e2b542')
       .then(response => {
         expect(response).to.exist;
-        expect(response.data).to.exist;
-        expect(response.data).to.be.eql(data);
+        expect(response).to.exist;
+        expect(response).to.be.eql(data);
         done(null, data);
       })
       .catch(error => {
