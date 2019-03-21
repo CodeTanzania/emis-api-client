@@ -1,3 +1,9 @@
+#### 0.13.1 (2019-03-21)
+
+##### Bug Fixes
+
+*  update rollup and lint stage config for strict cjs build ([f47c8d87](https://github.com/CodeTanzania/emis-api-client/commit/f47c8d8728ec1a49264aa5505ac23382414170ec))
+
 #### 0.13.0 (2019-03-21)
 
 ##### Refactors

@@ -2,26 +2,7 @@ import moment from 'moment';
 import axios from 'axios';
 import buildURL from 'axios/lib/helpers/buildURL';
 import { singularize, pluralize } from 'inflection';
-import {
-  forEach,
-  isEmpty,
-  isString,
-  camelCase,
-  merge,
-  compact,
-  map,
-  omitBy,
-  isArray,
-  isPlainObject,
-  toLower,
-  omit,
-  uniq,
-  first,
-  min,
-  max,
-  clone,
-  upperFirst,
-} from 'lodash';
+import { forEach, isEmpty, isString, camelCase, merge, compact, map, omitBy, isArray, isPlainObject, toLower, omit, uniq, first, min, max, clone, upperFirst } from 'lodash';
 
 // default http client
 let client;
@@ -1086,34 +1067,4 @@ forEach(RESOURCES, resource => {
   merge(httpActions, resourceHttpActions);
 });
 
-export {
-  CONTENT_TYPE,
-  DEFAULT_FILTER,
-  DEFAULT_PAGINATION,
-  DEFAULT_SORT,
-  HEADERS,
-  RESOURCES,
-  SHORTCUTS,
-  WELL_KNOWN,
-  all,
-  createDeleteHttpAction,
-  createExportUrlHttpAction,
-  createGetListHttpAction,
-  createGetSchemaHttpAction,
-  createGetSingleHttpAction,
-  createHttpActionsFor,
-  createHttpClient,
-  createPatchHttpAction,
-  createPostHttpAction,
-  createPutHttpAction,
-  del,
-  disposeHttpClient,
-  get,
-  httpActions,
-  normalizeResource,
-  patch,
-  post,
-  prepareParams,
-  put,
-  spread,
-};
+export { CONTENT_TYPE, DEFAULT_FILTER, DEFAULT_PAGINATION, DEFAULT_SORT, HEADERS, RESOURCES, SHORTCUTS, WELL_KNOWN, all, createDeleteHttpAction, createExportUrlHttpAction, createGetListHttpAction, createGetSchemaHttpAction, createGetSingleHttpAction, createHttpActionsFor, createHttpClient, createPatchHttpAction, createPostHttpAction, createPutHttpAction, del, disposeHttpClient, get, httpActions, normalizeResource, patch, post, prepareParams, put, spread };
