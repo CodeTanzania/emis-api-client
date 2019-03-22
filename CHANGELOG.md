@@ -1,3 +1,16 @@
+#### 0.13.2 (2019-03-22)
+
+##### Chores
+
+*  ignore @lykmapipo/env from rollup config ([4d684921](https://github.com/CodeTanzania/emis-api-client/commit/4d6849215706f08dbb9565fa54b9374057a9fcdd))
+*  move peer dependencies to dependencies ([83c86004](https://github.com/CodeTanzania/emis-api-client/commit/83c8600450a740431df6db050e62c0b57e034ac5))
+
+##### Refactors
+
+*  use env helpers from @lykmapipo/env ([016dcfa3](https://github.com/CodeTanzania/emis-api-client/commit/016dcfa3f9137c6d88130c3d9f0533cd83d29d6f))
+*  use helpers from @lykmapipo/common ([b9656a67](https://github.com/CodeTanzania/emis-api-client/commit/b9656a67e18f74f4f24bdd28bbe58d4247f1ffa8))
+*  use helpers from @lykmapipo/common ([c974b3b7](https://github.com/CodeTanzania/emis-api-client/commit/c974b3b733b1eba37ea4752ad636e29798dd7105))
+
 #### 0.13.1 (2019-03-21)
 
 ##### Bug Fixes
