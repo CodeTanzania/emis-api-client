@@ -1,4 +1,5 @@
 import { clone, forEach, merge, upperFirst } from 'lodash';
+import { mergeObjects } from '@lykmapipo/common';
 import { get, createHttpActionsFor } from './client';
 
 /**
@@ -79,14 +80,14 @@ const PARTY_SHORTCUTS = {
   focalPerson: {
     shortcut: 'focalPerson',
     wellknown: 'party',
-    params: merge({}, DEFAULT_PARAMS, {
+    params: mergeObjects(DEFAULT_PARAMS, {
       filter: { type: 'Focal Person' },
     }),
   },
   agency: {
     shortcut: 'agency',
     wellknown: 'party',
-    params: merge({}, DEFAULT_PARAMS, {
+    params: mergeObjects(DEFAULT_PARAMS, {
       filter: { type: 'Agency' },
     }),
   },
@@ -97,7 +98,7 @@ const FEATURE_SHORTCUTS = {
   region: {
     shortcut: 'region',
     wellknown: 'feature',
-    params: merge({}, DEFAULT_PARAMS, {
+    params: mergeObjects(DEFAULT_PARAMS, {
       filter: {
         nature: 'Boundary',
         family: 'Administrative',
@@ -108,7 +109,7 @@ const FEATURE_SHORTCUTS = {
   district: {
     shortcut: 'district',
     wellknown: 'feature',
-    params: merge({}, DEFAULT_PARAMS, {
+    params: mergeObjects(DEFAULT_PARAMS, {
       filter: {
         nature: 'Boundary',
         family: 'Administrative',
@@ -119,7 +120,7 @@ const FEATURE_SHORTCUTS = {
   ward: {
     shortcut: 'ward',
     wellknown: 'feature',
-    params: merge({}, DEFAULT_PARAMS, {
+    params: mergeObjects(DEFAULT_PARAMS, {
       filter: {
         nature: 'Boundary',
         family: 'Administrative',
@@ -130,7 +131,7 @@ const FEATURE_SHORTCUTS = {
   warehouse: {
     shortcut: 'warehouse',
     wellknown: 'feature',
-    params: merge({}, DEFAULT_PARAMS, {
+    params: mergeObjects(DEFAULT_PARAMS, {
       filter: {
         nature: 'Building',
         family: 'Warehouse',
@@ -144,14 +145,14 @@ const PREDEFINE_SHORTCUTS = {
   itemUnit: {
     shortcut: 'itemUnit',
     wellknown: 'predefine',
-    params: merge({}, DEFAULT_PARAMS, {
+    params: mergeObjects(DEFAULT_PARAMS, {
       filter: { namespace: 'ItemUnit', key: 'unit' },
     }),
   },
   itemCategory: {
     shortcut: 'itemCategory',
     wellknown: 'predefine',
-    params: merge({}, DEFAULT_PARAMS, {
+    params: mergeObjects(DEFAULT_PARAMS, {
       filter: { namespace: 'ItemCategory', key: 'category' },
     }),
   },
@@ -167,8 +168,7 @@ const PREDEFINE_SHORTCUTS = {
  * @static
  * @public
  */
-export const SHORTCUTS = merge(
-  {},
+export const SHORTCUTS = mergeObjects(
   FEATURE_SHORTCUTS,
   PARTY_SHORTCUTS,
   PREDEFINE_SHORTCUTS
@@ -186,13 +186,13 @@ export const SHORTCUTS = merge(
  * @static
  * @public
  */
-export const RESOURCES = merge({}, SHORTCUTS);
+export const RESOURCES = mergeObjects(SHORTCUTS);
 
 // build wellknown resources
 forEach([...WELL_KNOWN], wellknown => {
   const name = clone(wellknown);
   const shortcut = clone(wellknown);
-  const params = merge({}, DEFAULT_PARAMS);
+  const params = mergeObjects(DEFAULT_PARAMS);
   const resource = { shortcut, wellknown, params };
   RESOURCES[name] = resource;
 });

@@ -9,6 +9,8 @@ export default [
       'inflection',
       'lodash',
       'moment',
+      '@lykmapipo/common',
+      '@lykmapipo/env',
     ],
     output: [
       {
