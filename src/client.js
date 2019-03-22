@@ -817,8 +817,7 @@ export const createHttpActionsFor = resource => {
   const deleteResource = createDeleteHttpAction(resource);
 
   // return resource http actions
-  const httpActions = merge(
-    {},
+  const httpActions = mergeObjects(
     getSchema,
     getExportUrl,
     getResources,
