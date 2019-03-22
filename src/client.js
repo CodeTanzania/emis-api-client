@@ -3,6 +3,7 @@ import axios from 'axios';
 import buildURL from 'axios/lib/helpers/buildURL';
 import { singularize, pluralize } from 'inflection';
 import { idOf, uniq, mergeObjects, variableNameFor } from '@lykmapipo/common';
+import { getString } from '@lykmapipo/env';
 import {
   merge,
   isArray,
@@ -284,9 +285,8 @@ export const prepareParams = params => {
  */
 export const createHttpClient = API_BASE_URL => {
   if (!client) {
-    // Dont destructure: Fix:ReferenceError: process is not defined in react
-    const env = process.env; // eslint-disable-line
-    const { EMIS_API_URL, REACT_APP_EMIS_API_URL } = env;
+    const EMIS_API_URL = getString('EMIS_API_URL');
+    const REACT_APP_EMIS_API_URL = getString('REACT_APP_EMIS_API_URL');
     BASE_URL = API_BASE_URL || EMIS_API_URL || REACT_APP_EMIS_API_URL;
     const options = { baseURL: BASE_URL, headers: HEADERS };
     client = axios.create(options);
