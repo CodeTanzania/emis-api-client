@@ -10,6 +10,7 @@ export default [
       'lodash',
       'moment',
       '@lykmapipo/common',
+      '@lykmapipo/env',
     ],
     output: [
       {
