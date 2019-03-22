@@ -2,10 +2,8 @@ import moment from 'moment';
 import axios from 'axios';
 import buildURL from 'axios/lib/helpers/buildURL';
 import { singularize, pluralize } from 'inflection';
+import { idOf, uniq, mergeObjects, variableNameFor } from '@lykmapipo/common';
 import {
-  uniq,
-  compact,
-  map,
   merge,
   isArray,
   isPlainObject,
@@ -13,11 +11,9 @@ import {
   first,
   isEmpty,
   isString,
-  camelCase,
   max,
   min,
   toLower,
-  omitBy,
   omit,
 } from 'lodash';
 
@@ -26,28 +22,6 @@ let client;
 
 // client base url
 let BASE_URL;
-
-// create duplicate free array of values
-const distinct = (...values) => uniq(compact([...values]));
-
-// merge list of objects to single object
-const mergeObjects = (...objects) => {
-  // ensure source objects
-  let sources = compact([...objects]);
-  sources = map(sources, source => {
-    return omitBy(source, val => !val);
-  });
-
-  // return merged
-  const merged = merge({}, ...sources);
-  return merged;
-};
-
-// create dynamic camelized function name
-const fn = (...name) => camelCase([...name].join(' '));
-
-// get resource id from payload
-const idOf = data => (data ? data._id || data.id : undefined); // eslint-disable-line
 
 /**
  * @function mapResponseToError
@@ -128,7 +102,7 @@ const wrapRequest = request => {
  * @private
  */
 const mapIn = (...values) => {
-  let params = distinct(...values);
+  let params = uniq([...values]);
   params = params.length > 1 ? { $in: params } : first(params);
   return params;
 };
@@ -533,7 +507,7 @@ export const createGetSchemaHttpAction = resource => {
   } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('get', singular, 'Schema');
+  const methodName = variableNameFor('get', singular, 'Schema');
 
   // build action
   const action = {
@@ -567,7 +541,7 @@ export const createExportUrlHttpAction = resource => {
   const { shortcut, wellknown } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('get', shortcut.plural, 'export', 'url');
+  const methodName = variableNameFor('get', shortcut.plural, 'export', 'url');
 
   // build action
   const action = {
@@ -604,7 +578,7 @@ export const createGetListHttpAction = resource => {
   const { shortcut, wellknown } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('get', shortcut.plural);
+  const methodName = variableNameFor('get', shortcut.plural);
 
   // build action
   const action = {
@@ -643,7 +617,7 @@ export const createGetSingleHttpAction = resource => {
   } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('get', singular);
+  const methodName = variableNameFor('get', singular);
 
   // build action
   const action = {
@@ -682,7 +656,7 @@ export const createPostHttpAction = resource => {
   } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('post', singular);
+  const methodName = variableNameFor('post', singular);
 
   // build action
   const action = {
@@ -722,7 +696,7 @@ export const createPutHttpAction = resource => {
   } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('put', singular);
+  const methodName = variableNameFor('put', singular);
 
   // build action
   const action = {
@@ -762,7 +736,7 @@ export const createPatchHttpAction = resource => {
   } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('patch', singular);
+  const methodName = variableNameFor('patch', singular);
 
   // build action
   const action = {
@@ -802,7 +776,7 @@ export const createDeleteHttpAction = resource => {
   } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('delete', singular);
+  const methodName = variableNameFor('delete', singular);
 
   // build action
   const action = {
