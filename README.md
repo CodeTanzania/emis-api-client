@@ -1,6 +1,7 @@
 # emis-api-client
 
 [![Build Status](https://travis-ci.org/CodeTanzania/emis-api-client.svg?branch=develop)](https://travis-ci.org/CodeTanzania/emis-api-client)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 
 http client for EMIS API.
