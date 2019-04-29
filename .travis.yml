@@ -6,6 +6,7 @@ node_js:
 sudo: false
 
 script:
+  - commitlint-travis
   - npm run lint -s && npm test
 
 # cache node_modules directory on Travis to avoid
