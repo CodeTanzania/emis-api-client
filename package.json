@@ -1,6 +1,6 @@
 {
   "name": "@codetanzania/emis-api-client",
-  "version": "0.13.2",
+  "version": "0.14.0",
   "description": "http client for EMIS API.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -85,15 +85,10 @@
     }
   },
   "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
+    "extends": ["@commitlint/config-conventional"]
   },
   "lint-staged": {
-    "src/**/*.js": [
-      "npm run lint",
-      "git add -A"
-    ]
+    "src/**/*.js": ["npm run lint", "git add -A"]
   },
   "husky": {
     "hooks": {
