@@ -11,6 +11,7 @@ export default [
       'moment',
       '@lykmapipo/common',
       '@lykmapipo/env',
+      'jsonwebtoken',
     ],
     output: [
       {
