@@ -1,3 +1,17 @@
+#### 0.14.1 (2019-06-07)
+
+##### Build System / Dependencies
+
+* **rollup:**  add jsonwebtoken as external deps ([928f017b](https://github.com/CodeTanzania/emis-api-client/commit/928f017bb90b73275426d150b4e0536ccb987cfe))
+
+##### Chores
+
+* **build:**  bundle library for v0.14.1 ([7e14bf67](https://github.com/CodeTanzania/emis-api-client/commit/7e14bf6702a6f950b127fa4abbac10657c17e30d))
+* **package.json:**  update package version to 0.14.1 ([244579a1](https://github.com/CodeTanzania/emis-api-client/commit/244579a197546a399043471ddbfbb27d5e0efcea))
+* **deps:**
+  *  install dependency locally ([60c42296](https://github.com/CodeTanzania/emis-api-client/commit/60c4229677a50bbc98f78e99822cdca55bfcd265))
+  *  update dependency prettier to v1.18.2 ([e3f0a8ca](https://github.com/CodeTanzania/emis-api-client/commit/e3f0a8ca94b461f31335f2039b5cd76087534535))
+
 #### 0.14.0 (2019-06-07)
 
 ##### Chores
