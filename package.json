@@ -1,6 +1,6 @@
 {
   "name": "@codetanzania/emis-api-client",
-  "version": "0.13.2",
+  "version": "0.14.0",
   "description": "http client for EMIS API.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -39,42 +39,43 @@
   },
   "homepage": "https://github.com/CodeTanzania/emis-api-client#readme",
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.4.0",
-    "@babel/node": "^7.2.2",
-    "@babel/preset-env": "^7.4.2",
-    "@babel/register": "^7.4.0",
-    "@commitlint/cli": "^7.5.2",
-    "@commitlint/config-conventional": "^7.5.0",
-    "@commitlint/travis-cli": "^7.5.2",
-    "axios": "^0.18.0",
-    "chai": "^4.2.0",
-    "commitizen": "^3.0.7",
-    "cz-conventional-changelog": "^2.1.0",
-    "eslint": "^5.15.3",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-prettier": "^4.1.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-mocha": "^5.3.0",
-    "eslint-plugin-prettier": "^3.0.1",
-    "generate-changelog": "^1.7.1",
-    "husky": "^1.3.1",
-    "inflection": "^1.12.0",
-    "lint-staged": "^8.1.5",
-    "lodash": ">=4.17.11",
-    "mocha": "^6.0.2",
-    "moment": ">=2.24.0",
-    "nock": "^10.0.6",
-    "prettier": "^1.16.4",
-    "rimraf": "^2.6.3",
-    "rollup": "^1.7.0"
+    "@babel/cli": "7.4.4",
+    "@babel/core": "7.4.5",
+    "@babel/node": "7.4.5",
+    "@babel/preset-env": "7.4.5",
+    "@babel/register": "7.4.4",
+    "@commitlint/cli": "8.0.0",
+    "@commitlint/config-conventional": "8.0.0",
+    "@commitlint/travis-cli": "8.0.0",
+    "axios": "0.19.0",
+    "chai": "4.2.0",
+    "commitizen": "3.1.1",
+    "cz-conventional-changelog": "2.1.0",
+    "eslint": "5.16.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-config-prettier": "4.3.0",
+    "eslint-plugin-import": "2.17.3",
+    "eslint-plugin-mocha": "5.3.0",
+    "eslint-plugin-prettier": "3.1.0",
+    "generate-changelog": "1.7.1",
+    "husky": "2.4.0",
+    "inflection": "1.12.0",
+    "lint-staged": "8.2.0",
+    "lodash": "4.17.11",
+    "mocha": "6.1.4",
+    "moment": "2.24.0",
+    "nock": "10.0.6",
+    "prettier": "1.18.0",
+    "rimraf": "2.6.3",
+    "rollup": "1.14.3"
   },
   "peerDependencies": {},
   "dependencies": {
-    "@lykmapipo/common": ">=0.11.1",
-    "@lykmapipo/env": ">=0.7.2",
+    "@lykmapipo/common": ">=0.16.0",
+    "@lykmapipo/env": ">=0.7.3",
     "axios": ">=0.18.0",
     "inflection": ">=1.12.0",
+    "jsonwebtoken": "^8.5.1",
     "lodash": ">=4.17.11",
     "moment": ">=2.24.0"
   },
@@ -84,15 +85,10 @@
     }
   },
   "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
+    "extends": ["@commitlint/config-conventional"]
   },
   "lint-staged": {
-    "src/**/*.js": [
-      "npm run lint",
-      "git add -A"
-    ]
+    "src/**/*.js": ["npm run lint", "git add -A"]
   },
   "husky": {
     "hooks": {

@@ -1,6 +1,7 @@
 import moment from 'moment';
 import axios from 'axios';
 import buildURL from 'axios/lib/helpers/buildURL';
+import { verify } from 'jsonwebtoken';
 import { singularize, pluralize } from 'inflection';
 import { idOf, uniq, mergeObjects, variableNameFor } from '@lykmapipo/common';
 import { getString } from '@lykmapipo/env';
@@ -20,9 +21,49 @@ import {
 
 // default http client
 let client;
+let jwtToken;
 
 // client base url
 let BASE_URL;
+
+const isBrowser =
+  typeof window !== 'undefined' && typeof window.document !== 'undefined'; // eslint-disable-line
+
+const getJwtToken = () => {
+  if (isEmpty(jwtToken)) {
+    if (isBrowser) {
+      jwtToken = sessionStorage.getItem('token'); // eslint-disable-line
+    }
+  }
+
+  return jwtToken;
+};
+
+/**
+ * @function isTokenValid
+ * @name isTokenValid
+ * @description check if jwt token from is valid or not
+ * @returns {boolean} check if token is valid or not
+ * @since 0.13.2
+ * @version 0.1.0
+ * @example
+ * import { isTokenValid } from 'emis-api-client';
+ *
+ * const isAuthenticated = isTokenValid();
+ */
+export const isTokenValid = () => {
+  const JWT_SECRET = getString('REACT_APP_JWT_SECRET');
+
+  jwtToken = getJwtToken(); // ensure token is set
+
+  try {
+    verify(jwtToken, JWT_SECRET);
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
 
 /**
  * @function mapResponseToError
@@ -212,6 +253,7 @@ export const CONTENT_TYPE = 'application/json';
 export const HEADERS = {
   Accept: CONTENT_TYPE,
   'Content-Type': CONTENT_TYPE,
+  Authorization: `Bearer ${getJwtToken()}`,
 };
 
 /**
@@ -262,6 +304,7 @@ export const prepareParams = params => {
         options.filter[key] = mapRange(val);
       }
     };
+
     forEach(options.filter, transformFilter);
   }
 
@@ -449,6 +492,58 @@ export const patch = (url, data) => {
 export const del = url => {
   const httpClient = createHttpClient();
   return wrapRequest(httpClient.delete(url));
+};
+
+/**
+ * @function singin
+ * @name signin
+ * @description Signin user with provided credentials
+ * @param {object} credentials Username and password
+ * @returns {object} Object having party, permission and other meta data
+ * @since 0.13.2
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ * import { signin } from 'emis-api-client';
+ *
+ * signin({ email:'', password:'' }).then(results => {});
+ */
+export const signin = credentials => {
+  const defaultCredentials = { email: '', password: '' };
+  const payload = isEmpty(credentials)
+    ? defaultCredentials
+    : merge(defaultCredentials, credentials);
+
+  return post('/signin', payload).then(results => {
+    if (isBrowser) {
+      // persist token and party in session storage
+      sessionStorage.setItem('token', results.token); // eslint-disable-line
+      sessionStorage.setItem('party', JSON.stringify(results.party)); // eslint-disable-line
+      jwtToken = results.token;
+    }
+
+    return results;
+  });
+};
+
+/**
+ * @function signout
+ * @name signout
+ * @description Signout current signin user and clear session Storage
+ * @since 0.13.2
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ * import { signout } from 'emis-api-client';
+ *
+ * signout();
+ */
+export const signout = () => {
+  if (isBrowser) {
+    sessionStorage.clear(); // eslint-disable-line
+  }
 };
 
 /**

@@ -1,3 +1,74 @@
+#### 0.14.0 (2019-06-07)
+
+##### Chores
+
+* **package.json:**  update package version to 0.14.0 ([1ad7d8f9](https://github.com/CodeTanzania/emis-api-client/commit/1ad7d8f95e56b5a48d7a5eb247e05020dc408420))
+* **deps:**
+  *  update dependency prettier to v1.18.0 ([10bbb26b](https://github.com/CodeTanzania/emis-api-client/commit/10bbb26b5b93439e74f13c34849a641dd4baed5d))
+  *  update dependency rollup to v1.14.3 ([be3f347d](https://github.com/CodeTanzania/emis-api-client/commit/be3f347d516659dade8937d2bc1839561e5769b5))
+  *  update dependency lint-staged to v8.2.0 ([cc728a59](https://github.com/CodeTanzania/emis-api-client/commit/cc728a597c790c2c9afee9c4ab76343913e8a1ea))
+  *  update dependency husky to v2.4.0 ([c991ced8](https://github.com/CodeTanzania/emis-api-client/commit/c991ced8398159897027feedd2dc37cfa01ba090))
+  *  update dependency rollup to v1.14.2 ([72ff7bd9](https://github.com/CodeTanzania/emis-api-client/commit/72ff7bd9169dbfb9068b0239b09ae7dd1a2eb077))
+  *  update dependency rollup to v1.13.1 ([97af350f](https://github.com/CodeTanzania/emis-api-client/commit/97af350f4e204e3a1f2ffa2d333add7e98916615))
+  *  install dependency locally ([47f4396b](https://github.com/CodeTanzania/emis-api-client/commit/47f4396b55596c7dff2586106699a493ce295f97))
+  *  update dependency axios to v0.19.0 ([799fb3dc](https://github.com/CodeTanzania/emis-api-client/commit/799fb3dc4ada3b8ea6d82856fce6ac8575ae6b14))
+  *  update dependency rollup to v1.13.0 ([ed81a48f](https://github.com/CodeTanzania/emis-api-client/commit/ed81a48fa648f6038c051d687f5ce55971c50135))
+  *  update commitlint monorepo to v8 ([a6810a81](https://github.com/CodeTanzania/emis-api-client/commit/a6810a817102e79134c0bc91e3f73f4575707f6a))
+  *  install dependency locally ([b4929973](https://github.com/CodeTanzania/emis-api-client/commit/b4929973ebbeea8c40a9f5926acd77c9e9acc286))
+  *  update dependency rollup to v1.12.5 ([847611ce](https://github.com/CodeTanzania/emis-api-client/commit/847611ce00df71fe3b3f9b058bd07b1aceef18b7))
+  *  update dependency rollup to v1.12.4 ([f0d1e4aa](https://github.com/CodeTanzania/emis-api-client/commit/f0d1e4aa95719e5b73cc41695d0f2e4ca67a31d9))
+  *  update dependency eslint-plugin-import to v2.17.3 ([e4917d67](https://github.com/CodeTanzania/emis-api-client/commit/e4917d67fdb78e6c500c93896ef0134445fc8f80))
+  *  update babel monorepo to v7.4.5 ([6f5e78a3](https://github.com/CodeTanzania/emis-api-client/commit/6f5e78a335ba7a6137c8dbf211a8234622bdac24))
+  *  update dependency rollup to v1.12.3 ([e667fb3a](https://github.com/CodeTanzania/emis-api-client/commit/e667fb3aa415852e83b5d31cb75880261f98ddff))
+  *  update dependency rollup to v1.12.2 ([ebc468dd](https://github.com/CodeTanzania/emis-api-client/commit/ebc468dd2980fe279defafc7f51a25ca0545bc07))
+  *  update dependency eslint-config-prettier to v4.3.0 ([1a498f76](https://github.com/CodeTanzania/emis-api-client/commit/1a498f76b6e03685189016aa50d741d1bc1c7e38))
+  *  update dependency rollup to v1.12.1 ([63bcd294](https://github.com/CodeTanzania/emis-api-client/commit/63bcd294a80a193e84cfa4af0cbc17c1cca31f1d))
+  *  update dependency rollup to v1.12.0 ([fee80cdd](https://github.com/CodeTanzania/emis-api-client/commit/fee80cdd360e5a9c9c04c1c89ca50c829d2bff2a))
+  *  update dependency lint-staged to v8.1.7 ([64bd437d](https://github.com/CodeTanzania/emis-api-client/commit/64bd437de7cc89f63cae9cfadcda701d56b7b47b))
+  *  update dependency husky to v2.3.0 ([06b5117b](https://github.com/CodeTanzania/emis-api-client/commit/06b5117b9148ce26b91296ce845f5a5dace7371c))
+  *  install dependencies ([000dabd2](https://github.com/CodeTanzania/emis-api-client/commit/000dabd2682e3e563d6635c023dc10c5cdc5a251))
+  *  update dependency prettier to v1.17.1 ([9cb3bf13](https://github.com/CodeTanzania/emis-api-client/commit/9cb3bf13c6bed49b21788c99bb38ae021e9973a6))
+  *  update dependency eslint-plugin-prettier to v3.1.0 ([967d4547](https://github.com/CodeTanzania/emis-api-client/commit/967d4547eaf9c9da12b7b549dfa911889319353c))
+  *  update commitlint monorepo to v7.6.1 ([dfd0f4d0](https://github.com/CodeTanzania/emis-api-client/commit/dfd0f4d001660dc4222b7d3ee51f97fb4d6ee091))
+  *  update commitlint monorepo to v7.6.0 ([b25dd29e](https://github.com/CodeTanzania/emis-api-client/commit/b25dd29eb173d400185c268b3bbbb7fbdf79caa5))
+  *  update dependency rollup to v1.11.3 ([8150e0f8](https://github.com/CodeTanzania/emis-api-client/commit/8150e0f8efb996d1c5e91296f6029c8cf0971913))
+  *  update dependency rollup to v1.11.2 ([6fc79a97](https://github.com/CodeTanzania/emis-api-client/commit/6fc79a97db625b84372c0dc3f9e68a7a7460c025))
+  *  update dependency rollup to v1.11.1 ([257952c8](https://github.com/CodeTanzania/emis-api-client/commit/257952c86ed5073e6407852f646e7839366b281b))
+  *  update dependency rollup to v1.11.0 ([25788391](https://github.com/CodeTanzania/emis-api-client/commit/257883910737ba8fedf400de9d58ed8020f2cf89))
+  *  update dependency lint-staged to v8.1.6 ([ac8405c4](https://github.com/CodeTanzania/emis-api-client/commit/ac8405c461c2b19b261000d82e0404720b8c4516))
+  *  update dependency husky to v2.2.0 ([4af54af6](https://github.com/CodeTanzania/emis-api-client/commit/4af54af6757c8ef9e68a477694493328027c61c5))
+  *  update dependency husky to v2 ([80924db4](https://github.com/CodeTanzania/emis-api-client/commit/80924db4159de46cdcd77f17e2a032b883af3824))
+  *  update dependency eslint-config-prettier to v4.2.0 ([8faa69e5](https://github.com/CodeTanzania/emis-api-client/commit/8faa69e5cdbc24386decb64d725726fdfcfd4735))
+  *  update babel monorepo to v7.4.4 ([0e5e6e94](https://github.com/CodeTanzania/emis-api-client/commit/0e5e6e9438af7fc936d06523c1f5a1c164b94069))
+  *  pin dependencies ([996a3ad5](https://github.com/CodeTanzania/emis-api-client/commit/996a3ad5c60f325b0fce1d3804c469f026eae1ec))
+*  install dependencies locally ([2a34de5a](https://github.com/CodeTanzania/emis-api-client/commit/2a34de5acf2d7ce9736bdfb1e0eeec723984dfe7))
+*  ignore neovim editor configs ([3756b784](https://github.com/CodeTanzania/emis-api-client/commit/3756b784b6088cc15b0b74322c71a4c189189985))
+*  add renovate.json ([b918a357](https://github.com/CodeTanzania/emis-api-client/commit/b918a357c42a20ef30e367b13622f1c88cb83a16))
+*  update dependencies to latest versions ([0a3a8be0](https://github.com/CodeTanzania/emis-api-client/commit/0a3a8be04a29ffde4158e6d8afa56ee8837e1c2f))
+* **renovate:**  add PR assignees ([18b20b61](https://github.com/CodeTanzania/emis-api-client/commit/18b20b6114feb3f52808d5763a622a16f07a1f25))
+
+##### Continuous Integration
+
+* **travis:**
+  *  update package-lock.json to fix travis ([23613bbf](https://github.com/CodeTanzania/emis-api-client/commit/23613bbf4650a0375e7df6fdf16fdb8bf7ac65c2))
+  *  update package-lock.json to fix travis ([5ed41f8a](https://github.com/CodeTanzania/emis-api-client/commit/5ed41f8a47da707f9dbe9577c3aff349d9021a9f))
+  *  remove caching node_modules ([36fe3a3a](https://github.com/CodeTanzania/emis-api-client/commit/36fe3a3a04a2b79be1d8ddb4d9c94e1888771d44))
+  *  configure commitlint ([d977ebaf](https://github.com/CodeTanzania/emis-api-client/commit/d977ebafa41a8bc7f1f54a04774c36ffc25e048a))
+  *  configure commitlint ([d4b2f705](https://github.com/CodeTanzania/emis-api-client/commit/d4b2f705fbc2c0c39f0f5955f84e50f4e7c00aa1))
+  *  configure commitlint ([319204aa](https://github.com/CodeTanzania/emis-api-client/commit/319204aa79c309e39503bad78d718e9f325f8a72))
+
+##### Documentation Changes
+
+* **readme:**
+  *  add commitizen badge ([3a15536e](https://github.com/CodeTanzania/emis-api-client/commit/3a15536e0cb6b6f5c05be1ae0f7cf275df52beaf))
+  *  add renovate badge ([7aa48b1e](https://github.com/CodeTanzania/emis-api-client/commit/7aa48b1e47c82ed7533bf97a9d576a33aa07330b))
+  *  add commitizen badge ([ad38c53d](https://github.com/CodeTanzania/emis-api-client/commit/ad38c53d6b96f045092657d80af66d2b719ab294))
+  *  add renovate badge ([92a85189](https://github.com/CodeTanzania/emis-api-client/commit/92a85189e61bc4b2c82bad5451f76b89f9e74142))
+
+##### New Features
+
+* **auth:**  add authentication functions ([760a5219](https://github.com/CodeTanzania/emis-api-client/commit/760a5219631f2b813a67d6acd295a573aae2ae22))
+
 #### 0.13.2 (2019-03-22)
 
 ##### Chores

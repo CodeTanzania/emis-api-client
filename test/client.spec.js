@@ -13,6 +13,7 @@ import {
   put,
   patch,
   del,
+  signin,
   normalizeResource,
   createGetSchemaHttpAction,
   createGetListHttpAction,
@@ -426,6 +427,36 @@ describe('http client', () => {
       .reply(200, data);
 
     patch('/users/5c1766243c9d520004e2b542', { age: 11 })
+      .then(response => {
+        expect(response).to.exist;
+        expect(response).to.exist;
+        expect(response).to.be.eql(data);
+        done(null, data);
+      })
+      .catch(error => {
+        done(error);
+      });
+  });
+
+  it('should handle http post on /signin', done => {
+    const baseUrl = 'https://api.emis.io/v1';
+    process.env.EMIS_API_URL = baseUrl;
+    const data = {
+      success: true,
+      party: {
+        _id: '5cf8e6f37e659b3a1ea6fd4c',
+        updatedAt: '2019-06-06T10:18:24.976Z',
+        createdAt: '2019-06-06T10:12:03.542Z',
+        lockedAt: null,
+      },
+      token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+    };
+    nock(baseUrl)
+      .post('/signin')
+      .query(true)
+      .reply(200, data);
+
+    signin({ email: '', password: '' })
       .then(response => {
         expect(response).to.exist;
         expect(response).to.exist;

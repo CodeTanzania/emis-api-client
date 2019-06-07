@@ -1,6 +1,8 @@
 # emis-api-client
 
 [![Build Status](https://travis-ci.org/CodeTanzania/emis-api-client.svg?branch=develop)](https://travis-ci.org/CodeTanzania/emis-api-client)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 
 http client for EMIS API.
 
@@ -47,16 +49,17 @@ getPlans().then(plans => { ... }).catch(error => { ... });
 ```
 
 To issue parallel request
+
 ```js
-const { 
- getIncidentTypes, 
- getPlans, 
- all, 
- spread 
+const {
+ getIncidentTypes,
+ getPlans,
+ all,
+ spread
 } = require('@codetanzania/emis-api-client');
 
 const request = all(getIncidentTypes(), getPlans());
-request.then(spread((incidentTypes, plans) => { ... })).catch(error => { ... }); 
+request.then(spread((incidentTypes, plans) => { ... })).catch(error => { ... });
 ```
 
 ### Filtering results
@@ -93,7 +96,7 @@ getPlans({ filter: { incidentType: ObjectID, boundary: { $in: [] } } })
   });
 ```
 
-Param object supports all [mongodb operators](https://docs.mongodb.com/manual/reference/operator/query/) ($regex, $gt, $gte, $lt, $lte, $ne, $in, etc.)
+Param object supports all [mongodb operators](https://docs.mongodb.com/manual/reference/operator/query/) ($regex, $gt, $gte, $lt, $lte, $ne, \$in, etc.)
 
 > Note API URL will be picked from environment variable. This client reads process.env.REACT_APP_EMIS_API_URL or process.env.EMIS_API_URL
 
