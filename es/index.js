@@ -1,36 +1,57 @@
 import moment from 'moment';
 import axios from 'axios';
 import buildURL from 'axios/lib/helpers/buildURL';
+import { verify } from 'jsonwebtoken';
 import { singularize, pluralize } from 'inflection';
-import { forEach, isEmpty, isString, camelCase, merge, compact, map, omitBy, isArray, isPlainObject, toLower, omit, uniq, first, min, max, clone, upperFirst } from 'lodash';
+import { mergeObjects, variableNameFor, idOf, uniq } from '@lykmapipo/common';
+import { getString } from '@lykmapipo/env';
+import { forEach, isEmpty, merge, isString, isArray, isPlainObject, toLower, omit, first, min, max, clone, upperFirst } from 'lodash';
 
 // default http client
 let client;
+let jwtToken;
 
 // client base url
 let BASE_URL;
 
-// create duplicate free array of values
-const distinct = (...values) => uniq(compact([...values]));
+const isBrowser =
+  typeof window !== 'undefined' && typeof window.document !== 'undefined'; // eslint-disable-line
 
-// merge list of objects to single object
-const mergeObjects = (...objects) => {
-  // ensure source objects
-  let sources = compact([...objects]);
-  sources = map(sources, source => {
-    return omitBy(source, val => !val);
-  });
+const getJwtToken = () => {
+  if (isEmpty(jwtToken)) {
+    if (isBrowser) {
+      jwtToken = sessionStorage.getItem('token'); // eslint-disable-line
+    }
+  }
 
-  // return merged
-  const merged = merge({}, ...sources);
-  return merged;
+  return jwtToken;
 };
 
-// create dynamic camelized function name
-const fn = (...name) => camelCase([...name].join(' '));
+/**
+ * @function isTokenValid
+ * @name isTokenValid
+ * @description check if jwt token from is valid or not
+ * @returns {boolean} check if token is valid or not
+ * @since 0.13.2
+ * @version 0.1.0
+ * @example
+ * import { isTokenValid } from 'emis-api-client';
+ *
+ * const isAuthenticated = isTokenValid();
+ */
+const isTokenValid = () => {
+  const JWT_SECRET = getString('REACT_APP_JWT_SECRET');
 
-// get resource id from payload
-const idOf = data => (data ? data._id || data.id : undefined); // eslint-disable-line
+  jwtToken = getJwtToken(); // ensure token is set
+
+  try {
+    verify(jwtToken, JWT_SECRET);
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
 
 /**
  * @function mapResponseToError
@@ -111,7 +132,7 @@ const wrapRequest = request => {
  * @private
  */
 const mapIn = (...values) => {
-  let params = distinct(...values);
+  let params = uniq([...values]);
   params = params.length > 1 ? { $in: params } : first(params);
   return params;
 };
@@ -220,6 +241,7 @@ const CONTENT_TYPE = 'application/json';
 const HEADERS = {
   Accept: CONTENT_TYPE,
   'Content-Type': CONTENT_TYPE,
+  Authorization: `Bearer ${getJwtToken()}`,
 };
 
 /**
@@ -270,6 +292,7 @@ const prepareParams = params => {
         options.filter[key] = mapRange(val);
       }
     };
+
     forEach(options.filter, transformFilter);
   }
 
@@ -293,9 +316,8 @@ const prepareParams = params => {
  */
 const createHttpClient = API_BASE_URL => {
   if (!client) {
-    // Dont destructure: Fix:ReferenceError: process is not defined in react
-    const env = process.env; // eslint-disable-line
-    const { EMIS_API_URL, REACT_APP_EMIS_API_URL } = env;
+    const EMIS_API_URL = getString('EMIS_API_URL');
+    const REACT_APP_EMIS_API_URL = getString('REACT_APP_EMIS_API_URL');
     BASE_URL = API_BASE_URL || EMIS_API_URL || REACT_APP_EMIS_API_URL;
     const options = { baseURL: BASE_URL, headers: HEADERS };
     client = axios.create(options);
@@ -461,6 +483,58 @@ const del = url => {
 };
 
 /**
+ * @function singin
+ * @name signin
+ * @description Signin user with provided credentials
+ * @param {object} credentials Username and password
+ * @returns {object} Object having party, permission and other meta data
+ * @since 0.13.2
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ * import { signin } from 'emis-api-client';
+ *
+ * signin({ email:'', password:'' }).then(results => {});
+ */
+const signin = credentials => {
+  const defaultCredentials = { email: '', password: '' };
+  const payload = isEmpty(credentials)
+    ? defaultCredentials
+    : merge(defaultCredentials, credentials);
+
+  return post('/signin', payload).then(results => {
+    if (isBrowser) {
+      // persist token and party in session storage
+      sessionStorage.setItem('token', results.token); // eslint-disable-line
+      sessionStorage.setItem('party', JSON.stringify(results.party)); // eslint-disable-line
+      jwtToken = results.token;
+    }
+
+    return results;
+  });
+};
+
+/**
+ * @function signout
+ * @name signout
+ * @description Signout current signin user and clear session Storage
+ * @since 0.13.2
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ * import { signout } from 'emis-api-client';
+ *
+ * signout();
+ */
+const signout = () => {
+  if (isBrowser) {
+    sessionStorage.clear(); // eslint-disable-line
+  }
+};
+
+/**
  * @function normalizeResource
  * @name normalizeResource
  * @description normalize resource for action http building
@@ -516,7 +590,7 @@ const createGetSchemaHttpAction = resource => {
   } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('get', singular, 'Schema');
+  const methodName = variableNameFor('get', singular, 'Schema');
 
   // build action
   const action = {
@@ -550,7 +624,7 @@ const createExportUrlHttpAction = resource => {
   const { shortcut, wellknown } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('get', shortcut.plural, 'export', 'url');
+  const methodName = variableNameFor('get', shortcut.plural, 'export', 'url');
 
   // build action
   const action = {
@@ -587,7 +661,7 @@ const createGetListHttpAction = resource => {
   const { shortcut, wellknown } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('get', shortcut.plural);
+  const methodName = variableNameFor('get', shortcut.plural);
 
   // build action
   const action = {
@@ -626,7 +700,7 @@ const createGetSingleHttpAction = resource => {
   } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('get', singular);
+  const methodName = variableNameFor('get', singular);
 
   // build action
   const action = {
@@ -665,7 +739,7 @@ const createPostHttpAction = resource => {
   } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('post', singular);
+  const methodName = variableNameFor('post', singular);
 
   // build action
   const action = {
@@ -705,7 +779,7 @@ const createPutHttpAction = resource => {
   } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('put', singular);
+  const methodName = variableNameFor('put', singular);
 
   // build action
   const action = {
@@ -745,7 +819,7 @@ const createPatchHttpAction = resource => {
   } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('patch', singular);
+  const methodName = variableNameFor('patch', singular);
 
   // build action
   const action = {
@@ -785,7 +859,7 @@ const createDeleteHttpAction = resource => {
   } = normalizeResource(resource);
 
   // generate method name
-  const methodName = fn('delete', singular);
+  const methodName = variableNameFor('delete', singular);
 
   // build action
   const action = {
@@ -826,8 +900,7 @@ const createHttpActionsFor = resource => {
   const deleteResource = createDeleteHttpAction(resource);
 
   // return resource http actions
-  const httpActions = merge(
-    {},
+  const httpActions = mergeObjects(
     getSchema,
     getExportUrl,
     getResources,
@@ -918,14 +991,14 @@ const PARTY_SHORTCUTS = {
   focalPerson: {
     shortcut: 'focalPerson',
     wellknown: 'party',
-    params: merge({}, DEFAULT_PARAMS, {
+    params: mergeObjects(DEFAULT_PARAMS, {
       filter: { type: 'Focal Person' },
     }),
   },
   agency: {
     shortcut: 'agency',
     wellknown: 'party',
-    params: merge({}, DEFAULT_PARAMS, {
+    params: mergeObjects(DEFAULT_PARAMS, {
       filter: { type: 'Agency' },
     }),
   },
@@ -936,7 +1009,7 @@ const FEATURE_SHORTCUTS = {
   region: {
     shortcut: 'region',
     wellknown: 'feature',
-    params: merge({}, DEFAULT_PARAMS, {
+    params: mergeObjects(DEFAULT_PARAMS, {
       filter: {
         nature: 'Boundary',
         family: 'Administrative',
@@ -947,7 +1020,7 @@ const FEATURE_SHORTCUTS = {
   district: {
     shortcut: 'district',
     wellknown: 'feature',
-    params: merge({}, DEFAULT_PARAMS, {
+    params: mergeObjects(DEFAULT_PARAMS, {
       filter: {
         nature: 'Boundary',
         family: 'Administrative',
@@ -958,7 +1031,7 @@ const FEATURE_SHORTCUTS = {
   ward: {
     shortcut: 'ward',
     wellknown: 'feature',
-    params: merge({}, DEFAULT_PARAMS, {
+    params: mergeObjects(DEFAULT_PARAMS, {
       filter: {
         nature: 'Boundary',
         family: 'Administrative',
@@ -969,7 +1042,7 @@ const FEATURE_SHORTCUTS = {
   warehouse: {
     shortcut: 'warehouse',
     wellknown: 'feature',
-    params: merge({}, DEFAULT_PARAMS, {
+    params: mergeObjects(DEFAULT_PARAMS, {
       filter: {
         nature: 'Building',
         family: 'Warehouse',
@@ -983,14 +1056,14 @@ const PREDEFINE_SHORTCUTS = {
   itemUnit: {
     shortcut: 'itemUnit',
     wellknown: 'predefine',
-    params: merge({}, DEFAULT_PARAMS, {
+    params: mergeObjects(DEFAULT_PARAMS, {
       filter: { namespace: 'ItemUnit', key: 'unit' },
     }),
   },
   itemCategory: {
     shortcut: 'itemCategory',
     wellknown: 'predefine',
-    params: merge({}, DEFAULT_PARAMS, {
+    params: mergeObjects(DEFAULT_PARAMS, {
       filter: { namespace: 'ItemCategory', key: 'category' },
     }),
   },
@@ -1006,8 +1079,7 @@ const PREDEFINE_SHORTCUTS = {
  * @static
  * @public
  */
-const SHORTCUTS = merge(
-  {},
+const SHORTCUTS = mergeObjects(
   FEATURE_SHORTCUTS,
   PARTY_SHORTCUTS,
   PREDEFINE_SHORTCUTS
@@ -1025,13 +1097,13 @@ const SHORTCUTS = merge(
  * @static
  * @public
  */
-const RESOURCES = merge({}, SHORTCUTS);
+const RESOURCES = mergeObjects(SHORTCUTS);
 
 // build wellknown resources
 forEach([...WELL_KNOWN], wellknown => {
   const name = clone(wellknown);
   const shortcut = clone(wellknown);
-  const params = merge({}, DEFAULT_PARAMS);
+  const params = mergeObjects(DEFAULT_PARAMS);
   const resource = { shortcut, wellknown, params };
   RESOURCES[name] = resource;
 });
@@ -1067,4 +1139,4 @@ forEach(RESOURCES, resource => {
   merge(httpActions, resourceHttpActions);
 });
 
-export { CONTENT_TYPE, DEFAULT_FILTER, DEFAULT_PAGINATION, DEFAULT_SORT, HEADERS, RESOURCES, SHORTCUTS, WELL_KNOWN, all, createDeleteHttpAction, createExportUrlHttpAction, createGetListHttpAction, createGetSchemaHttpAction, createGetSingleHttpAction, createHttpActionsFor, createHttpClient, createPatchHttpAction, createPostHttpAction, createPutHttpAction, del, disposeHttpClient, get, httpActions, normalizeResource, patch, post, prepareParams, put, spread };
+export { CONTENT_TYPE, DEFAULT_FILTER, DEFAULT_PAGINATION, DEFAULT_SORT, HEADERS, RESOURCES, SHORTCUTS, WELL_KNOWN, all, createDeleteHttpAction, createExportUrlHttpAction, createGetListHttpAction, createGetSchemaHttpAction, createGetSingleHttpAction, createHttpActionsFor, createHttpClient, createPatchHttpAction, createPostHttpAction, createPutHttpAction, del, disposeHttpClient, get, httpActions, isTokenValid, normalizeResource, patch, post, prepareParams, put, signin, signout, spread };
