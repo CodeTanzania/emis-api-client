@@ -75,6 +75,7 @@
     "@lykmapipo/env": ">=0.7.3",
     "axios": ">=0.18.0",
     "inflection": ">=1.12.0",
+    "jsonwebtoken": "^8.5.1",
     "lodash": ">=4.17.11",
     "moment": ">=2.24.0"
   },
