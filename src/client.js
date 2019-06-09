@@ -29,6 +29,14 @@ let BASE_URL;
 const isBrowser =
   typeof window !== 'undefined' && typeof window.document !== 'undefined'; // eslint-disable-line
 
+/**
+ * @function
+ * @name getJwtToken
+ * @description retrieve jwt token from session storage if not set
+ * @return {string| undefined} jwt token
+ * @since 0.14.0
+ * @version 0.1.0
+ */
 const getJwtToken = () => {
   if (isEmpty(jwtToken)) {
     if (isBrowser) {
@@ -44,7 +52,7 @@ const getJwtToken = () => {
  * @name isTokenValid
  * @description check if jwt token from is valid or not
  * @returns {boolean} check if token is valid or not
- * @since 0.13.2
+ * @since 0.14.0
  * @version 0.1.0
  * @example
  * import { isTokenValid } from 'emis-api-client';
@@ -56,9 +64,12 @@ export const isTokenValid = () => {
 
   jwtToken = getJwtToken(); // ensure token is set
 
+  if (isEmpty(jwtToken)) {
+    return false;
+  }
+
   try {
     verify(jwtToken, JWT_SECRET);
-
     return true;
   } catch (error) {
     return false;
@@ -500,7 +511,7 @@ export const del = url => {
  * @description Signin user with provided credentials
  * @param {object} credentials Username and password
  * @returns {object} Object having party, permission and other meta data
- * @since 0.13.2
+ * @since 0.14.0
  * @version 0.1.0
  * @static
  * @public
@@ -531,7 +542,7 @@ export const signin = credentials => {
  * @function signout
  * @name signout
  * @description Signout current signin user and clear session Storage
- * @since 0.13.2
+ * @since 0.14.0
  * @version 0.1.0
  * @static
  * @public
