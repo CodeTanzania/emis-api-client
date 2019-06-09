@@ -145,16 +145,14 @@ const PREDEFINE_SHORTCUTS = {
   itemUnit: {
     shortcut: 'itemUnit',
     wellknown: 'predefine',
-    params: mergeObjects(DEFAULT_PARAMS, {
-      filter: { namespace: 'ItemUnit', key: 'unit' },
-    }),
+    bucket: 'itemunits',
+    params: mergeObjects(DEFAULT_PARAMS),
   },
   itemCategory: {
     shortcut: 'itemCategory',
     wellknown: 'predefine',
-    params: mergeObjects(DEFAULT_PARAMS, {
-      filter: { namespace: 'ItemCategory', key: 'category' },
-    }),
+    bucket: 'itemcategories',
+    params: mergeObjects(DEFAULT_PARAMS),
   },
 };
 

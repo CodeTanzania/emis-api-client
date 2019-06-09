@@ -1,3 +1,21 @@
+#### 0.15.0 (2019-06-09)
+
+##### Chores
+
+* **deps:**
+  *  force latest version & audit fix ([1c32bec4](https://github.com/CodeTanzania/emis-api-client/commit/1c32bec43287d3b190f3af4ca6f0001eb9ee012f))
+  *  update dependency rollup to v1.14.4 ([058bb7c0](https://github.com/CodeTanzania/emis-api-client/commit/058bb7c0c651ba44582c9721ce7f4110adb810a9))
+*  format package.json ([011f137f](https://github.com/CodeTanzania/emis-api-client/commit/011f137f89c86b1f2f2e313316b10cd0dffa2855))
+
+##### Documentation Changes
+
+* **client:**  improve jsdocs ([2d21cac3](https://github.com/CodeTanzania/emis-api-client/commit/2d21cac37936845d434fedb595bb6beee2f66d09))
+
+##### New Features
+
+*  add bucket support on http request paths ([2088e37f](https://github.com/CodeTanzania/emis-api-client/commit/2088e37f6eb3e73c5f60d241988303f7111858c1))
+*  add bucket to predefine shortcuts ([e841391c](https://github.com/CodeTanzania/emis-api-client/commit/e841391ce5b3f264720620d4d758987e258e89cf))
+
 #### 0.14.1 (2019-06-07)
 
 ##### Build System / Dependencies

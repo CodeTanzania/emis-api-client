@@ -29,6 +29,14 @@ let BASE_URL;
 const isBrowser =
   typeof window !== 'undefined' && typeof window.document !== 'undefined'; // eslint-disable-line
 
+/**
+ * @function
+ * @name getJwtToken
+ * @description retrieve jwt token from session storage if not set
+ * @return {string| undefined} jwt token
+ * @since 0.14.0
+ * @version 0.1.0
+ */
 const getJwtToken = () => {
   if (isEmpty(jwtToken)) {
     if (isBrowser) {
@@ -44,7 +52,7 @@ const getJwtToken = () => {
  * @name isTokenValid
  * @description check if jwt token from is valid or not
  * @returns {boolean} check if token is valid or not
- * @since 0.13.2
+ * @since 0.14.0
  * @version 0.1.0
  * @example
  * import { isTokenValid } from 'emis-api-client';
@@ -56,9 +64,12 @@ export const isTokenValid = () => {
 
   jwtToken = getJwtToken(); // ensure token is set
 
+  if (isEmpty(jwtToken)) {
+    return false;
+  }
+
   try {
     verify(jwtToken, JWT_SECRET);
-
     return true;
   } catch (error) {
     return false;
@@ -500,7 +511,7 @@ export const del = url => {
  * @description Signin user with provided credentials
  * @param {object} credentials Username and password
  * @returns {object} Object having party, permission and other meta data
- * @since 0.13.2
+ * @since 0.14.0
  * @version 0.1.0
  * @static
  * @public
@@ -531,7 +542,7 @@ export const signin = credentials => {
  * @function signout
  * @name signout
  * @description Signout current signin user and clear session Storage
- * @since 0.13.2
+ * @since 0.14.0
  * @version 0.1.0
  * @static
  * @public
@@ -599,6 +610,7 @@ export const createGetSchemaHttpAction = resource => {
   const {
     shortcut: { singular },
     wellknown: { plural },
+    bucket,
   } = normalizeResource(resource);
 
   // generate method name
@@ -607,7 +619,12 @@ export const createGetSchemaHttpAction = resource => {
   // build action
   const action = {
     [methodName]: () => {
-      const endpoint = `/${toLower(plural)}/schema`;
+      // derive endpoint
+      let endpoint = `/${toLower(plural)}/schema`;
+      if (!isEmpty(bucket)) {
+        endpoint = `/${toLower(plural)}/${bucket}/schema`;
+      }
+      // issue http request
       return get(endpoint);
     },
   };
@@ -633,7 +650,7 @@ export const createGetSchemaHttpAction = resource => {
  */
 export const createExportUrlHttpAction = resource => {
   // ensure resource
-  const { shortcut, wellknown } = normalizeResource(resource);
+  const { shortcut, wellknown, bucket } = normalizeResource(resource);
 
   // generate method name
   const methodName = variableNameFor('get', shortcut.plural, 'export', 'url');
@@ -643,7 +660,12 @@ export const createExportUrlHttpAction = resource => {
     [methodName]: options => {
       // prepare params
       const params = prepareParams(mergeObjects(resource.params, options));
-      const endpoint = `${BASE_URL}/${toLower(wellknown.plural)}/export`;
+      // derive endpoint
+      let endpoint = `${BASE_URL}/${toLower(wellknown.plural)}/export`;
+      if (!isEmpty(bucket)) {
+        endpoint = `${BASE_URL}/${toLower(wellknown.plural)}/${bucket}/export`;
+      }
+      // build export url
       const url = buildURL(endpoint, params);
       return url;
     },
@@ -670,7 +692,7 @@ export const createExportUrlHttpAction = resource => {
  */
 export const createGetListHttpAction = resource => {
   // ensure resource
-  const { shortcut, wellknown } = normalizeResource(resource);
+  const { shortcut, wellknown, bucket } = normalizeResource(resource);
 
   // generate method name
   const methodName = variableNameFor('get', shortcut.plural);
@@ -680,7 +702,12 @@ export const createGetListHttpAction = resource => {
     [methodName]: options => {
       // prepare params
       const params = mergeObjects(resource.params, options);
-      const endpoint = `/${toLower(wellknown.plural)}`;
+      // derive endpoint
+      let endpoint = `/${toLower(wellknown.plural)}`;
+      if (!isEmpty(bucket)) {
+        endpoint = `/${toLower(wellknown.plural)}/${bucket}`;
+      }
+      // issue http request
       return get(endpoint, params);
     },
   };
@@ -709,6 +736,7 @@ export const createGetSingleHttpAction = resource => {
   const {
     shortcut: { singular },
     wellknown: { plural },
+    bucket,
   } = normalizeResource(resource);
 
   // generate method name
@@ -719,7 +747,12 @@ export const createGetSingleHttpAction = resource => {
     [methodName]: id => {
       // prepare params
       const params = mergeObjects(resource.params);
-      const endpoint = `/${toLower(plural)}/${id}`;
+      // derive endpoint
+      let endpoint = `/${toLower(plural)}/${id}`;
+      if (!isEmpty(bucket)) {
+        endpoint = `/${toLower(plural)}/${bucket}/${id}`;
+      }
+      // issue http request
       return get(endpoint, params);
     },
   };
@@ -748,6 +781,7 @@ export const createPostHttpAction = resource => {
   const {
     shortcut: { singular },
     wellknown: { plural },
+    bucket,
   } = normalizeResource(resource);
 
   // generate method name
@@ -759,7 +793,12 @@ export const createPostHttpAction = resource => {
       // prepare data
       const defaults = omit((resource.params || {}).filter, 'deletedAt');
       const data = mergeObjects(payload, defaults);
-      const endpoint = `/${toLower(plural)}`;
+      // derive endpoint
+      let endpoint = `/${toLower(plural)}`;
+      if (!isEmpty(bucket)) {
+        endpoint = `/${toLower(plural)}/${bucket}`;
+      }
+      // issue http request
       return post(endpoint, data);
     },
   };
@@ -788,6 +827,7 @@ export const createPutHttpAction = resource => {
   const {
     shortcut: { singular },
     wellknown: { plural },
+    bucket,
   } = normalizeResource(resource);
 
   // generate method name
@@ -799,7 +839,12 @@ export const createPutHttpAction = resource => {
       // prepare data
       const defaults = omit((resource.params || {}).filter, 'deletedAt');
       const data = mergeObjects(payload, defaults);
-      const endpoint = `/${toLower(plural)}/${idOf(data)}`;
+      // derive endpoint
+      let endpoint = `/${toLower(plural)}/${idOf(data)}`;
+      if (!isEmpty(bucket)) {
+        endpoint = `/${toLower(plural)}/${bucket}/${idOf(data)}`;
+      }
+      // issue http request
       return put(endpoint, data);
     },
   };
@@ -828,6 +873,7 @@ export const createPatchHttpAction = resource => {
   const {
     shortcut: { singular },
     wellknown: { plural },
+    bucket,
   } = normalizeResource(resource);
 
   // generate method name
@@ -839,7 +885,12 @@ export const createPatchHttpAction = resource => {
       // prepare data
       const defaults = omit((resource.params || {}).filter, 'deletedAt');
       const data = mergeObjects(payload, defaults);
-      const endpoint = `/${toLower(plural)}/${idOf(data)}`;
+      // derive endpoint
+      let endpoint = `/${toLower(plural)}/${idOf(data)}`;
+      if (!isEmpty(bucket)) {
+        endpoint = `/${toLower(plural)}/${bucket}/${idOf(data)}`;
+      }
+      // issue http request
       return patch(endpoint, data);
     },
   };
@@ -868,6 +919,7 @@ export const createDeleteHttpAction = resource => {
   const {
     shortcut: { singular },
     wellknown: { plural },
+    bucket,
   } = normalizeResource(resource);
 
   // generate method name
@@ -876,8 +928,12 @@ export const createDeleteHttpAction = resource => {
   // build action
   const action = {
     [methodName]: id => {
-      // prepare params
-      const endpoint = `/${toLower(plural)}/${id}`;
+      // derive endpoint
+      let endpoint = `/${toLower(plural)}/${id}`;
+      if (!isEmpty(bucket)) {
+        endpoint = `/${toLower(plural)}/${bucket}/${id}`;
+      }
+      // issue http request
       return del(endpoint);
     },
   };
