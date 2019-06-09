@@ -610,6 +610,7 @@ export const createGetSchemaHttpAction = resource => {
   const {
     shortcut: { singular },
     wellknown: { plural },
+    bucket,
   } = normalizeResource(resource);
 
   // generate method name
@@ -618,7 +619,12 @@ export const createGetSchemaHttpAction = resource => {
   // build action
   const action = {
     [methodName]: () => {
-      const endpoint = `/${toLower(plural)}/schema`;
+      // derive endpoint
+      let endpoint = `/${toLower(plural)}/schema`;
+      if (!isEmpty(bucket)) {
+        endpoint = `/${toLower(plural)}/${bucket}/schema`;
+      }
+      // issue http request
       return get(endpoint);
     },
   };
@@ -644,7 +650,7 @@ export const createGetSchemaHttpAction = resource => {
  */
 export const createExportUrlHttpAction = resource => {
   // ensure resource
-  const { shortcut, wellknown } = normalizeResource(resource);
+  const { shortcut, wellknown, bucket } = normalizeResource(resource);
 
   // generate method name
   const methodName = variableNameFor('get', shortcut.plural, 'export', 'url');
@@ -654,7 +660,12 @@ export const createExportUrlHttpAction = resource => {
     [methodName]: options => {
       // prepare params
       const params = prepareParams(mergeObjects(resource.params, options));
-      const endpoint = `${BASE_URL}/${toLower(wellknown.plural)}/export`;
+      // derive endpoint
+      let endpoint = `${BASE_URL}/${toLower(wellknown.plural)}/export`;
+      if (!isEmpty(bucket)) {
+        endpoint = `${BASE_URL}/${toLower(wellknown.plural)}/${bucket}/export`;
+      }
+      // build export url
       const url = buildURL(endpoint, params);
       return url;
     },
@@ -681,7 +692,7 @@ export const createExportUrlHttpAction = resource => {
  */
 export const createGetListHttpAction = resource => {
   // ensure resource
-  const { shortcut, wellknown } = normalizeResource(resource);
+  const { shortcut, wellknown, bucket } = normalizeResource(resource);
 
   // generate method name
   const methodName = variableNameFor('get', shortcut.plural);
@@ -691,7 +702,12 @@ export const createGetListHttpAction = resource => {
     [methodName]: options => {
       // prepare params
       const params = mergeObjects(resource.params, options);
-      const endpoint = `/${toLower(wellknown.plural)}`;
+      // derive endpoint
+      let endpoint = `/${toLower(wellknown.plural)}`;
+      if (!isEmpty(bucket)) {
+        endpoint = `/${toLower(wellknown.plural)}/${bucket}`;
+      }
+      // issue http request
       return get(endpoint, params);
     },
   };
@@ -720,6 +736,7 @@ export const createGetSingleHttpAction = resource => {
   const {
     shortcut: { singular },
     wellknown: { plural },
+    bucket,
   } = normalizeResource(resource);
 
   // generate method name
@@ -730,7 +747,12 @@ export const createGetSingleHttpAction = resource => {
     [methodName]: id => {
       // prepare params
       const params = mergeObjects(resource.params);
-      const endpoint = `/${toLower(plural)}/${id}`;
+      // derive endpoint
+      let endpoint = `/${toLower(plural)}/${id}`;
+      if (!isEmpty(bucket)) {
+        endpoint = `/${toLower(plural)}/${bucket}/${id}`;
+      }
+      // issue http request
       return get(endpoint, params);
     },
   };
@@ -759,6 +781,7 @@ export const createPostHttpAction = resource => {
   const {
     shortcut: { singular },
     wellknown: { plural },
+    bucket,
   } = normalizeResource(resource);
 
   // generate method name
@@ -770,7 +793,12 @@ export const createPostHttpAction = resource => {
       // prepare data
       const defaults = omit((resource.params || {}).filter, 'deletedAt');
       const data = mergeObjects(payload, defaults);
-      const endpoint = `/${toLower(plural)}`;
+      // derive endpoint
+      let endpoint = `/${toLower(plural)}`;
+      if (!isEmpty(bucket)) {
+        endpoint = `/${toLower(plural)}/${bucket}`;
+      }
+      // issue http request
       return post(endpoint, data);
     },
   };
@@ -799,6 +827,7 @@ export const createPutHttpAction = resource => {
   const {
     shortcut: { singular },
     wellknown: { plural },
+    bucket,
   } = normalizeResource(resource);
 
   // generate method name
@@ -810,7 +839,12 @@ export const createPutHttpAction = resource => {
       // prepare data
       const defaults = omit((resource.params || {}).filter, 'deletedAt');
       const data = mergeObjects(payload, defaults);
-      const endpoint = `/${toLower(plural)}/${idOf(data)}`;
+      // derive endpoint
+      let endpoint = `/${toLower(plural)}/${idOf(data)}`;
+      if (!isEmpty(bucket)) {
+        endpoint = `/${toLower(plural)}/${bucket}/${idOf(data)}`;
+      }
+      // issue http request
       return put(endpoint, data);
     },
   };
@@ -839,6 +873,7 @@ export const createPatchHttpAction = resource => {
   const {
     shortcut: { singular },
     wellknown: { plural },
+    bucket,
   } = normalizeResource(resource);
 
   // generate method name
@@ -850,7 +885,12 @@ export const createPatchHttpAction = resource => {
       // prepare data
       const defaults = omit((resource.params || {}).filter, 'deletedAt');
       const data = mergeObjects(payload, defaults);
-      const endpoint = `/${toLower(plural)}/${idOf(data)}`;
+      // derive endpoint
+      let endpoint = `/${toLower(plural)}/${idOf(data)}`;
+      if (!isEmpty(bucket)) {
+        endpoint = `/${toLower(plural)}/${bucket}/${idOf(data)}`;
+      }
+      // issue http request
       return patch(endpoint, data);
     },
   };
@@ -879,6 +919,7 @@ export const createDeleteHttpAction = resource => {
   const {
     shortcut: { singular },
     wellknown: { plural },
+    bucket,
   } = normalizeResource(resource);
 
   // generate method name
@@ -887,8 +928,12 @@ export const createDeleteHttpAction = resource => {
   // build action
   const action = {
     [methodName]: id => {
-      // prepare params
-      const endpoint = `/${toLower(plural)}/${id}`;
+      // derive endpoint
+      let endpoint = `/${toLower(plural)}/${id}`;
+      if (!isEmpty(bucket)) {
+        endpoint = `/${toLower(plural)}/${bucket}/${id}`;
+      }
+      // issue http request
       return del(endpoint);
     },
   };
