@@ -71,7 +71,7 @@
   },
   "peerDependencies": {},
   "dependencies": {
-    "@lykmapipo/common": ">=0.20.0",
+    "@lykmapipo/common": ">=0.20.1",
     "@lykmapipo/env": ">=0.8.0",
     "axios": ">=0.18.0",
     "inflection": ">=1.12.0",
