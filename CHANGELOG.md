@@ -1,3 +1,13 @@
+#### 0.15.2 (2019-06-09)
+
+##### Chores
+
+* **deps:**  fix production & dev dependencies inclusion ([85070078](https://github.com/CodeTanzania/emis-api-client/commit/850700785c980ff11e697ceb480630328c224fe1))
+
+##### Documentation Changes
+
+* **changelog:**  generate latest release notes ([99e728cf](https://github.com/CodeTanzania/emis-api-client/commit/99e728cff6d9ea3ec3f6d14e2a89403f2e7596f2))
+
 #### 0.15.1 (2019-06-09)
 
 #### 0.15.0 (2019-06-09)
