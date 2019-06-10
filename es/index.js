@@ -531,7 +531,7 @@ const signin = credentials => {
  * @name signout
  * @description Signout current signin user and clear session Storage
  * @since 0.14.0
- * @version 0.1.0
+ * @version 0.2.0
  * @static
  * @public
  * @example
@@ -540,6 +540,8 @@ const signin = credentials => {
  * signout();
  */
 const signout = () => {
+  jwtToken = undefined; // reset instance jwt token
+
   if (isBrowser) {
     sessionStorage.clear(); // eslint-disable-line
   }
