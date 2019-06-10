@@ -1,6 +1,6 @@
 {
   "name": "@codetanzania/emis-api-client",
-  "version": "0.14.1",
+  "version": "0.15.2",
   "description": "http client for EMIS API.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -47,7 +47,6 @@
     "@commitlint/cli": "8.0.0",
     "@commitlint/config-conventional": "8.0.0",
     "@commitlint/travis-cli": "8.0.0",
-    "axios": "0.19.0",
     "chai": "4.2.0",
     "commitizen": "3.1.1",
     "cz-conventional-changelog": "2.1.0",
@@ -61,21 +60,19 @@
     "husky": "2.4.0",
     "inflection": "1.12.0",
     "lint-staged": "8.2.0",
-    "lodash": "4.17.11",
     "mocha": "6.1.4",
-    "moment": "2.24.0",
     "nock": "10.0.6",
     "prettier": "1.18.2",
     "rimraf": "2.6.3",
-    "rollup": "1.14.4"
+    "rollup": "1.14.6"
   },
   "peerDependencies": {},
   "dependencies": {
-    "@lykmapipo/common": ">=0.16.0",
-    "@lykmapipo/env": ">=0.7.3",
-    "axios": ">=0.18.0",
+    "@lykmapipo/common": ">=0.20.1",
+    "@lykmapipo/env": ">=0.8.0",
+    "axios": ">=0.19.0",
     "inflection": ">=1.12.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": ">=8.5.1",
     "lodash": ">=4.17.11",
     "moment": ">=2.24.0"
   },
