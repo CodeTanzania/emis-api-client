@@ -22,6 +22,7 @@ import {
 // default http client
 let client;
 let jwtToken;
+let party = null; // current signined party
 
 // client base url
 let BASE_URL;
@@ -35,16 +36,30 @@ const isBrowser =
  * @description retrieve jwt token from session storage if not set
  * @return {string| undefined} jwt token
  * @since 0.14.0
- * @version 0.1.0
+ * @version 0.1.1
  */
 const getJwtToken = () => {
-  if (isEmpty(jwtToken)) {
-    if (isBrowser) {
-      jwtToken = sessionStorage.getItem('token'); // eslint-disable-line
-    }
+  if (isEmpty(jwtToken) && isBrowser) {
+    jwtToken = sessionStorage.getItem('token'); // eslint-disable-line
   }
 
   return jwtToken;
+};
+
+/**
+ * @function
+ * @name getAuthenticatedParty
+ * @description Retrieve party from session storage if not set
+ * @returns {object} party current authenticated party/user
+ * @since 0.15.3
+ * @version 0.1.0
+ */
+export const getAuthenticatedParty = () => {
+  if (isEmpty(party) && isBrowser) {
+    party = JSON.parse(sessionStorage.getItem(party)); // eslint-disable-line
+  }
+
+  return party;
 };
 
 /**
@@ -512,7 +527,7 @@ export const del = url => {
  * @param {object} credentials Username and password
  * @returns {object} Object having party, permission and other meta data
  * @since 0.14.0
- * @version 0.1.0
+ * @version 0.2.0
  * @static
  * @public
  * @example
@@ -531,6 +546,7 @@ export const signin = credentials => {
       // persist token and party in session storage
       sessionStorage.setItem('token', results.token); // eslint-disable-line
       sessionStorage.setItem('party', JSON.stringify(results.party)); // eslint-disable-line
+      party = results.party; // eslint-disable-line
       jwtToken = results.token;
     }
 

@@ -1,3 +1,15 @@
+#### 0.15.4 (2019-06-11)
+
+##### Chores
+
+* **build:**  bundle library for v0.15.4 ([b514f045](https://github.com/CodeTanzania/emis-api-client/commit/b514f04545ede567263353888fb100ead784462e))
+* **package.json:**  update package version to 0.15.4 ([eee47bf3](https://github.com/CodeTanzania/emis-api-client/commit/eee47bf30e410da4fa7baaa9b8383c33517c3907))
+*  ignore coverage files on npm ([a7ee4e50](https://github.com/CodeTanzania/emis-api-client/commit/a7ee4e503ad3bc3172f5b12a4f1a35ffbe0e6649))
+
+##### New Features
+
+* **auth:**  add function to get signined party ([0504fb7f](https://github.com/CodeTanzania/emis-api-client/commit/0504fb7ff8d14917e8c03551d271122ec71af581))
+
 #### 0.15.3 (2019-06-10)
 
 ##### Fixes

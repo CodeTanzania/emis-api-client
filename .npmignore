@@ -6,3 +6,4 @@ examples
 *.pid
 .travis.yml
 Gruntfile.js
+coverage
