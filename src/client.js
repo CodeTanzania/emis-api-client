@@ -56,7 +56,7 @@ const getJwtToken = () => {
  */
 export const getAuthenticatedParty = () => {
   if (isEmpty(party) && isBrowser) {
-    party = JSON.parse(sessionStorage.getItem(party)); // eslint-disable-line
+    party = JSON.parse(sessionStorage.getItem('party')); // eslint-disable-line
   }
 
   return party;
