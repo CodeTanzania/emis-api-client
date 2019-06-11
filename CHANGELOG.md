@@ -1,3 +1,15 @@
+#### 0.15.5 (2019-06-11)
+
+##### Chores
+
+* **build:**  bundle library for v0.15.5 ([a1880eb8](https://github.com/CodeTanzania/emis-api-client/commit/a1880eb8bef7536f1201cf5016a35f1adae4eb03))
+* **package.json:**  update package version to 0.15.5 ([4f491952](https://github.com/CodeTanzania/emis-api-client/commit/4f49195294295bc136368540da01af0aeba45eb6))
+* **deps:**  update dependency rollup to v1.15.0 ([81d253b0](https://github.com/CodeTanzania/emis-api-client/commit/81d253b0aa246fcf0d857effd23220ec354a42b0))
+
+##### Bug Fixes
+
+* **client:**  remove a bug on retrieving party from session storage ([0831ce8b](https://github.com/CodeTanzania/emis-api-client/commit/0831ce8b6a6c8c468062846a0e94619e0e73f3b4))
+
 #### 0.15.4 (2019-06-11)
 
 ##### Chores
