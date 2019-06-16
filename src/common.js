@@ -154,6 +154,12 @@ const PREDEFINE_SHORTCUTS = {
     bucket: 'itemcategories',
     params: mergeObjects(DEFAULT_PARAMS),
   },
+  partyGroup: {
+    shortcut: 'partyGroup',
+    wellknown: 'predefine',
+    bucket: 'partyGroups',
+    params: mergeObjects(DEFAULT_PARAMS),
+  },
 };
 
 /**
