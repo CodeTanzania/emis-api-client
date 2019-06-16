@@ -1153,7 +1153,7 @@ const PREDEFINE_SHORTCUTS = {
   partyGroup: {
     shortcut: 'partyGroup',
     wellknown: 'predefine',
-    bucket: 'partyGroups',
+    bucket: 'partygroups',
     params: mergeObjects(DEFAULT_PARAMS),
   },
 };
