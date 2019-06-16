@@ -1,3 +1,14 @@
+#### 0.16.2 (2019-06-16)
+
+##### Chores
+
+* **build:**  bundle library for v0.16.2 ([f385753f](https://github.com/CodeTanzania/emis-api-client/commit/f385753f8d0f6e031ab9ec86d9dce1eb3af7a65e))
+* **package.json:**  update package version to 0.16.2 ([4d65bfdc](https://github.com/CodeTanzania/emis-api-client/commit/4d65bfdc82f768e1e2b45212ee29155e8924196e))
+
+##### Bug Fixes
+
+* **predefine:**  change partyGroup bucket to partygroups ([2158edee](https://github.com/CodeTanzania/emis-api-client/commit/2158edeed42e22fa57bc4a13dd32ba7ef128be47))
+
 #### 0.16.0 (2019-06-16)
 
 ##### Chores
