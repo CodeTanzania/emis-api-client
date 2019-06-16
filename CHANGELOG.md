@@ -1,3 +1,24 @@
+#### 0.16.0 (2019-06-16)
+
+##### Chores
+
+* **deps:**
+  *  force latest versions ([4d66f232](https://github.com/CodeTanzania/emis-api-client/commit/4d66f232e43f92fd1eb270de61ef65c15a641487))
+  *  update dependency rollup to v1.15.6 ([c1265c90](https://github.com/CodeTanzania/emis-api-client/commit/c1265c9041d708cb13f7953b85070b08467f0f3b))
+  *  update dependency eslint-config-prettier to v5 ([93082709](https://github.com/CodeTanzania/emis-api-client/commit/93082709cf8f7624e670b7e01a17ca3ec6e59928))
+  *  update dependency rollup to v1.15.5 ([96f2d925](https://github.com/CodeTanzania/emis-api-client/commit/96f2d925e0cb35dd926596dfbf99307db34034e0))
+  *  update dependency rollup to v1.15.4 ([eac948f0](https://github.com/CodeTanzania/emis-api-client/commit/eac948f007fbe707aa6583daa7e95103a0f12596))
+  *  update dependency lint-staged to v8.2.1 ([79872563](https://github.com/CodeTanzania/emis-api-client/commit/798725639958db6ef95c1d71cfeb1c635f7eb26f))
+  *  update dependency rollup to v1.15.3 ([c3133346](https://github.com/CodeTanzania/emis-api-client/commit/c3133346ee8cedb54390b169144394e3ffc17b94))
+  *  update dependency rollup to v1.15.2 ([df8c9e2d](https://github.com/CodeTanzania/emis-api-client/commit/df8c9e2d5e114a81237b8919cebdffb28c453fb0))
+  *  update dependency husky to v2.4.1 ([46eb4418](https://github.com/CodeTanzania/emis-api-client/commit/46eb44183ee15ba41ff56fb840d22ee694801abd))
+  *  update dependency rollup to v1.15.1 ([5c4b01b7](https://github.com/CodeTanzania/emis-api-client/commit/5c4b01b7997594fe725075b54a2e58784dddeaae))
+* **package.json:**  remove peerdependency key ([8094276b](https://github.com/CodeTanzania/emis-api-client/commit/8094276b7339e736c5de6d5d493d33948640f052))
+
+##### New Features
+
+*  expose campaign and message resources ([22549522](https://github.com/CodeTanzania/emis-api-client/commit/22549522c0edb1df273ab7966786d7e9ed7e3e65))
+
 #### 0.15.5 (2019-06-11)
 
 ##### Chores
