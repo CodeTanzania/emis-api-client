@@ -138,6 +138,15 @@ const FEATURE_SHORTCUTS = {
       },
     }),
   },
+  jurisdiction: {
+    shortcut: 'jurisdiction',
+    wellknown: 'feature',
+    params: mergeObjects(DEFAULT_PARAMS, {
+      filter: {
+        family: 'Administrative',
+      },
+    }),
+  },
 };
 
 // predefine shortcuts
