@@ -8,6 +8,8 @@
   *  remove peerdependency key ([8094276b](https://github.com/CodeTanzania/emis-api-client/commit/8094276b7339e736c5de6d5d493d33948640f052))
 * **deps:**
   *  install dependency locally ([ac8c7c49](https://github.com/CodeTanzania/emis-api-client/commit/ac8c7c49a83e46ef0430116e907d5b668cefb111))
+* **deps:**
+  *  force latest versions ([4d66f232](https://github.com/CodeTanzania/emis-api-client/commit/4d66f232e43f92fd1eb270de61ef65c15a641487))
   *  update dependency rollup to v1.15.6 ([c1265c90](https://github.com/CodeTanzania/emis-api-client/commit/c1265c9041d708cb13f7953b85070b08467f0f3b))
   *  update dependency eslint-config-prettier to v5 ([93082709](https://github.com/CodeTanzania/emis-api-client/commit/93082709cf8f7624e670b7e01a17ca3ec6e59928))
   *  update dependency rollup to v1.15.5 ([96f2d925](https://github.com/CodeTanzania/emis-api-client/commit/96f2d925e0cb35dd926596dfbf99307db34034e0))
@@ -22,6 +24,11 @@
 
 * **feature:**  add jurisdiction shortcut for feature ([728289b2](https://github.com/CodeTanzania/emis-api-client/commit/728289b243054dd084534bda57b3702b59d6225f))
 * **predefine:**  expose party groups as predefines ([07d161de](https://github.com/CodeTanzania/emis-api-client/commit/07d161de205c8fc9c46b58d511169799c335ae9a))
+* **package.json:**  remove peerdependency key ([8094276b](https://github.com/CodeTanzania/emis-api-client/commit/8094276b7339e736c5de6d5d493d33948640f052))
+
+##### New Features
+
+*  expose campaign and message resources ([22549522](https://github.com/CodeTanzania/emis-api-client/commit/22549522c0edb1df273ab7966786d7e9ed7e3e65))
 
 #### 0.15.5 (2019-06-11)
 
