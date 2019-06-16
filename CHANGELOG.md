@@ -1,3 +1,28 @@
+#### 0.16.0 (2019-06-16)
+
+##### Chores
+
+* **build:**  bundle library for v0.16.0 ([25916812](https://github.com/CodeTanzania/emis-api-client/commit/25916812ef62f8e60017304bc16aba9d3aa31e12))
+* **package.json:**
+  *  update package version to 0.16.0 ([1223db7a](https://github.com/CodeTanzania/emis-api-client/commit/1223db7aed24a55d2870ae27482b1dc01442dd4a))
+  *  remove peerdependency key ([8094276b](https://github.com/CodeTanzania/emis-api-client/commit/8094276b7339e736c5de6d5d493d33948640f052))
+* **deps:**
+  *  install dependency locally ([ac8c7c49](https://github.com/CodeTanzania/emis-api-client/commit/ac8c7c49a83e46ef0430116e907d5b668cefb111))
+  *  update dependency rollup to v1.15.6 ([c1265c90](https://github.com/CodeTanzania/emis-api-client/commit/c1265c9041d708cb13f7953b85070b08467f0f3b))
+  *  update dependency eslint-config-prettier to v5 ([93082709](https://github.com/CodeTanzania/emis-api-client/commit/93082709cf8f7624e670b7e01a17ca3ec6e59928))
+  *  update dependency rollup to v1.15.5 ([96f2d925](https://github.com/CodeTanzania/emis-api-client/commit/96f2d925e0cb35dd926596dfbf99307db34034e0))
+  *  update dependency rollup to v1.15.4 ([eac948f0](https://github.com/CodeTanzania/emis-api-client/commit/eac948f007fbe707aa6583daa7e95103a0f12596))
+  *  update dependency lint-staged to v8.2.1 ([79872563](https://github.com/CodeTanzania/emis-api-client/commit/798725639958db6ef95c1d71cfeb1c635f7eb26f))
+  *  update dependency rollup to v1.15.3 ([c3133346](https://github.com/CodeTanzania/emis-api-client/commit/c3133346ee8cedb54390b169144394e3ffc17b94))
+  *  update dependency rollup to v1.15.2 ([df8c9e2d](https://github.com/CodeTanzania/emis-api-client/commit/df8c9e2d5e114a81237b8919cebdffb28c453fb0))
+  *  update dependency husky to v2.4.1 ([46eb4418](https://github.com/CodeTanzania/emis-api-client/commit/46eb44183ee15ba41ff56fb840d22ee694801abd))
+  *  update dependency rollup to v1.15.1 ([5c4b01b7](https://github.com/CodeTanzania/emis-api-client/commit/5c4b01b7997594fe725075b54a2e58784dddeaae))
+
+##### New Features
+
+* **feature:**  add jurisdiction shortcut for feature ([728289b2](https://github.com/CodeTanzania/emis-api-client/commit/728289b243054dd084534bda57b3702b59d6225f))
+* **predefine:**  expose party groups as predefines ([07d161de](https://github.com/CodeTanzania/emis-api-client/commit/07d161de205c8fc9c46b58d511169799c335ae9a))
+
 #### 0.15.5 (2019-06-11)
 
 ##### Chores
