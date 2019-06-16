@@ -1123,6 +1123,15 @@ const FEATURE_SHORTCUTS = {
       },
     }),
   },
+  jurisdiction: {
+    shortcut: 'jurisdiction',
+    wellknown: 'feature',
+    params: mergeObjects(DEFAULT_PARAMS, {
+      filter: {
+        family: 'Administrative',
+      },
+    }),
+  },
 };
 
 // predefine shortcuts
@@ -1137,6 +1146,12 @@ const PREDEFINE_SHORTCUTS = {
     shortcut: 'itemCategory',
     wellknown: 'predefine',
     bucket: 'itemcategories',
+    params: mergeObjects(DEFAULT_PARAMS),
+  },
+  partyGroup: {
+    shortcut: 'partyGroup',
+    wellknown: 'predefine',
+    bucket: 'partyGroups',
     params: mergeObjects(DEFAULT_PARAMS),
   },
 };
