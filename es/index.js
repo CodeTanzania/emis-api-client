@@ -1,7 +1,7 @@
 import moment from 'moment';
 import axios from 'axios';
 import buildURL from 'axios/lib/helpers/buildURL';
-import { verify } from 'jsonwebtoken';
+import jwtDecode from 'jwt-decode';
 import { singularize, pluralize } from 'inflection';
 import { mergeObjects, variableNameFor, idOf, uniq } from '@lykmapipo/common';
 import { getString } from '@lykmapipo/env';
@@ -63,8 +63,6 @@ const getAuthenticatedParty = () => {
  * const isAuthenticated = isTokenValid();
  */
 const isTokenValid = () => {
-  const JWT_SECRET = getString('REACT_APP_JWT_SECRET');
-
   jwtToken = getJwtToken(); // ensure token is set
 
   if (isEmpty(jwtToken)) {
@@ -72,8 +70,17 @@ const isTokenValid = () => {
   }
 
   try {
-    verify(jwtToken, JWT_SECRET);
-    return true;
+    const decodedToken = jwtDecode(jwtToken);
+
+    if (!decodedToken.exp) {
+      return true;
+    }
+
+    if (decodedToken.exp && decodedToken.exp > Date.now()) {
+      return true;
+    }
+
+    return false;
   } catch (error) {
     return false;
   }
