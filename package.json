@@ -60,7 +60,7 @@
     "husky": "4.2.3",
     "lint-staged": "10.0.8",
     "mocha": "7.1.0",
-    "nock": "12.0.1",
+    "nock": "12.0.2",
     "prettier": "1.19.1",
     "rimraf": "3.0.2",
     "rollup": "1.32.0"
