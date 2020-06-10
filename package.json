@@ -59,7 +59,7 @@
     "generate-changelog": "1.8.0",
     "husky": "4.2.5",
     "lint-staged": "10.2.9",
-    "mocha": "8.0.0",
+    "mocha": "8.0.1",
     "nock": "12.0.3",
     "prettier": "2.0.5",
     "rimraf": "3.0.2",
