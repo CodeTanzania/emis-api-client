@@ -63,7 +63,7 @@
     "nock": "13.0.5",
     "prettier": "2.2.1",
     "rimraf": "3.0.2",
-    "rollup": "2.35.0"
+    "rollup": "2.35.1"
   },
   "dependencies": {
     "@lykmapipo/common": ">=0.25.0",
