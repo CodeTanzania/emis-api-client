@@ -40,8 +40,8 @@
   "homepage": "https://github.com/CodeTanzania/emis-api-client#readme",
   "devDependencies": {
     "@babel/cli": "7.13.10",
-    "@babel/core": "7.13.10",
-    "@babel/node": "7.13.12",
+    "@babel/core": "7.13.13",
+    "@babel/node": "7.13.13",
     "@babel/preset-env": "7.13.12",
     "@babel/register": "7.13.8",
     "@commitlint/cli": "9.1.2",
